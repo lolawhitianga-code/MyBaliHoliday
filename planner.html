@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B1730">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bali">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>Planner · My Bali Holiday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MY BALI HOLIDAY — PLANNER
+   Palette is the four travellers. Everything else stays quiet.
+   ============================================================ */
+:root{
+  --ink:        #1B1730;   /* volcanic night */
+  --ink-soft:   #4A4266;
+  --sand:       #FFF3E2;   /* warm offering-basket cream */
+  --sand-deep:  #F6E3C8;
+  --line:       #E4CDA9;
+
+  --frangipani: #FF4D8D;
+  --lagoon:     #0BA5C7;
+  --marigold:   #FF9F1C;
+  --pandan:     #16A97C;
+  --dusk:       #9B5DE5;
+
+  --radius: 16px;
+  --shadow: 0 2px 0 rgba(27,23,48,.10), 0 10px 26px -14px rgba(27,23,48,.45);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--sand);
+  color:var(--ink);
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;
+  font-size:16px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom));
+}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+
+/* ---------- header ---------- */
+.top{
+  position:relative;
+  overflow:hidden;
+  padding:calc(26px + env(safe-area-inset-top)) 20px 30px;
+  background:
+    radial-gradient(120px 120px at 80% 92%, rgba(255,209,102,.5), rgba(255,159,28,0) 70%),
+    linear-gradient(178deg, rgba(27,23,48,.72) 0%, rgba(75,42,99,.50) 42%, rgba(196,63,118,.42) 72%, rgba(255,122,69,.34) 100%),
+    var(--hero, url('hero-planner.jpg')) center 32% / cover no-repeat;
+  color:#fff;
+  text-align:center;
+}
+.top::after{ /* horizon line */
+  content:'';position:absolute;left:0;right:0;bottom:0;height:10px;
+  background:linear-gradient(90deg,var(--frangipani),var(--marigold),var(--pandan),var(--lagoon),var(--dusk));
+}
+.eyebrow{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;opacity:.75;margin:0 0 6px;
+text-shadow:0 1px 8px rgba(27,23,48,.6);}
+.wordmark{
+  font-family:'Fraunces',serif;font-weight:900;font-optical-sizing:auto;
+  font-size:clamp(30px,8.5vw,46px);line-height:.95;margin:0;
+  font-variation-settings:'SOFT' 40,'WONK' 1;
+  text-shadow:0 2px 20px rgba(27,23,48,.55), 0 1px 3px rgba(27,23,48,.4);
+}
+.countdown{
+  margin:14px 0 12px;font-family:'DM Mono',monospace;
+  font-size:13px;letter-spacing:.06em;
+}
+.countdown b{font-size:30px;font-weight:500;display:block;line-height:1.1}
+.clocks{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.clock{
+  font-family:'DM Mono',monospace;font-size:12px;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24);
+  padding:5px 11px;border-radius:999px;backdrop-filter:blur(4px);
+}
+.clock span{opacity:.7;letter-spacing:.1em}
+
+/* ---------- who am I ---------- */
+.mebar{
+  display:flex;align-items:center;gap:8px;justify-content:center;
+  padding:10px 16px;background:var(--sand-deep);border-bottom:1px solid var(--line);
+  font-size:14px;
+}
+.medot{width:12px;height:12px;border-radius:50%;flex:none}
+.linkish{background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;font-size:14px}
+
+/* ---------- day rail ---------- */
+.rail{
+  position:sticky;top:0;z-index:20;
+  background:var(--sand);border-bottom:1px solid var(--line);
+  padding:10px 0 8px;
+}
+.railscroll{
+  display:flex;gap:6px;overflow-x:auto;padding:0 14px 4px;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.railscroll::-webkit-scrollbar{display:none}
+.tab{
+  flex:none;min-width:56px;padding:7px 10px 8px;border-radius:12px;
+  border:1px solid var(--line);background:#fff;text-align:center;line-height:1.2;
+  transition:transform .14s ease, background .14s ease;
+}
+.tab .n{font-family:'DM Mono',monospace;font-size:15px;display:block}
+.tab .d{font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.6}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--sand);border-color:var(--ink);transform:translateY(-2px)}
+.tab .pips{display:flex;gap:3px;justify-content:center;margin-top:5px;height:5px}
+.tab .pips i{width:5px;height:5px;border-radius:50%;display:block}
+.railfoot{display:flex;justify-content:space-between;align-items:center;padding:6px 16px 0;gap:10px}
+.railfoot .date{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.05em;opacity:.7}
+
+/* ---------- the day tickets (signature) ---------- */
+main{padding:14px 14px 70px;max-width:780px;margin:0 auto}
+
+.day{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);position:relative;margin-bottom:16px;
+  scroll-margin-top:104px;
+}
+.dayhead{
+  display:flex;align-items:baseline;gap:11px;
+  background:var(--ink);color:var(--sand);
+  border-radius:15px 15px 0 0;padding:9px 15px;
+}
+.dayhead .no{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;line-height:1.9;opacity:.55;flex:none}
+.dayhead .when{font-family:'Fraunces',serif;font-weight:700;font-size:17px}
+.dayhead .tot{margin-left:auto;font-family:'DM Mono',monospace;font-size:11.5px;opacity:.6}
+.day.today .dayhead{background:linear-gradient(92deg,var(--frangipani),var(--marigold))}
+.day.today .dayhead .no,.day.today .dayhead .tot{opacity:.8}
+.day.past{opacity:.5}
+.day.past:hover{opacity:1}
+
+.slot{position:relative;padding:13px 14px}
+.slot + .slot{border-top:2px dashed var(--line)}
+.slot + .slot::before,
+.slot + .slot::after{
+  content:'';position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;
+  background:var(--sand);border:1px solid var(--line);
+}
+.slot + .slot::before{left:-11px;clip-path:inset(0 0 0 50%)}
+.slot + .slot::after{right:-11px;clip-path:inset(0 50% 0 0)}
+
+.slothead{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.slot.bare .slothead{margin-bottom:0}
+.glyph{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;font-size:14px;flex:none}
+.slot-morning .glyph{background:rgba(255,159,28,.16)}
+.slot-noon    .glyph{background:rgba(11,165,199,.14)}
+.slot-evening .glyph{background:rgba(155,93,229,.16)}
+.slothead h2{
+  font-family:'DM Mono',monospace;font-weight:500;font-size:11.5px;
+  letter-spacing:.2em;text-transform:uppercase;margin:0;white-space:nowrap;
+}
+.quickadd{
+  margin-left:auto;border:1px solid var(--line);background:var(--sand);color:var(--ink-soft);
+  width:30px;height:30px;border-radius:9px;font-size:16px;line-height:1;flex:none;
+}
+.quickadd:hover{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+.slotbody .card:last-child{margin-bottom:0}
+
+@media (min-width:640px){
+  .slot{display:grid;grid-template-columns:158px 1fr;gap:16px;padding:14px 16px}
+  .slothead{margin-bottom:0;align-items:flex-start;padding-top:3px}
+}
+
+/* compact — the whole fortnight, titles only */
+.compact .slot.bare{display:none}
+.compact .quickadd{display:none}
+.compact .card{padding:7px 10px;margin-bottom:5px}
+.compact .card .r2,.compact .card .note{display:none}
+.compact .day{margin-bottom:10px}
+.compact .slot{padding:10px 14px}
+
+/* ---------- activity card ---------- */
+.card{
+  width:100%;text-align:left;display:block;position:relative;
+  background:var(--sand);border:1px solid var(--line);border-left:5px solid var(--ink);
+  border-radius:11px;padding:11px 12px;margin-bottom:8px;
+  transition:transform .12s ease;
+}
+.card:hover{transform:translateX(2px)}
+.card.haspic{padding-right:74px;min-height:74px}
+.card .thumb{
+  position:absolute;top:9px;right:9px;width:58px;height:58px;object-fit:cover;
+  border-radius:9px;border:1px solid var(--line);background:var(--sand-deep);
+}
+@media (max-width:400px){
+  .card.haspic{padding-right:60px}
+  .card .thumb{width:46px;height:46px}
+}
+.card:focus-visible,.tab:focus-visible,.btn:focus-visible,.linkish:focus-visible{
+  outline:3px solid var(--lagoon);outline-offset:2px;
+}
+.card .r1{display:flex;align-items:baseline;gap:8px}
+.card .time{font-family:'DM Mono',monospace;font-size:12px;opacity:.65;flex:none}
+.card .title{font-weight:600;font-size:16px;line-height:1.25}
+.card .r2{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px;align-items:center}
+.meta{
+  font-size:11.5px;font-family:'DM Mono',monospace;
+  background:#fff;border:1px solid var(--line);border-radius:6px;padding:2px 7px;
+}
+.meta.rp{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+.meta.conv{opacity:.7;border-style:dashed}
+.meta.book{background:#25D366;color:#06331b;border-color:#1faa53;font-weight:500}
+.hint{
+  font-family:'DM Mono',monospace;font-size:12.5px;margin-top:7px;
+  color:var(--ink-soft);min-height:18px;
+}
+.rateline{font-family:'DM Mono',monospace;font-size:11.5px;opacity:.7;line-height:1.6;margin:12px 0 0}
+.badge{font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;border-radius:999px;font-weight:600}
+.badge.booked{background:var(--pandan);color:#fff}
+.badge.maybe{border:1px dashed var(--ink-soft);color:var(--ink-soft)}
+.card .note{font-size:13.5px;opacity:.75;margin-top:7px;line-height:1.4}
+.by{margin-left:auto;font-size:11px;font-family:'DM Mono',monospace;opacity:.6;display:flex;align-items:center;gap:5px}
+.by i{width:8px;height:8px;border-radius:50%;display:block}
+
+.empty{
+  font-size:13.5px;color:var(--ink-soft);border:1.5px dashed var(--line);
+  border-radius:11px;padding:13px;text-align:center;margin-bottom:8px;
+}
+.add{
+  width:100%;background:none;border:0;padding:9px;border-radius:10px;
+  font-size:14px;font-weight:500;color:var(--ink-soft);
+}
+.add:hover{background:var(--sand);color:var(--ink)}
+
+/* ---------- buttons ---------- */
+.btn{
+  border:1px solid var(--ink);background:var(--ink);color:var(--sand);
+  border-radius:10px;padding:10px 16px;font-weight:500;font-size:14px;
+}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.danger{background:transparent;border-color:var(--frangipani);color:var(--frangipani)}
+.btn.small{padding:6px 12px;font-size:13px;border-radius:9px}
+
+/* ---------- sheet ---------- */
+.scrim{
+  position:fixed;inset:0;background:rgba(27,23,48,.55);z-index:70;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .18s ease;
+}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{
+  background:var(--sand);width:100%;max-width:520px;max-height:92vh;overflow-y:auto;
+  border-radius:20px 20px 0 0;padding:20px 18px calc(28px + env(safe-area-inset-bottom));
+  transform:translateY(14px);transition:transform .2s ease;
+}
+.scrim.on .sheet{transform:none}
+.sheet h3{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:0 0 3px}
+.sheet .sub{font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin:0 0 16px}
+label{display:block;font-size:12px;font-weight:500;letter-spacing:.04em;margin:12px 0 5px}
+input[type=text],input[type=number],input[type=date],input[type=time],textarea,select{
+  width:100%;font:inherit;font-size:16px;padding:10px 12px;
+  border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);
+}
+textarea{min-height:70px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg{display:flex;gap:8px;margin-top:5px}
+.seg button{
+  flex:1;padding:10px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:14px;
+}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+.sheetfoot{display:flex;gap:9px;margin-top:20px;padding-bottom:4px}
+.sheetfoot .btn{flex:1}
+.namegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:9px;margin-top:6px}
+.namegrid button{
+  padding:14px 8px;border-radius:12px;border:2px solid var(--line);background:#fff;
+  font-weight:600;font-size:15px;display:flex;flex-direction:column;align-items:center;gap:7px;
+}
+.namegrid button i{width:20px;height:20px;border-radius:50%;display:block}
+
+/* ---------- bottom bar ---------- */
+.buildstamp{
+  text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;
+  color:var(--ink-soft);opacity:.45;margin:26px 0 0;
+}
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:rgba(255,243,226,.94);border-top:1px solid var(--line);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav a,.nav button{
+  flex:1;border:0;background:none;text-align:center;padding:8px 2px 9px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.nav b{display:block;font-size:18px;font-weight:400;line-height:1.3;margin-bottom:2px}
+.nav [aria-current="page"]{color:var(--ink);font-weight:500}
+.nav .off{opacity:.55}
+.nav .off b{opacity:.4}
+
+/* ---------- misc ---------- */
+.banner{
+  margin:12px 14px 0;padding:10px 13px;border-radius:11px;font-size:13px;
+  background:#FFF0C2;border:1px solid #E8C766;
+}
+.toast{
+  position:fixed;left:50%;bottom:22px;transform:translate(-50%,12px);
+  background:var(--ink);color:var(--sand);padding:11px 18px;border-radius:999px;
+  font-size:14px;z-index:95;opacity:0;pointer-events:none;transition:all .2s ease;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.hide{display:none !important}
+
+@media (min-width:700px){
+  .slot{padding:20px 22px 18px}
+  main{padding-top:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <p class="eyebrow">mybaliholiday.kiwi</p>
+  <h1 class="wordmark">Two weeks<br>in Bali</h1>
+  <div class="countdown"><b id="cdNum">—</b><span id="cdWord">counting down</span></div>
+  <div class="clocks">
+    <div class="clock"><span>BALI</span> <b id="clkBali">--:--</b></div>
+    <div class="clock"><span>NZ</span> <b id="clkNz">--:--</b></div>
+  </div>
+</header>
+
+<div class="mebar">
+  <span class="medot" id="meDot"></span>
+  <span>You're planning as <b id="meName">…</b></span>
+  <button class="linkish" id="btnSwitch">switch</button>
+  <button class="linkish" id="btnDates" style="margin-left:auto">trip dates</button>
+  <button class="linkish" id="btnRates">rates</button>
+</div>
+
+<div id="banner" class="banner hide"></div>
+
+<nav class="rail">
+  <div class="railscroll" id="rail" role="tablist" aria-label="Days of the trip"></div>
+  <div class="railfoot">
+    <span class="date" id="railDate"></span>
+    <button class="btn ghost small" id="btnView">All 14 days</button>
+  </div>
+</nav>
+
+<main id="trip">  <p class="buildstamp">build v75</p>
+</main>
+
+<!-- edit / add sheet -->
+<div class="scrim" id="scrim">
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+</div>
+
+<nav class="nav">
+  <a href="home.html"><b>🏝</b>Home</a>
+  <a href="planner.html" aria-current="page"><b>🗓</b>Plan</a>
+  <a href="flights.html"><b>✈️</b>Fly</a>
+  <a href="stays.html"><b>🛏</b>Stay</a>
+  <a href="money.html"><b>💸</b>Money</a>
+  <a href="photos.html"><b>📸</b>Photos</a>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+/* ============================================================
+   Celebration — deliberately inline. Nothing has to download
+   first, so it cannot fail because a file was missed or cached.
+   The leaderboard write is the only part that's fetched, and
+   that one is allowed to be late.
+   ============================================================ */
+const BUILD = "v75";
+const STAR = {
+  alldone:[50,"That's the lot","nothing left on your list"],
+  visa:   [25,"Admin done","one less thing"],
+  flight: [15,"Flight added","we know when you land"],
+  stay:   [15,"Beds sorted","nice one"],
+  shoplog:[15,"Shop logged","and squared up"],
+  planner:[10,"On the plan","the trip takes shape"],
+  idea:   [10,"Good idea","let's see what they think"],
+  expense:[10,"Expense in","nobody's out of pocket"],
+  photo:  [10,"Photo up","on the wall"],
+  packing:[5,"You're bringing it","so nobody else does"],
+  packed: [5,"In the bag",""],
+  shopping:[5,"On the list",""],
+  vote:   [5,"Voted",""],
+  trolley:[3,"In the trolley",""]
+};
+
+let _ac = null;
+function _actx(){
+  if(localStorage.getItem("mbh_muted") === "1") return null;
+  try{
+    if(!_ac) _ac = new (window.AudioContext || window.webkitAudioContext)();
+    if(_ac.state === "suspended") _ac.resume();
+    return _ac;
+  }catch(e){ return null; }
+}
+addEventListener("pointerdown", function u(){
+  const c = _actx();
+  if(c && c.state === "running") removeEventListener("pointerdown", u, true);
+}, true);
+
+function _note(c,f,at,dur,vol,type){
+  const o=c.createOscillator(), g=c.createGain();
+  o.type=type||"triangle"; o.frequency.setValueAtTime(f,at);
+  g.gain.setValueAtTime(0.0001,at);
+  g.gain.exponentialRampToValueAtTime(vol,at+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001,at+dur);
+  o.connect(g); g.connect(c.destination);
+  o.start(at); o.stop(at+dur+0.05);
+}
+function _sound(pts){
+  const c=_actx(); if(!c) return;
+  const t=c.currentTime+0.02, big=pts>=15;
+  const ns = big ? [523.25,659.25,783.99,1046.5,1318.51] : [523.25,659.25,783.99,1046.5];
+  ns.forEach((f,i)=>{ _note(c,f,t+i*0.075,0.42,0.16,"triangle"); _note(c,f*2,t+i*0.075,0.2,0.05,"sine"); });
+  const tail=t+ns.length*0.075;
+  for(let i=0;i<(big?7:4);i++) _note(c,1600+Math.random()*1600,tail+i*0.045,0.16,0.035,"sine");
+  if(big) _note(c,130.81,t,0.9,0.1,"sine");
+}
+
+function _css(){
+  if(document.getElementById("mbh-star-css")) return;
+  const s=document.createElement("style"); s.id="mbh-star-css";
+  s.textContent=`#mbh-stars{position:fixed;inset:0;z-index:99998;pointer-events:none;overflow:hidden}
+#mbh-stars b{position:absolute;top:-8vh;display:block;line-height:1;color:#FFD166;
+ text-shadow:0 0 14px rgba(255,193,71,.9),0 2px 5px rgba(120,70,0,.45);will-change:transform,opacity;
+ animation:mbh-fall var(--dur) cubic-bezier(.35,.1,.6,1) var(--delay) both}
+@keyframes mbh-fall{0%{transform:translate3d(0,0,0) rotate(0) scale(.7);opacity:0}
+ 10%{opacity:1;transform:translate3d(0,10vh,0) rotate(60deg) scale(1)}
+ 100%{transform:translate3d(var(--dx),112vh,0) rotate(var(--rot)) scale(1);opacity:0}}
+#mbh-pop{position:fixed;left:50%;top:34%;transform:translate(-50%,-50%);z-index:99999;
+ pointer-events:none;text-align:center;animation:mbh-pop 2.1s cubic-bezier(.2,1.3,.4,1) both}
+#mbh-pop .n{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:clamp(54px,17vw,92px);
+ line-height:.9;color:#FFD166;text-shadow:0 0 34px rgba(255,193,71,.75),0 4px 14px rgba(60,32,0,.5);display:block}
+#mbh-pop .l{font-family:'Outfit',system-ui,sans-serif;font-weight:600;font-size:19px;color:#fff;
+ text-shadow:0 2px 12px rgba(27,23,48,.85);margin-top:4px;display:block}
+#mbh-pop .s{font-family:'DM Mono',ui-monospace,monospace;font-size:11.5px;letter-spacing:.16em;
+ text-transform:uppercase;color:rgba(255,255,255,.8);text-shadow:0 2px 10px rgba(27,23,48,.85);margin-top:6px;display:block}
+@keyframes mbh-pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}
+ 14%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}24%{transform:translate(-50%,-50%) scale(1)}
+ 74%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-58%) scale(.96)}}
+@media (prefers-reduced-motion:reduce){#mbh-stars b{animation-duration:.9s}}`;
+  document.head.appendChild(s);
+}
+
+function celebrate(kind, opts){
+  const a = STAR[kind];
+  if(!a) return;
+  const [pts,label,note] = a;
+  _css();
+
+  const old = document.getElementById("mbh-pop"); if(old) old.remove();
+  const p = document.createElement("div"); p.id = "mbh-pop";
+  p.innerHTML = `<span class="n">+${pts}</span><span class="l">${label}</span>` +
+                (note ? `<span class="s">${note}</span>` : "");
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(), 2200);
+
+  const wrap = document.createElement("div"); wrap.id = "mbh-stars";
+  const n = Math.min(64, 16 + pts * 1.6);
+  const gl = ["\u2605","\u2605","\u2605","\u2726","\u2b50"];
+  let h = "";
+  for(let i=0;i<n;i++){
+    h += `<b style="left:${Math.random()*100}%;font-size:${13+Math.random()*26}px;
+      --dur:${1.5+Math.random()*1.6}s;--delay:${Math.random()*0.7}s;
+      --dx:${(Math.random()*2-1)*22}vw;--rot:${(Math.random()*2-1)*720}deg;
+      opacity:${0.65+Math.random()*0.35}">${gl[i%gl.length]}</b>`;
+  }
+  wrap.innerHTML = h;
+  document.body.appendChild(wrap);
+  setTimeout(()=>wrap.remove(), 4200);
+
+  _sound(pts);
+
+  const who = (opts && opts.who) || localStorage.getItem("mbh_me");
+  if(who) import("./stars.js").then(m => m.score && m.score(who, kind, pts)).catch(()=>{});
+}
+console.info("celebration inline, build", BUILD);
+
+/* ============================================================
+   1. SETTINGS YOU MIGHT WANT TO CHANGE
+   ============================================================ */
+
+// Paste your Firebase web config here. Leave projectId empty and the
+// planner runs on this device only (handy for having a play first).
+const FIREBASE = {
+  apiKey: "AIzaSyB1NnJlvpL_dv7aPrAeFGtl5MM1oSa1YPk",
+  authDomain: "mybaliholiday-5170c.firebaseapp.com",
+  projectId: "mybaliholiday-5170c",
+  storageBucket: "mybaliholiday-5170c.firebasestorage.app",
+  messagingSenderId: "29285891302",
+  appId: "1:29285891302:web:9497074c278aed8c0ccf27"
+};
+
+const TRAVELLERS = [
+  { name: "Mark",   colour: "#0BA5C7", from: "AKL" },
+  { name: "Claire", colour: "#FF9F1C", from: "SYD" },
+  { name: "Clare",  colour: "#16A97C", from: "AKL" },
+  { name: "Kylie",  colour: "#9B5DE5", from: "ADL" },
+  { name: "Alice",  colour: "#FF4D8D", from: "SYD" }
+];
+
+const TRIP_DAYS = 14;
+const DEFAULT_START = "2026-08-08";   // change in the app under "trip dates"
+
+// Fallback only. The planner fetches live rates daily, and you can pin your own
+// under "rates" if you'd rather everyone used one number for the whole trip.
+const DEFAULT_RATES = { nzd: 9700, aud: 10600 };   // rupiah per NZ$1 / A$1
+
+const SLOTS = [
+  { key:"morning", label:"Morning",            short:"Morning", glyph:"🌅" },
+  { key:"noon",    label:"Middle of the day",  short:"Midday",  glyph:"☀️" },
+  { key:"evening", label:"Evening",            short:"Evening", glyph:"🌙" }
+];
+
+/* ============================================================
+   2. STORAGE — Firestore if configured, this device if not
+   ============================================================ */
+
+const $ = id => document.getElementById(id);
+const withTimeout = (p, ms=8000) => Promise.race([
+  p, new Promise((_,rej)=>setTimeout(()=>rej(new Error("Took too long to reach the server")), ms))
+]);
+
+let store, items = [], tripStart = DEFAULT_START;
+
+async function makeStore(){
+  if(!FIREBASE.projectId) return localStore();
+  try{
+    const [{ initializeApp }, fs, fa] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")
+    ]);
+    const app = initializeApp(FIREBASE);
+
+    // Silent sign-in so the security rules have something to check.
+    // Harmless if Anonymous sign-in isn't switched on yet.
+    try{ await withTimeout(fa.signInAnonymously(fa.getAuth(app)), 8000); }
+    catch(e){ /* open rules will still let us through */ }
+
+    const db = fs.initializeFirestore(app, {
+      localCache: fs.persistentLocalCache({ tabManager: fs.persistentMultipleTabManager() })
+    });
+    const col = fs.collection(db, "planner");
+    const setDoc = fs.doc(db, "settings", "trip");
+
+    return {
+      kind: "cloud",
+      subscribe(onItems, onSettings){
+        fs.onSnapshot(col,
+          snap => onItems(snap.docs.map(d => ({ id:d.id, ...d.data() }))),
+          err  => banner("Can't reach the planner right now — " + (err.code || err.message))
+        );
+        fs.onSnapshot(setDoc, d => { if(d.exists()) onSettings(d.data()); });
+        fs.onSnapshot(fs.collection(db, "wall"), snap => {
+          const up = snap.docs.map(d => d.data().data).filter(Boolean);
+          wallPool = [...WALL_BUILTIN, ...up];
+          pickHero();
+        }, () => pickHero());
+      },
+      add:    v  => withTimeout(fs.addDoc(col, { ...v, createdAt: Date.now() })),
+      update: (id,v) => withTimeout(fs.updateDoc(fs.doc(db,"planner",id), v)),
+      remove: id => withTimeout(fs.deleteDoc(fs.doc(db,"planner",id))),
+      saveSettings: v => withTimeout(fs.setDoc(setDoc, v, { merge:true }))
+    };
+  }catch(e){
+    banner("Couldn't connect to the shared planner, so this is saving on your device only. (" + e.message + ")");
+    return localStore();
+  }
+}
+
+function localStore(){
+  const KEY = "mbh_planner_v1";
+  const read = () => JSON.parse(localStorage.getItem(KEY) || '{"items":[],"settings":{}}');
+  const write = d => localStorage.setItem(KEY, JSON.stringify(d));
+  let listeners = { items:()=>{}, settings:()=>{} };
+  const push = () => { const d = read(); listeners.items(d.items); listeners.settings(d.settings || {}); };
+  return {
+    kind: "local",
+    subscribe(onItems, onSettings){ listeners = { items:onItems, settings:onSettings }; push(); },
+    add(v){ const d = read(); d.items.push({ ...v, id:"i"+Date.now()+Math.random().toString(36).slice(2,6), createdAt:Date.now() }); write(d); push(); },
+    update(id,v){ const d = read(); const i = d.items.find(x=>x.id===id); if(i) Object.assign(i,v); write(d); push(); },
+    remove(id){ const d = read(); d.items = d.items.filter(x=>x.id!==id); write(d); push(); },
+    saveSettings(v){ const d = read(); d.settings = { ...(d.settings||{}), ...v }; write(d); push(); }
+  };
+}
+
+
+/* ============================================================
+   Header photo — a different one from the wall on every load
+   ============================================================ */
+const WALL_BUILTIN = ["photo-1.jpg","photo-2.jpg","photo-3.jpg","photo-4.jpg","photo-5.jpg",
+                      "photo-6.jpg","photo-7.jpg","photo-8.jpg","photo-9.jpg","photo-10.jpg"];
+let wallPool = [...WALL_BUILTIN], heroPicked = false;
+
+function pickHero(){
+  if(heroPicked || !wallPool.length) return;
+  heroPicked = true;
+  // don't repeat whatever we showed last time if we can help it
+  const last = sessionStorage.getItem("mbh_last_hero");
+  let pool = wallPool.length > 1 ? wallPool.filter(x => x.slice(0, 120) !== last) : wallPool;
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  try{ sessionStorage.setItem("mbh_last_hero", pick.slice(0, 120)); }catch(e){ /* full, never mind */ }
+  document.querySelector(".top").style.setProperty("--hero", `url("${pick}")`);
+}
+
+// if the wall is slow to arrive, go with the built-ins
+setTimeout(pickHero, 500);
+
+/* ============================================================
+   3. HELPERS
+   ============================================================ */
+
+const traveller = n => TRAVELLERS.find(t=>t.name===n) || { name:n||"Someone", colour:"#4A4266" };
+const dayDate = i => { const d = new Date(tripStart+"T00:00:00"); d.setDate(d.getDate()+i-1); return d; };
+const fmtShort = d => d.toLocaleDateString("en-NZ",{ weekday:"short" });
+const fmtLong  = d => d.toLocaleDateString("en-NZ",{ weekday:"long", day:"numeric", month:"long" });
+/* ---- money: everything is entered in rupiah ---- */
+let pinnedRates = null, liveRates = null;
+let rates = { ...DEFAULT_RATES, source:"default", when:null };
+
+const rp    = n => "Rp " + Number(n).toLocaleString("en-NZ",{ maximumFractionDigits:0 });
+const nice  = v => v >= 100 ? Math.round(v) : Math.round(v*10)/10;
+const conv  = n => `NZ$${nice(Number(n)/rates.nzd)} · A$${nice(Number(n)/rates.aud)}`;
+
+function refreshRates(){
+  if(pinnedRates && pinnedRates.nzd && pinnedRates.aud){
+    rates = { nzd:+pinnedRates.nzd, aud:+pinnedRates.aud, source:"pinned", when:pinnedRates.when || null };
+  } else if(liveRates){
+    rates = { ...liveRates, source:"live" };
+  } else {
+    rates = { ...DEFAULT_RATES, source:"default", when:null };
+  }
+}
+
+async function fetchRates(){
+  const CACHE = "mbh_rates_v1";
+  try{
+    const c = JSON.parse(localStorage.getItem(CACHE) || "null");
+    if(c && Date.now() - c.when < 12*3600*1000){ liveRates = c; return; }
+  }catch(e){ /* no cache, carry on */ }
+  try{
+    const res = await withTimeout(fetch("https://open.er-api.com/v6/latest/IDR"), 6000);
+    const j = await res.json();
+    if(j?.rates?.NZD && j?.rates?.AUD){
+      liveRates = { nzd: 1/j.rates.NZD, aud: 1/j.rates.AUD, when: Date.now() };
+      localStorage.setItem(CACHE, JSON.stringify(liveRates));
+    }
+  }catch(e){ /* offline or blocked — we'll use the pinned or fallback rate */ }
+}
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const bookLink = v => {
+  if(!v) return "";
+  if(/^(https?:|tel:)/i.test(v)) return v;
+  const d = v.replace(/[^0-9]/g, "");
+  if(!d) return "";
+  return d.startsWith("628") ? "https://wa.me/" + d : "tel:+" + d;
+};
+const mapUrl = p => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p + ", Bali");
+
+let me = localStorage.getItem("mbh_me") || null;
+if(me && !TRAVELLERS.some(t => t.name === me)){ me = null; localStorage.removeItem("mbh_me"); }
+let day = 1, mode = "full", lastLit = 0, spy = null;
+let editing = { day:1, slot:"morning", id:null };
+
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("on");
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove("on"), 2600);
+}
+function banner(msg){ const b = $("banner"); b.textContent = msg; b.classList.remove("hide"); }
+
+/* ============================================================
+   4. HEADER — countdown and clocks
+   ============================================================ */
+
+function tickHeader(){
+  const start = new Date(tripStart+"T00:00:00");
+  const end   = dayDate(TRIP_DAYS);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const sleeps = Math.round((start - today) / 86400000);
+
+  if(sleeps > 0){
+    $("cdNum").textContent = sleeps;
+    $("cdWord").textContent = sleeps === 1 ? "sleep to go" : "sleeps to go";
+  } else if(today <= end){
+    const n = Math.round((today - start)/86400000) + 1;
+    $("cdNum").textContent = "Day " + n;
+    $("cdWord").textContent = "you're there";
+  } else {
+    $("cdNum").textContent = "✦";
+    $("cdWord").textContent = "that was a good one";
+  }
+
+  const t = z => new Date().toLocaleTimeString("en-NZ",{ timeZone:z, hour:"2-digit", minute:"2-digit", hour12:false });
+  $("clkBali").textContent = t("Asia/Makassar");
+  $("clkNz").textContent   = t("Pacific/Auckland");
+}
+
+/* ============================================================
+   5. RENDER
+   ============================================================ */
+
+function itemsFor(d, slot){
+  return items
+    .filter(i => i.day === d && i.slot === slot)
+    .sort((a,b) => (a.time||"zz").localeCompare(b.time||"zz") || (a.createdAt||0)-(b.createdAt||0));
+}
+
+function renderRail(){
+  $("rail").innerHTML = Array.from({length:TRIP_DAYS}, (_,k)=>{
+    const n = k+1, d = dayDate(n);
+    const who = [...new Set(items.filter(i=>i.day===n).map(i=>i.who))].slice(0,4);
+    const pips = who.map(w=>`<i style="background:${traveller(w).colour}"></i>`).join("");
+    return `<button class="tab" role="tab" aria-selected="${n===day}" data-day="${n}">
+      <span class="n">${d.getDate()}</span><span class="d">${fmtShort(d)}</span>
+      <span class="pips">${pips}</span>
+    </button>`;
+  }).join("");
+}
+
+function cardHtml(i){
+  const t = traveller(i.who);
+  const metas = [];
+  if(i.place) metas.push(`<a class="meta" href="${mapUrl(i.place)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📍 ${esc(i.place)}</a>`);
+  if(i.travel) metas.push(`<span class="meta">🛵 ${esc(i.travel)}</span>`);
+  if(i.cost)   metas.push(`<span class="meta rp">${rp(i.cost)}</span><span class="meta conv">${conv(i.cost)}</span>`);
+  if(i.link)   metas.push(`<a class="meta" href="${esc(i.link)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🔗 website</a>`);
+  if(i.book)   metas.push(`<a class="meta book" href="${esc(i.book)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${i.book.startsWith("tel:") ? "📞 ring to book" : "💬 book on whatsapp"}</a>`);
+  return `<button class="card${i.pic ? " haspic" : ""}" data-edit="${i.id}" style="border-left-color:${t.colour}">
+    ${i.pic ? `<img class="thumb" src="${esc(i.pic)}" alt="" loading="lazy" onerror="this.remove();this.closest('.card').classList.remove('haspic')">` : ""}
+    <div class="r1">
+      ${i.time ? `<span class="time">${esc(i.time)}</span>` : ""}
+      <span class="title">${esc(i.title)}</span>
+    </div>
+    <div class="r2">
+      <span class="badge ${i.status==='booked'?'booked':'maybe'}">${i.status==='booked'?'Booked':'Maybe'}</span>
+      ${metas.join("")}
+      <span class="by"><i style="background:${t.colour}"></i>${esc(t.name)}</span>
+    </div>
+    ${i.notes ? `<div class="note">${esc(i.notes)}</div>` : ""}
+  </button>`;
+}
+
+function renderTrip(){
+  const today = new Date(); today.setHours(0,0,0,0);
+  const wrap = $("trip");
+  wrap.className = mode === "compact" ? "compact" : "";
+  wrap.innerHTML = Array.from({length:TRIP_DAYS},(_,k)=>{
+    const n = k+1, d = dayDate(n);
+    const state = d.getTime() === today.getTime() ? "today" : (d < today ? "past" : "");
+    const total = items.filter(i=>i.day===n && i.cost).reduce((s,i)=>s+Number(i.cost),0);
+    const slots = SLOTS.map(s=>{
+      const list = itemsFor(n, s.key);
+      return `<div class="slot slot-${s.key}${list.length ? "" : " bare"}">
+        <div class="slothead">
+          <span class="glyph">${s.glyph}</span>
+          <h2>${s.short}</h2>
+          <button class="quickadd" data-add="${s.key}" data-on="${n}"
+                  aria-label="Add to ${s.label.toLowerCase()} on day ${n}">＋</button>
+        </div>
+        <div class="slotbody">${list.map(cardHtml).join("")}</div>
+      </div>`;
+    }).join("");
+    return `<section class="day ${state}" id="day${n}" data-dayblock="${n}">
+      <div class="dayhead">
+        <span class="no">Day ${n}</span>
+        <span class="when">${fmtLong(d)}</span>
+        ${total ? `<span class="tot">${rp(total)}</span>` : ""}
+      </div>
+      ${slots}
+    </section>`;
+  }).join("");
+}
+
+function litRail(){
+  if(day === lastLit) return;
+  lastLit = day;
+  $("rail").querySelectorAll(".tab").forEach(t=>{
+    const on = +t.dataset.day === day;
+    t.setAttribute("aria-selected", on);
+    if(on) t.scrollIntoView({ block:"nearest", inline:"center", behavior:"smooth" });
+  });
+  $("railDate").textContent = fmtLong(dayDate(day)).toUpperCase();
+}
+
+function watchScroll(){
+  if(spy) spy.disconnect();
+  spy = new IntersectionObserver(entries=>{
+    const seen = entries.filter(e=>e.isIntersecting)
+                        .sort((a,b)=>a.boundingClientRect.top - b.boundingClientRect.top)[0];
+    if(seen){ day = +seen.target.dataset.dayblock; litRail(); }
+  }, { rootMargin:"-108px 0px -70% 0px", threshold:0 });
+  document.querySelectorAll("[data-dayblock]").forEach(el=>spy.observe(el));
+}
+
+function render(){
+  renderRail();
+  renderTrip();
+  watchScroll();
+  lastLit = 0; litRail();
+  $("btnView").textContent = mode==="full" ? "Compact view" : "Show everything";
+  const t = traveller(me);
+  $("meName").textContent = me || "…";
+  $("meDot").style.background = t.colour;
+}
+
+/* ============================================================
+   6. SHEETS
+   ============================================================ */
+
+function openSheet(html){ $("sheet").innerHTML = html; $("scrim").classList.add("on"); }
+function closeSheet(){ $("scrim").classList.remove("on"); }
+
+function pickName(force){
+  openSheet(`<h3>Who's this?</h3>
+    <p class="sub">so we know whose idea it was</p>
+    <div class="namegrid">
+      ${TRAVELLERS.map(t=>`<button data-me="${t.name}"><i style="background:${t.colour}"></i>${t.name}</button>`).join("")}
+    </div>
+    ${force ? "" : `<div class="sheetfoot"><button class="btn ghost" data-close>Cancel</button></div>`}`);
+}
+
+function editSheet(slot, existing, dayNo){
+  const i = existing || { slot, status:"maybe" };
+  editing = { day: dayNo, slot: i.slot, id: existing ? existing.id : null };
+  const label = SLOTS.find(s=>s.key===i.slot).label;
+  openSheet(`
+    <h3>${existing ? "Edit" : "Add something"}</h3>
+    <p class="sub">${existing ? "move it anywhere you like" : label}</p>
+
+    <label for="fDay">Which day</label>
+    <select id="fDay">
+      ${Array.from({length:TRIP_DAYS},(_,k)=>{
+        const n = k+1;
+        return `<option value="${n}" ${n===dayNo?"selected":""}>Day ${n} · ${fmtLong(dayDate(n))}</option>`;
+      }).join("")}
+    </select>
+
+    <label>Part of the day</label>
+    <div class="seg" id="fSlot">
+      ${SLOTS.map(s=>`<button type="button" data-slotpick="${s.key}" aria-pressed="${s.key===i.slot}">${s.short}</button>`).join("")}
+    </div>
+    <label for="fTitle">What is it?</label>
+    <input type="text" id="fTitle" value="${esc(i.title)}" placeholder="Sunset drinks at Single Fin" autocomplete="off">
+    <div class="row2">
+      <div><label for="fTime">Time</label><input type="time" id="fTime" value="${esc(i.time)}"></div>
+      <div><label for="fPlace">Where</label><input type="text" id="fPlace" value="${esc(i.place)}" placeholder="Uluwatu" autocomplete="off"></div>
+    </div>
+    <label for="fCost">Rough cost each · rupiah</label>
+    <input type="number" id="fCost" value="${esc(i.cost)}" placeholder="250000" min="0" inputmode="numeric">
+    <div class="hint" id="costHint"></div>
+    <div class="row2">
+      <div><label for="fTravel">Travel time</label><input type="text" id="fTravel" value="${esc(i.travel)}" placeholder="45 min" autocomplete="off"></div>
+      <div><label for="fLink">Website</label><input type="text" id="fLink" value="${esc(i.link)}" placeholder="https://" autocomplete="off"></div>
+    </div>
+    <label for="fBook">Booking — WhatsApp link or phone</label>
+    <input type="text" id="fBook" value="${esc(i.book)}" placeholder="https://wa.me/62… or +62…" autocomplete="off">
+    <p style="font-family:'DM Mono',monospace;font-size:11px;opacity:.6;margin:6px 0 0">
+      Fills itself in when an idea comes across from the ideas board.
+    </p>
+
+    <label>Is it locked in?</label>
+    <div class="seg" id="fStatus">
+      <button type="button" data-status="maybe"  aria-pressed="${i.status!=='booked'}">Maybe</button>
+      <button type="button" data-status="booked" aria-pressed="${i.status==='booked'}">Booked &amp; paid</button>
+    </div>
+    <label for="fNotes">Notes</label>
+    <textarea id="fNotes" placeholder="Anything the others should know">${esc(i.notes)}</textarea>
+    <div class="sheetfoot">
+      ${existing ? `<button class="btn danger" data-remove="${existing.id}">Remove</button>` : `<button class="btn ghost" data-close>Cancel</button>`}
+      <button class="btn" data-save>Save</button>
+    </div>`);
+  const costInput = $("fCost");
+  const drawHint = () => {
+    $("costHint").textContent = costInput.value > 0
+      ? `${rp(costInput.value)}  ≈  ${conv(costInput.value)}`
+      : "";
+  };
+  costInput.addEventListener("input", drawHint);
+  drawHint();
+
+  $("fTime").addEventListener("change", () => {
+    const v = $("fTime").value;
+    if(!v) return;
+    const h = +v.split(":")[0];
+    const k = h < 11 ? "morning" : h < 17 ? "noon" : "evening";
+    $("fSlot").querySelectorAll("button").forEach(b =>
+      b.setAttribute("aria-pressed", b.dataset.slotpick === k));
+  });
+  setTimeout(()=>$("fTitle").focus(), 60);
+}
+
+function ratesSheet(){
+  const when = rates.when
+    ? new Date(rates.when).toLocaleDateString("en-NZ",{ day:"numeric", month:"short" })
+    : "—";
+  const src = rates.source === "pinned" ? "pinned by the group on " + when
+            : rates.source === "live"   ? "live, updated " + when
+            : "built-in fallback — couldn't reach the rate service";
+  openSheet(`<h3>Exchange rates</h3>
+    <p class="sub">costs are always in rupiah</p>
+    <p class="rateline">NZ$1 = ${rp(rates.nzd)}<br>A$1 = ${rp(rates.aud)}<br>${src}</p>
+    <label for="rNzd">Rupiah per NZ$1</label>
+    <input type="number" id="rNzd" value="${pinnedRates ? pinnedRates.nzd : ""}" placeholder="leave blank for live rates" min="1">
+    <label for="rAud">Rupiah per A$1</label>
+    <input type="number" id="rAud" value="${pinnedRates ? pinnedRates.aud : ""}" placeholder="leave blank for live rates" min="1">
+    <p class="rateline">Pin these if you'd rather everyone worked off one number for the whole trip. Clear both to go back to live rates.</p>
+    <div class="sheetfoot">
+      <button class="btn ghost" data-close>Cancel</button>
+      <button class="btn" id="saveRates">Save</button>
+    </div>`);
+}
+
+function datesSheet(){
+  openSheet(`<h3>Trip dates</h3>
+    <p class="sub">${TRIP_DAYS} days · everyone sees the same</p>
+    <label for="fStart">First day in Bali</label>
+    <input type="date" id="fStart" value="${tripStart}">
+    <div class="sheetfoot">
+      <button class="btn ghost" data-close>Cancel</button>
+      <button class="btn" id="saveStart">Save</button>
+    </div>`);
+}
+
+/* ============================================================
+   7. EVENTS
+   ============================================================ */
+
+document.addEventListener("click", async e => {
+  const hit = s => e.target.closest(s);
+
+  const tab = hit("[data-day]");
+  if(tab){
+    day = +tab.dataset.day; litRail();
+    document.getElementById("day"+day)?.scrollIntoView({ behavior:"smooth", block:"start" });
+    return;
+  }
+
+  const add = hit("[data-add]");
+  if(add){ if(!me) return pickName(true); editSheet(add.dataset.add, null, +add.dataset.on); return; }
+
+  const ed = hit("[data-edit]");
+  if(ed){ const i = items.find(x=>x.id===ed.dataset.edit); if(i) editSheet(i.slot, i, i.day); return; }
+
+  const mePick = hit("[data-me]");
+  if(mePick){ me = mePick.dataset.me; localStorage.setItem("mbh_me", me); closeSheet(); render(); return; }
+
+  const sp = hit("[data-slotpick]");
+  if(sp){ $("fSlot").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed", b===sp)); return; }
+
+  const st = hit("[data-status]");
+  if(st){ $("fStatus").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed", b===st)); return; }
+
+  const rm = hit("[data-remove]");
+  if(rm){
+    try{ await store.remove(rm.dataset.remove); closeSheet(); toast("Removed"); }
+    catch(err){ toast(err.message); }
+    return;
+  }
+
+  const sv = hit("[data-save]");
+  if(sv){
+    const title = $("fTitle").value.trim();
+    if(!title){ toast("Give it a name first"); $("fTitle").focus(); return; }
+    const prev = editing.id ? items.find(x => x.id === editing.id) : null;
+    const movedTo = Number($("fDay").value);
+    const v = {
+      day: movedTo,
+      slot: $("fSlot").querySelector('[aria-pressed="true"]').dataset.slotpick,
+      pic:  (prev && prev.pic) || "",
+      book: bookLink($("fBook").value.trim()),
+      title,
+      time:  $("fTime").value,
+      cost:  $("fCost").value ? Number($("fCost").value) : "",
+      place: $("fPlace").value.trim(),
+      travel:$("fTravel").value.trim(),
+      link:  $("fLink").value.trim(),
+      notes: $("fNotes").value.trim(),
+      status:$("fStatus").querySelector('[aria-pressed="true"]').dataset.status,
+      who:   me
+    };
+    try{
+      const shifted = editing.id && movedTo !== editing.day;
+      if(editing.id) await store.update(editing.id, v);
+      else { celebrate("planner"); await store.add(v); }
+      closeSheet();
+      if(shifted){
+        day = movedTo; litRail();
+        setTimeout(()=>document.getElementById("day"+movedTo)
+          ?.scrollIntoView({ behavior:"smooth", block:"start" }), 120);
+        toast("Moved to day " + movedTo);
+      } else {
+        toast("Saved");
+      }
+    }catch(err){ toast(err.message); }
+    return;
+  }
+
+  if(e.target.id === "saveStart"){
+    const s = $("fStart").value;
+    if(s){ try{ await store.saveSettings({ start:s }); }catch(err){ toast(err.message); } tripStart = s; closeSheet(); tickHeader(); render(); }
+    return;
+  }
+
+  if(e.target.id === "saveRates"){
+    const n = $("rNzd").value, a = $("rAud").value;
+    const both = n > 0 && a > 0;
+    try{
+      await store.saveSettings(both
+        ? { rateNzd:+n, rateAud:+a, rateWhen:Date.now() }
+        : { rateNzd:null, rateAud:null, rateWhen:null });
+    }catch(err){ toast(err.message); }
+    pinnedRates = both ? { nzd:+n, aud:+a, when:Date.now() } : null;
+    refreshRates(); closeSheet(); render();
+    toast(both ? "Rates pinned for everyone" : "Back to live rates");
+    return;
+  }
+
+  if(hit("[data-close]") || e.target.id === "scrim"){ closeSheet(); return; }
+  if(e.target.id === "btnSwitch"){ pickName(false); return; }
+  if(e.target.id === "btnDates"){ datesSheet(); return; }
+  if(e.target.id === "btnRates"){ ratesSheet(); return; }
+
+  const soon = hit("[data-soon]");
+  if(soon){ toast(soon.dataset.soon + " isn't built yet — next on the list"); return; }
+  if(e.target.id === "btnView"){
+    mode = mode === "full" ? "compact" : "full";
+    render();
+    document.getElementById("day"+day)?.scrollIntoView({ block:"start" });
+    return;
+  }
+});
+
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeSheet(); });
+
+/* ============================================================
+   8. GO
+   ============================================================ */
+
+(async function start(){
+  store = await makeStore();
+  if(store.kind === "local" && !FIREBASE.projectId){
+    banner("Test mode — this is saving on your device only. Add your Firebase config in the code to share it with everyone.");
+  }
+  refreshRates();
+  fetchRates().then(()=>{ refreshRates(); render(); });
+
+  store.subscribe(
+    list => { items = list; render(); },
+    s    => {
+      if(s.start) tripStart = s.start;
+      pinnedRates = (s.rateNzd && s.rateAud) ? { nzd:s.rateNzd, aud:s.rateAud, when:s.rateWhen } : null;
+      refreshRates(); tickHeader(); render();
+    }
+  );
+  tickHeader();
+  setInterval(tickHeader, 20000);
+  render();
+
+  // land on today if you're already there, otherwise start at day one
+  const today = new Date(); today.setHours(0,0,0,0);
+  const n = Math.round((today - new Date(tripStart+"T00:00:00")) / 86400000) + 1;
+  if(n > 1 && n <= TRIP_DAYS){
+    day = n; litRail();
+    setTimeout(()=>document.getElementById("day"+n)?.scrollIntoView({ block:"start" }), 120);
+  }
+
+  if(!me) pickName(true);
+})();
+
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  addEventListener("load", ()=> navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}
+</script>
+</body>
+</html>

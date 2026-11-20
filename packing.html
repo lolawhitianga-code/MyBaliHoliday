@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B1730">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bali">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>Packing · My Bali Holiday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1730; --ink-soft:#4A4266;
+  --sand:#FFF3E2; --sand-deep:#F6E3C8; --line:#E4CDA9;
+  --frangipani:#FF4D8D; --lagoon:#0BA5C7; --marigold:#FF9F1C; --pandan:#16A97C; --dusk:#9B5DE5;
+  --shadow:0 2px 0 rgba(27,23,48,.10), 0 10px 26px -14px rgba(27,23,48,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--sand);color:var(--ink);
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom));
+}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+.top{
+  position:relative;overflow:hidden;text-align:center;color:#fff;
+  padding:calc(26px + env(safe-area-inset-top)) 20px 30px;
+  background:
+    radial-gradient(120px 120px at 80% 92%, rgba(255,209,102,.5), rgba(255,159,28,0) 70%),
+    linear-gradient(178deg, rgba(27,23,48,.72) 0%, rgba(75,42,99,.50) 42%, rgba(196,63,118,.42) 72%, rgba(255,122,69,.34) 100%),
+    url('hero-packing.jpg') center 32% / cover no-repeat;
+}
+.top::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:10px;
+  background:linear-gradient(90deg,var(--frangipani),var(--marigold),var(--pandan),var(--lagoon),var(--dusk));
+}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.75;margin:0 0 6pxtext-shadow:0 1px 8px rgba(27,23,48,.6);}
+.wordmark{
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(30px,8.5vw,44px);
+  line-height:.95;margin:0;font-variation-settings:'SOFT' 40,'WONK' 1;
+}
+.prog{margin:15px auto 0;max-width:260px}
+.progbar{height:8px;background:rgba(255,255,255,.22);border-radius:99px;overflow:hidden}
+.progbar span{display:block;height:100%;background:#fff;border-radius:99px;transition:width .3s ease}
+.progtx{font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.08em;margin-top:7px;opacity:.9}
+
+.mebar{
+  display:flex;align-items:center;gap:8px;justify-content:center;
+  padding:10px 16px;background:var(--sand-deep);border-bottom:1px solid var(--line);font-size:14px;
+}
+.medot{width:12px;height:12px;border-radius:50%;flex:none}
+.linkish{background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;font-size:14px}
+
+main{max-width:780px;margin:0 auto;padding:16px 14px 40px}
+h2.sec{
+  font-family:'DM Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-soft);margin:26px 0 4px 2px;
+}
+h2.sec:first-child{margin-top:0}
+.blurb{font-size:13px;color:var(--ink-soft);margin:0 0 11px 2px;line-height:1.4}
+
+.list{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.it{display:flex;align-items:center;gap:11px;padding:11px 14px;width:100%;text-align:left;background:none;border:0}
+.it + .it{border-top:1px solid rgba(228,205,169,.6)}
+.tick{
+  width:24px;height:24px;border-radius:8px;border:2px solid var(--line);flex:none;
+  display:grid;place-items:center;font-size:14px;color:transparent;background:var(--sand);
+}
+.it.done .tick{background:var(--pandan);border-color:var(--pandan);color:#fff}
+.it.done .nm{text-decoration:line-through;opacity:.45}
+.it .nm{flex:1;min-width:0;font-size:15.5px;line-height:1.25}
+.owner{
+  display:flex;align-items:center;gap:6px;flex:none;border:1px solid var(--line);
+  background:var(--sand);border-radius:999px;padding:3px 10px 3px 7px;font-size:12.5px;
+}
+.owner i{width:10px;height:10px;border-radius:50%;display:block;flex:none}
+.owner.none{color:var(--ink-soft);font-style:italic;border-style:dashed}
+.bin{border:0;background:none;color:var(--ink-soft);font-size:15px;opacity:.4;flex:none;padding:2px 4px}
+.bin:hover{opacity:1;color:var(--frangipani)}
+
+.quickrow{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.quickrow button{
+  border:1px dashed var(--line);background:#fff;border-radius:999px;
+  padding:6px 13px;font-size:13px;color:var(--ink-soft);
+}
+.quickrow button:hover{border-style:solid;color:var(--ink);border-color:var(--ink)}
+
+.addrow{display:flex;gap:8px;margin-top:11px}
+.addrow input{
+  flex:1;font:inherit;font-size:16px;padding:11px 13px;
+  border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);
+}
+.addrow button{
+  border:1px solid var(--ink);background:var(--ink);color:var(--sand);
+  border-radius:11px;padding:11px 18px;font-weight:500;flex:none;
+}
+.empty{border:1.5px dashed var(--line);border-radius:14px;padding:20px 16px;text-align:center;color:var(--ink-soft);font-size:14px}
+
+.buildstamp{
+  text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;
+  color:var(--ink-soft);opacity:.45;margin:26px 0 0;
+}
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:rgba(255,243,226,.94);border-top:1px solid var(--line);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav a{
+  flex:1;text-align:center;padding:8px 2px 9px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.nav b{display:block;font-size:18px;font-weight:400;line-height:1.3;margin-bottom:2px}
+.nav [aria-current="page"]{color:var(--ink);font-weight:500}
+
+.scrim{
+  position:fixed;inset:0;background:rgba(27,23,48,.55);z-index:70;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .18s ease;
+}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{
+  background:var(--sand);width:100%;max-width:520px;max-height:92vh;overflow-y:auto;
+  border-radius:20px 20px 0 0;padding:20px 18px calc(28px + env(safe-area-inset-bottom));
+  transform:translateY(14px);transition:transform .2s ease;
+}
+.scrim.on .sheet{transform:none}
+.sheet h3{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:0 0 3px}
+.sheet .sub{font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin:0 0 14px}
+.namegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:9px;margin-top:6px}
+.namegrid button{
+  padding:13px 8px;border-radius:12px;border:2px solid var(--line);background:#fff;
+  font-weight:600;font-size:15px;display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.namegrid button i{width:18px;height:18px;border-radius:50%;display:block}
+.sheetfoot{display:flex;gap:9px;margin-top:20px;padding-bottom:4px}
+.sheetfoot .btn{flex:1;border:1px solid var(--ink);background:var(--ink);color:var(--sand);border-radius:10px;padding:11px;font-weight:500}
+.sheetfoot .btn.ghost{background:transparent;color:var(--ink)}
+
+.banner{margin:12px 14px 0;padding:10px 13px;border-radius:11px;font-size:13px;background:#FFF0C2;border:1px solid #E8C766}
+.toast{
+  position:fixed;left:50%;bottom:84px;transform:translate(-50%,12px);
+  background:var(--ink);color:var(--sand);padding:11px 18px;border-radius:999px;
+  font-size:14px;z-index:95;opacity:0;pointer-events:none;transition:all .2s ease;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.hide{display:none !important}
+:focus-visible{outline:3px solid var(--lagoon);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <p class="eyebrow">so we don't end up with four adaptors</p>
+  <h1 class="wordmark">Packing</h1>
+  <div class="prog">
+    <div class="progbar"><span id="progFill" style="width:0%"></span></div>
+    <div class="progtx" id="progTx">—</div>
+  </div>
+</header>
+
+<div class="mebar">
+  <span class="medot" id="meDot"></span>
+  <span>You're <b id="meName">…</b></span>
+  <button class="linkish" id="btnSwitch">switch</button>
+</div>
+
+<div id="banner" class="banner hide"></div>
+
+<main>
+  <h2 class="sec">Between us</h2>
+  <p class="blurb">One of each is plenty. Tap the name chip to claim something, tap the box once it's in your bag.</p>
+  <div id="groupList"></div>
+  <div class="quickrow" id="quick"></div>
+  <div class="addrow">
+    <input id="addGroup" placeholder="Add a shared item" autocomplete="off">
+    <button id="btnAddGroup">Add</button>
+  </div>
+
+  <h2 class="sec">Yours</h2>
+  <p class="blurb">Only you see this one.</p>
+  <div id="ownList"></div>
+  <div class="addrow">
+    <input id="addOwn" placeholder="Add to your own list" autocomplete="off">
+    <button id="btnAddOwn">Add</button>
+  </div>
+  <p class="buildstamp">build v75</p>
+</main>
+
+<nav class="nav">
+  <a href="home.html"><b>🏝</b>Home</a>
+  <a href="planner.html"><b>🗓</b>Plan</a>
+  <a href="flights.html"><b>✈️</b>Fly</a>
+  <a href="stays.html"><b>🛏</b>Stay</a>
+  <a href="money.html"><b>💸</b>Money</a>
+  <a href="photos.html"><b>📸</b>Photos</a>
+</nav>
+
+<div class="scrim" id="scrim"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+/* ============================================================
+   Celebration — deliberately inline. Nothing has to download
+   first, so it cannot fail because a file was missed or cached.
+   The leaderboard write is the only part that's fetched, and
+   that one is allowed to be late.
+   ============================================================ */
+const BUILD = "v75";
+const STAR = {
+  alldone:[50,"That's the lot","nothing left on your list"],
+  visa:   [25,"Admin done","one less thing"],
+  flight: [15,"Flight added","we know when you land"],
+  stay:   [15,"Beds sorted","nice one"],
+  shoplog:[15,"Shop logged","and squared up"],
+  planner:[10,"On the plan","the trip takes shape"],
+  idea:   [10,"Good idea","let's see what they think"],
+  expense:[10,"Expense in","nobody's out of pocket"],
+  photo:  [10,"Photo up","on the wall"],
+  packing:[5,"You're bringing it","so nobody else does"],
+  packed: [5,"In the bag",""],
+  shopping:[5,"On the list",""],
+  vote:   [5,"Voted",""],
+  trolley:[3,"In the trolley",""]
+};
+
+let _ac = null;
+function _actx(){
+  if(localStorage.getItem("mbh_muted") === "1") return null;
+  try{
+    if(!_ac) _ac = new (window.AudioContext || window.webkitAudioContext)();
+    if(_ac.state === "suspended") _ac.resume();
+    return _ac;
+  }catch(e){ return null; }
+}
+addEventListener("pointerdown", function u(){
+  const c = _actx();
+  if(c && c.state === "running") removeEventListener("pointerdown", u, true);
+}, true);
+
+function _note(c,f,at,dur,vol,type){
+  const o=c.createOscillator(), g=c.createGain();
+  o.type=type||"triangle"; o.frequency.setValueAtTime(f,at);
+  g.gain.setValueAtTime(0.0001,at);
+  g.gain.exponentialRampToValueAtTime(vol,at+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001,at+dur);
+  o.connect(g); g.connect(c.destination);
+  o.start(at); o.stop(at+dur+0.05);
+}
+function _sound(pts){
+  const c=_actx(); if(!c) return;
+  const t=c.currentTime+0.02, big=pts>=15;
+  const ns = big ? [523.25,659.25,783.99,1046.5,1318.51] : [523.25,659.25,783.99,1046.5];
+  ns.forEach((f,i)=>{ _note(c,f,t+i*0.075,0.42,0.16,"triangle"); _note(c,f*2,t+i*0.075,0.2,0.05,"sine"); });
+  const tail=t+ns.length*0.075;
+  for(let i=0;i<(big?7:4);i++) _note(c,1600+Math.random()*1600,tail+i*0.045,0.16,0.035,"sine");
+  if(big) _note(c,130.81,t,0.9,0.1,"sine");
+}
+
+function _css(){
+  if(document.getElementById("mbh-star-css")) return;
+  const s=document.createElement("style"); s.id="mbh-star-css";
+  s.textContent=`#mbh-stars{position:fixed;inset:0;z-index:99998;pointer-events:none;overflow:hidden}
+#mbh-stars b{position:absolute;top:-8vh;display:block;line-height:1;color:#FFD166;
+ text-shadow:0 0 14px rgba(255,193,71,.9),0 2px 5px rgba(120,70,0,.45);will-change:transform,opacity;
+ animation:mbh-fall var(--dur) cubic-bezier(.35,.1,.6,1) var(--delay) both}
+@keyframes mbh-fall{0%{transform:translate3d(0,0,0) rotate(0) scale(.7);opacity:0}
+ 10%{opacity:1;transform:translate3d(0,10vh,0) rotate(60deg) scale(1)}
+ 100%{transform:translate3d(var(--dx),112vh,0) rotate(var(--rot)) scale(1);opacity:0}}
+#mbh-pop{position:fixed;left:50%;top:34%;transform:translate(-50%,-50%);z-index:99999;
+ pointer-events:none;text-align:center;animation:mbh-pop 2.1s cubic-bezier(.2,1.3,.4,1) both}
+#mbh-pop .n{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:clamp(54px,17vw,92px);
+ line-height:.9;color:#FFD166;text-shadow:0 0 34px rgba(255,193,71,.75),0 4px 14px rgba(60,32,0,.5);display:block}
+#mbh-pop .l{font-family:'Outfit',system-ui,sans-serif;font-weight:600;font-size:19px;color:#fff;
+ text-shadow:0 2px 12px rgba(27,23,48,.85);margin-top:4px;display:block}
+#mbh-pop .s{font-family:'DM Mono',ui-monospace,monospace;font-size:11.5px;letter-spacing:.16em;
+ text-transform:uppercase;color:rgba(255,255,255,.8);text-shadow:0 2px 10px rgba(27,23,48,.85);margin-top:6px;display:block}
+@keyframes mbh-pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}
+ 14%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}24%{transform:translate(-50%,-50%) scale(1)}
+ 74%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-58%) scale(.96)}}
+@media (prefers-reduced-motion:reduce){#mbh-stars b{animation-duration:.9s}}`;
+  document.head.appendChild(s);
+}
+
+function celebrate(kind, opts){
+  const a = STAR[kind];
+  if(!a) return;
+  const [pts,label,note] = a;
+  _css();
+
+  const old = document.getElementById("mbh-pop"); if(old) old.remove();
+  const p = document.createElement("div"); p.id = "mbh-pop";
+  p.innerHTML = `<span class="n">+${pts}</span><span class="l">${label}</span>` +
+                (note ? `<span class="s">${note}</span>` : "");
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(), 2200);
+
+  const wrap = document.createElement("div"); wrap.id = "mbh-stars";
+  const n = Math.min(64, 16 + pts * 1.6);
+  const gl = ["\u2605","\u2605","\u2605","\u2726","\u2b50"];
+  let h = "";
+  for(let i=0;i<n;i++){
+    h += `<b style="left:${Math.random()*100}%;font-size:${13+Math.random()*26}px;
+      --dur:${1.5+Math.random()*1.6}s;--delay:${Math.random()*0.7}s;
+      --dx:${(Math.random()*2-1)*22}vw;--rot:${(Math.random()*2-1)*720}deg;
+      opacity:${0.65+Math.random()*0.35}">${gl[i%gl.length]}</b>`;
+  }
+  wrap.innerHTML = h;
+  document.body.appendChild(wrap);
+  setTimeout(()=>wrap.remove(), 4200);
+
+  _sound(pts);
+
+  const who = (opts && opts.who) || localStorage.getItem("mbh_me");
+  if(who) import("./stars.js").then(m => m.score && m.score(who, kind, pts)).catch(()=>{});
+}
+console.info("celebration inline, build", BUILD);
+
+/* ============================================================
+   Settings — same block as the other pages
+   ============================================================ */
+const FIREBASE = {
+  apiKey: "AIzaSyB1NnJlvpL_dv7aPrAeFGtl5MM1oSa1YPk",
+  authDomain: "mybaliholiday-5170c.firebaseapp.com",
+  projectId: "mybaliholiday-5170c",
+  storageBucket: "mybaliholiday-5170c.firebasestorage.app",
+  messagingSenderId: "29285891302",
+  appId: "1:29285891302:web:9497074c278aed8c0ccf27"
+};
+
+const TRAVELLERS = [
+  { name:"Mark",   colour:"#0BA5C7" },
+  { name:"Claire", colour:"#FF9F1C" },
+  { name:"Clare",  colour:"#16A97C" },
+  { name:"Kylie",  colour:"#9B5DE5" },
+  { name:"Alice",  colour:"#FF4D8D" }
+];
+
+/* one tap to add — the things that always come up for Bali */
+const USUAL = [
+  "Travel adaptor (type C/F)",
+  "Power board",
+  "Bluetooth speaker",
+  "First aid kit",
+  "Reef-safe sunscreen",
+  "Insect repellent",
+  "Dry bag",
+  "Sarong for temples",
+  "Pack of cards",
+  "Spare phone charger"
+];
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const traveller = n => TRAVELLERS.find(t=>t.name===n) || { name:n||"", colour:"#4A4266" };
+const withTimeout = (p, ms=8000) => Promise.race([
+  p, new Promise((_,rej)=>setTimeout(()=>rej(new Error("Took too long to reach the server")), ms))
+]);
+
+let store, items = [];
+let me = localStorage.getItem("mbh_me") || null;
+if(me && !TRAVELLERS.some(t => t.name === me)){ me = null; localStorage.removeItem("mbh_me"); }
+
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("on");
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove("on"), 2400);
+}
+function banner(msg){ const b = $("banner"); b.textContent = msg; b.classList.remove("hide"); }
+
+/* ============================================================
+   Storage
+   ============================================================ */
+async function makeStore(){
+  if(!FIREBASE.projectId) return localStore();
+  try{
+    const [{ initializeApp }, fs, fa] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")
+    ]);
+    const app = initializeApp(FIREBASE);
+    try{ await withTimeout(fa.signInAnonymously(fa.getAuth(app)), 8000); }catch(e){ /* open rules */ }
+    const db = fs.initializeFirestore(app, {
+      localCache: fs.persistentLocalCache({ tabManager: fs.persistentMultipleTabManager() })
+    });
+    const col = fs.collection(db, "packing");
+    return {
+      kind:"cloud",
+      subscribe(cb){
+        fs.onSnapshot(col,
+          snap => cb(snap.docs.map(d=>({ id:d.id, ...d.data() }))),
+          err  => banner("Can't reach the list right now — " + (err.code || err.message))
+        );
+      },
+      add:    v => withTimeout(fs.addDoc(col, { ...v, createdAt: Date.now() })),
+      update: (id,v) => withTimeout(fs.updateDoc(fs.doc(db,"packing",id), v)),
+      remove: id => withTimeout(fs.deleteDoc(fs.doc(db,"packing",id)))
+    };
+  }catch(e){
+    banner("Couldn't reach the shared list, so this is saving on your device only.");
+    return localStore();
+  }
+}
+
+function localStore(){
+  const KEY = "mbh_packing_v1";
+  const read = () => JSON.parse(localStorage.getItem(KEY) || "[]");
+  const write = v => localStorage.setItem(KEY, JSON.stringify(v));
+  let cb = ()=>{};
+  const push = () => cb(read());
+  return {
+    kind:"local",
+    subscribe(fn){ cb = fn; push(); },
+    add(v){ const d = read(); d.push({ ...v, id:"p"+Date.now()+Math.random().toString(36).slice(2,6), createdAt:Date.now() }); write(d); push(); },
+    update(id,v){ const d = read(); const i = d.find(x=>x.id===id); if(i) Object.assign(i,v); write(d); push(); },
+    remove(id){ write(read().filter(x=>x.id!==id)); push(); }
+  };
+}
+
+/* ============================================================
+   Render
+   ============================================================ */
+function itemHtml(it, showOwner){
+  const o = it.owner ? traveller(it.owner) : null;
+  const chip = showOwner
+    ? (o
+        ? `<button class="owner" data-claim="${it.id}"><i style="background:${o.colour}"></i>${esc(o.name)}</button>`
+        : `<button class="owner none" data-claim="${it.id}">nobody yet</button>`)
+    : "";
+  return `<div class="it ${it.packed ? "done" : ""}">
+    <button class="tick" data-tick="${it.id}" aria-label="Mark packed">✓</button>
+    <span class="nm">${esc(it.what)}</span>
+    ${chip}
+    <button class="bin" data-bin="${it.id}" aria-label="Remove">✕</button>
+  </div>`;
+}
+
+function render(){
+  const t = traveller(me);
+  $("meName").textContent = me || "…";
+  $("meDot").style.background = t.colour;
+
+  const group = items.filter(i=>i.scope === "group").sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+  const own   = items.filter(i=>i.scope === me).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+
+  const all = [...group, ...own];
+  const done = all.filter(i=>i.packed).length;
+  const pct = all.length ? Math.round(done/all.length*100) : 0;
+  $("progFill").style.width = pct + "%";
+  $("progTx").textContent = all.length
+    ? `${done} of ${all.length} packed`
+    : "nothing on the list yet";
+
+  $("groupList").innerHTML = group.length
+    ? `<div class="list">${group.map(i=>itemHtml(i, true)).join("")}</div>`
+    : `<div class="empty">Nothing shared yet — tap one below to start.</div>`;
+
+  $("ownList").innerHTML = own.length
+    ? `<div class="list">${own.map(i=>itemHtml(i, false)).join("")}</div>`
+    : `<div class="empty">Your own list is empty.</div>`;
+
+  const have = new Set(group.map(i=>i.what));
+  const left = USUAL.filter(u=>!have.has(u));
+  $("quick").innerHTML = left.map(u=>`<button data-usual="${esc(u)}">＋ ${esc(u)}</button>`).join("");
+}
+
+/* ============================================================
+   Sheets
+   ============================================================ */
+function openSheet(html){ $("sheet").innerHTML = html; $("scrim").classList.add("on"); }
+function closeSheet(){ $("scrim").classList.remove("on"); }
+
+function pickName(force){
+  openSheet(`<h3>Who's this?</h3>
+    <p class="sub">so your own list is yours</p>
+    <div class="namegrid">
+      ${TRAVELLERS.map(t=>`<button data-me="${t.name}"><i style="background:${t.colour}"></i>${t.name}</button>`).join("")}
+    </div>
+    ${force ? "" : `<div class="sheetfoot"><button class="btn ghost" data-close>Cancel</button></div>`}`);
+}
+
+function claimSheet(id){
+  const it = items.find(x=>x.id===id);
+  if(!it) return;
+  openSheet(`<h3>Who's bringing it?</h3>
+    <p class="sub">${esc(it.what)}</p>
+    <div class="namegrid">
+      ${TRAVELLERS.map(t=>`<button data-owner="${id}|${t.name}"><i style="background:${t.colour}"></i>${t.name}</button>`).join("")}
+    </div>
+    <div class="sheetfoot">
+      <button class="btn ghost" data-owner="${id}|">Nobody yet</button>
+      <button class="btn" data-close>Done</button>
+    </div>`);
+}
+
+/* ============================================================
+   Events
+   ============================================================ */
+async function addItem(scope, what){
+  const v = what.trim();
+  if(!v) return;
+  try{ await store.add({ scope, what:v, packed:false, owner: scope === "group" ? "" : me, addedBy: me }); }
+  catch(err){ toast(err.message); }
+}
+
+document.addEventListener("click", async e => {
+  const hit = s => e.target.closest(s);
+
+  const mePick = hit("[data-me]");
+  if(mePick){ me = mePick.dataset.me; localStorage.setItem("mbh_me", me); closeSheet(); render(); return; }
+
+  const own = hit("[data-owner]");
+  if(own){
+    const [id, name] = own.dataset.owner.split("|");
+    try{
+      if(name) celebrate("packing", { who:name });
+      await store.update(id, { owner: name || "" });
+    }catch(err){ toast(err.message); }
+    closeSheet();
+    return;
+  }
+
+  const tick = hit("[data-tick]");
+  if(tick){
+    const it = items.find(x=>x.id===tick.dataset.tick);
+    if(it) try{
+      if(!it.packed) celebrate("packed");
+      await store.update(it.id, { packed: !it.packed });
+    }catch(err){ toast(err.message); }
+    return;
+  }
+
+  const claim = hit("[data-claim]");
+  if(claim){ if(!me) return pickName(true); claimSheet(claim.dataset.claim); return; }
+
+  const bin = hit("[data-bin]");
+  if(bin){ try{ await store.remove(bin.dataset.bin); }catch(err){ toast(err.message); } return; }
+
+  const usual = hit("[data-usual]");
+  if(usual){ if(!me) return pickName(true); await addItem("group", usual.dataset.usual); return; }
+
+  if(e.target.id === "btnAddGroup"){
+    if(!me) return pickName(true);
+    await addItem("group", $("addGroup").value); $("addGroup").value = ""; return;
+  }
+  if(e.target.id === "btnAddOwn"){
+    if(!me) return pickName(true);
+    await addItem(me, $("addOwn").value); $("addOwn").value = ""; return;
+  }
+
+  if(hit("[data-close]") || e.target.id === "scrim"){ closeSheet(); return; }
+  if(e.target.id === "btnSwitch"){ pickName(false); return; }
+});
+
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape") closeSheet();
+  if(e.key === "Enter"){
+    if(document.activeElement === $("addGroup")) $("btnAddGroup").click();
+    if(document.activeElement === $("addOwn"))   $("btnAddOwn").click();
+  }
+});
+
+/* ============================================================
+   Go
+   ============================================================ */
+(async function start(){
+  store = await makeStore();
+  if(store.kind === "local" && !FIREBASE.projectId) banner("Test mode — saving on this device only.");
+  store.subscribe(list => { items = list; render(); });
+  render();
+  if(!me) pickName(true);
+})();
+
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  addEventListener("load", ()=> navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}
+</script>
+</body>
+</html>

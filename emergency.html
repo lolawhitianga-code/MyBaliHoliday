@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B1730">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bali">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>If it goes wrong · My Bali Holiday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1730; --ink-soft:#4A4266;
+  --sand:#FFF3E2; --sand-deep:#F6E3C8; --line:#E4CDA9;
+  --frangipani:#FF4D8D; --lagoon:#0BA5C7; --marigold:#FF9F1C; --pandan:#16A97C; --dusk:#9B5DE5;
+  --alarm:#D62839;
+  --shadow:0 2px 0 rgba(27,23,48,.10), 0 10px 26px -14px rgba(27,23,48,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--sand);color:var(--ink);
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom));
+}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+.top{
+  position:relative;overflow:hidden;text-align:center;color:#fff;
+  padding:calc(24px + env(safe-area-inset-top)) 20px 26px;
+  background:linear-gradient(172deg,#1B1730 0%,#3A1C3A 55%,#6E2233 100%);
+}
+.top::after{content:'';position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--alarm)}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.7;margin:0 0 6px}
+.wordmark{
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(28px,8vw,42px);
+  line-height:.98;margin:0;font-variation-settings:'SOFT' 40,'WONK' 1;
+}
+
+main{max-width:780px;margin:0 auto;padding:16px 14px 40px}
+h2.sec{
+  font-family:'DM Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-soft);margin:26px 0 10px 2px;
+}
+h2.sec:first-child{margin-top:0}
+
+/* big call buttons */
+.call{
+  display:flex;align-items:center;gap:13px;width:100%;
+  background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:14px 15px;margin-bottom:9px;box-shadow:var(--shadow);
+  transition:transform .12s ease;
+}
+.call:hover{transform:translateY(-2px)}
+.call .ic{
+  width:42px;height:42px;border-radius:12px;flex:none;display:grid;place-items:center;
+  font-size:19px;background:var(--sand-deep);
+}
+.call .t{flex:1;min-width:0}
+.call .t b{display:block;font-size:16px;line-height:1.2}
+.call .t span{font-family:'DM Mono',monospace;font-size:12.5px;color:var(--ink-soft);display:block;margin-top:2px}
+.call .go{font-size:20px;opacity:.35;flex:none}
+.call.red{background:var(--alarm);border-color:var(--alarm);color:#fff}
+.call.red .ic{background:rgba(255,255,255,.18)}
+.call.red .t span{color:rgba(255,255,255,.8)}
+.call.red .go{opacity:.7}
+.call.dark{background:var(--ink);border-color:var(--ink);color:var(--sand)}
+.call.dark .ic{background:rgba(255,255,255,.12)}
+.call.dark .t span{color:rgba(255,243,226,.7)}
+
+/* traveller cards */
+.who{
+  background:#fff;border:1px solid var(--line);border-left:5px solid var(--c);
+  border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);
+}
+.who .hd{display:flex;align-items:center;gap:9px;padding:11px 14px 8px}
+.who .hd i{width:11px;height:11px;border-radius:50%;background:var(--c);flex:none}
+.who .hd b{font-size:16.5px}
+.who .hd .you{
+  margin-left:auto;font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;background:var(--sand-deep);border-radius:999px;padding:2px 8px;color:var(--ink-soft);
+}
+.who .rows{padding:0 14px 6px}
+.who .r{display:flex;align-items:center;gap:9px;padding:6px 0;font-size:14px}
+.who .r + .r{border-top:1px solid rgba(228,205,169,.55)}
+.who .r .k{
+  font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-soft);width:74px;flex:none;
+}
+.who .r .v{flex:1;min-width:0;word-break:break-word}
+.who .r .v.mono{font-family:'DM Mono',monospace;font-size:13px}
+.who .r .v.gap{opacity:.4}
+.mini{
+  border:1px solid var(--line);background:var(--sand);border-radius:8px;
+  padding:4px 10px;font-size:11.5px;font-family:'DM Mono',monospace;flex:none;
+}
+.mini:hover{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+.who .ft{border-top:1px solid var(--line);padding:8px 14px;text-align:center}
+.who .ft button{background:none;border:0;font-size:13px;color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px}
+
+/* reference blocks */
+.ref{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow);margin-bottom:10px}
+.ref b.nm{font-family:'Fraunces',serif;font-weight:700;font-size:17px;display:block}
+.ref .ad{font-size:13.5px;color:var(--ink-soft);margin-top:3px;line-height:1.4}
+.ref .acts{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.ref .who4{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);margin-top:8px;display:flex;align-items:center;gap:5px;flex-wrap:wrap;
+}
+.ref .who4 i{width:8px;height:8px;border-radius:50%;display:block}
+
+.locals{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:4px 15px}
+.locals a{display:flex;align-items:center;gap:10px;padding:10px 0;font-size:15px}
+.locals a + a{border-top:1px solid rgba(228,205,169,.55)}
+.locals .num{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;width:56px;flex:none}
+.locals .lb{flex:1}
+
+.smallprint{
+  font-size:12px;color:var(--ink-soft);line-height:1.55;margin-top:22px;
+  border-top:1px solid var(--line);padding-top:13px;
+}
+
+.buildstamp{
+  text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;
+  color:var(--ink-soft);opacity:.45;margin:26px 0 0;
+}
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:rgba(255,243,226,.94);border-top:1px solid var(--line);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav a{
+  flex:1;text-align:center;padding:8px 2px 9px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.nav b{display:block;font-size:18px;font-weight:400;line-height:1.3;margin-bottom:2px}
+.nav [aria-current="page"]{color:var(--ink);font-weight:500}
+
+.scrim{
+  position:fixed;inset:0;background:rgba(27,23,48,.55);z-index:70;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .18s ease;
+}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{
+  background:var(--sand);width:100%;max-width:520px;max-height:92vh;overflow-y:auto;
+  border-radius:20px 20px 0 0;padding:20px 18px calc(28px + env(safe-area-inset-bottom));
+  transform:translateY(14px);transition:transform .2s ease;
+}
+.scrim.on .sheet{transform:none}
+.sheet h3{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:0 0 3px}
+.sheet .sub{font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin:0 0 14px}
+label{display:block;font-size:12px;font-weight:500;letter-spacing:.04em;margin:12px 0 5px}
+input{
+  width:100%;font:inherit;font-size:16px;padding:10px 12px;
+  border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);
+}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tip{font-family:'DM Mono',monospace;font-size:11px;opacity:.6;margin:6px 0 0;line-height:1.5}
+.quick{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.quick button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font-size:12.5px}
+.namegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:9px;margin-top:6px}
+.namegrid button{
+  padding:13px 8px;border-radius:12px;border:2px solid var(--line);background:#fff;
+  font-weight:600;font-size:15px;display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.namegrid button i{width:18px;height:18px;border-radius:50%;display:block}
+.sheetfoot{display:flex;gap:9px;margin-top:20px;padding-bottom:4px}
+.sheetfoot .btn{flex:1;border:1px solid var(--ink);background:var(--ink);color:var(--sand);border-radius:10px;padding:11px;font-weight:500}
+.sheetfoot .btn.ghost{background:transparent;color:var(--ink)}
+
+.banner{margin:12px 14px 0;padding:10px 13px;border-radius:11px;font-size:13px;background:#FFF0C2;border:1px solid #E8C766}
+.toast{
+  position:fixed;left:50%;bottom:84px;transform:translate(-50%,12px);
+  background:var(--ink);color:var(--sand);padding:11px 18px;border-radius:999px;
+  font-size:14px;z-index:95;opacity:0;pointer-events:none;transition:all .2s ease;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.hide{display:none !important}
+:focus-visible{outline:3px solid var(--lagoon);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <p class="eyebrow">hopefully never needed</p>
+  <h1 class="wordmark">If it goes wrong</h1>
+</header>
+
+<div id="banner" class="banner hide"></div>
+
+<main>
+
+  <h2 class="sec">Straight away</h2>
+  <a class="call red" href="tel:112">
+    <span class="ic">🚨</span>
+    <span class="t"><b>Emergency services</b><span>112 · works from any phone in Indonesia</span></span>
+    <span class="go">→</span>
+  </a>
+  <a class="call dark" href="tel:+623613000911">
+    <span class="ic">🏥</span>
+    <span class="t"><b>BIMC Hospital — 24hr emergency</b><span>+62 361 3000 911 · English-speaking, used to tourists</span></span>
+    <span class="go">→</span>
+  </a>
+  <div id="myIns"></div>
+
+  <h2 class="sec">Everyone's details</h2>
+  <div id="people"></div>
+
+  <h2 class="sec">Hospitals</h2>
+
+  <div class="ref">
+    <b class="nm">BIMC Hospital Kuta</b>
+    <div class="ad">Jl. By Pass Ngurah Rai 100X, Simpang Siur, Kuta — closest to the airport and the Seminyak side.</div>
+    <div class="acts">
+      <a class="mini" href="tel:+623613000911">Call</a>
+      <a class="mini" href="https://www.google.com/maps/search/?api=1&query=BIMC%20Hospital%20Kuta%20Bali" target="_blank" rel="noopener">Map</a>
+    </div>
+  </div>
+
+  <div class="ref">
+    <b class="nm">BIMC Siloam Nusa Dua</b>
+    <div class="ad">Kawasan BTDC Blok D, Nusa Dua — bigger, has intensive care, handles medical evacuations.</div>
+    <div class="acts">
+      <a class="mini" href="tel:+623613000911">Call</a>
+      <a class="mini" href="https://wa.me/628113896113" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="mini" href="https://www.google.com/maps/search/?api=1&query=BIMC%20Siloam%20Nusa%20Dua" target="_blank" rel="noopener">Map</a>
+    </div>
+  </div>
+
+  <h2 class="sec">Consulates</h2>
+
+  <div class="ref">
+    <b class="nm">Australian Consulate-General, Bali</b>
+    <div class="ad">Jl. Tantular 32, Renon, Denpasar. Open Mon–Fri 8am–4pm. Out of hours, call the same number, press 4, wait for the recording, then press 6.</div>
+    <div class="acts">
+      <a class="mini" href="tel:+623612000100">+62 361 2000 100</a>
+      <a class="mini" href="tel:+61262613305">Canberra 24hr</a>
+      <a class="mini" href="https://www.google.com/maps/search/?api=1&query=Australian%20Consulate-General%20Denpasar%20Bali" target="_blank" rel="noopener">Map</a>
+    </div>
+    <div class="who4" id="auWho"></div>
+  </div>
+
+  <div class="ref">
+    <b class="nm">New Zealand Embassy, Jakarta</b>
+    <div class="ad">There's no NZ consulate in Bali — the honorary consul position is in transition, so everything goes through Jakarta. The after-hours line is answered in New Zealand, 24 hours.</div>
+    <div class="acts">
+      <a class="mini" href="tel:+622129955800">Jakarta office</a>
+      <a class="mini" href="tel:+6499202020">24hr +64 9 920 2020</a>
+    </div>
+    <div class="who4" id="nzWho"></div>
+  </div>
+
+  <h2 class="sec">Local numbers</h2>
+  <div class="locals">
+    <a href="tel:112"><span class="num">112</span><span class="lb">Everything — the one to dial first</span></a>
+    <a href="tel:110"><span class="num">110</span><span class="lb">Police</span></a>
+    <a href="tel:118"><span class="num">118</span><span class="lb">Ambulance</span></a>
+    <a href="tel:115"><span class="num">115</span><span class="lb">Search and rescue</span></a>
+  </div>
+
+  <p class="smallprint">
+    The hospital, consulate and local numbers here were checked in July 2026. Everything else on this page is whatever you've typed in.
+    Worth someone ringing the insurance line once before you fly, just to know it answers.
+  </p>
+  <p class="buildstamp">build v75</p>
+</main>
+
+<nav class="nav">
+  <a href="home.html"><b>🏝</b>Home</a>
+  <a href="planner.html"><b>🗓</b>Plan</a>
+  <a href="flights.html"><b>✈️</b>Fly</a>
+  <a href="stays.html"><b>🛏</b>Stay</a>
+  <a href="money.html"><b>💸</b>Money</a>
+  <a href="photos.html"><b>📸</b>Photos</a>
+</nav>
+
+<div class="scrim" id="scrim"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+/* ============================================================
+   Settings — same block as the other pages
+   ============================================================ */
+const FIREBASE = {
+  apiKey: "AIzaSyB1NnJlvpL_dv7aPrAeFGtl5MM1oSa1YPk",
+  authDomain: "mybaliholiday-5170c.firebaseapp.com",
+  projectId: "mybaliholiday-5170c",
+  storageBucket: "mybaliholiday-5170c.firebasestorage.app",
+  messagingSenderId: "29285891302",
+  appId: "1:29285891302:web:9497074c278aed8c0ccf27"
+};
+
+const TRAVELLERS = [
+  { name:"Mark",   colour:"#0BA5C7", from:"AKL", side:"nz" },
+  { name:"Claire", colour:"#FF9F1C", from:"SYD", side:"au" },
+  { name:"Clare",  colour:"#16A97C", from:"AKL", side:"nz" },
+  { name:"Kylie",  colour:"#9B5DE5", from:"ADL", side:"au" },
+  { name:"Alice",  colour:"#FF4D8D", from:"SYD", side:"au" }
+];
+
+/* Southern Cross Emergency Assistance, 24/7 — checked July 2026 */
+const SCTI_NZ = "+6493591600";
+const SCTI_AU = "+61291911180";
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const traveller = n => TRAVELLERS.find(t=>t.name===n) || { name:n||"Someone", colour:"#4A4266", side:"nz" };
+const tel = s => String(s||"").replace(/[^\d+]/g,"");
+const withTimeout = (p, ms=8000) => Promise.race([
+  p, new Promise((_,rej)=>setTimeout(()=>rej(new Error("Took too long to reach the server")), ms))
+]);
+
+let store, records = [], editing = null;
+let me = localStorage.getItem("mbh_me") || null;
+if(me && !TRAVELLERS.some(t => t.name === me)){ me = null; localStorage.removeItem("mbh_me"); }
+
+const recFor = n => records.find(r => r.who === n) || {};
+
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("on");
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove("on"), 2600);
+}
+function banner(msg){ const b = $("banner"); b.textContent = msg; b.classList.remove("hide"); }
+
+/* ============================================================
+   Storage
+   ============================================================ */
+async function makeStore(){
+  if(!FIREBASE.projectId) return localStore();
+  try{
+    const [{ initializeApp }, fs, fa] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")
+    ]);
+    const app = initializeApp(FIREBASE);
+    try{ await withTimeout(fa.signInAnonymously(fa.getAuth(app)), 8000); }catch(e){ /* open rules */ }
+    const db = fs.initializeFirestore(app, {
+      localCache: fs.persistentLocalCache({ tabManager: fs.persistentMultipleTabManager() })
+    });
+    const col = fs.collection(db, "emergency");
+    return {
+      kind:"cloud",
+      subscribe(cb){
+        fs.onSnapshot(col,
+          snap => cb(snap.docs.map(d=>({ id:d.id, ...d.data() }))),
+          err  => banner("Can't reach the shared details right now — " + (err.code || err.message))
+        );
+      },
+      add:    v => withTimeout(fs.addDoc(col, { ...v, createdAt: Date.now() })),
+      update: (id,v) => withTimeout(fs.updateDoc(fs.doc(db,"emergency",id), v))
+    };
+  }catch(e){
+    banner("Couldn't reach the shared details, so this is saving on your device only.");
+    return localStore();
+  }
+}
+
+function localStore(){
+  const KEY = "mbh_emergency_v1";
+  const read = () => JSON.parse(localStorage.getItem(KEY) || "[]");
+  const write = v => localStorage.setItem(KEY, JSON.stringify(v));
+  let cb = ()=>{};
+  const push = () => cb(read());
+  return {
+    kind:"local",
+    subscribe(fn){ cb = fn; push(); },
+    add(v){ const d = read(); d.push({ ...v, id:"x"+Date.now()+Math.random().toString(36).slice(2,6) }); write(d); push(); },
+    update(id,v){ const d = read(); const i = d.find(x=>x.id===id); if(i) Object.assign(i,v); write(d); push(); }
+  };
+}
+
+/* ============================================================
+   Render
+   ============================================================ */
+function row(k, v, action){
+  return `<div class="r">
+    <span class="k">${k}</span>
+    <span class="v ${v ? (k==="Policy"||k==="Phone" ? "mono" : "") : "gap"}">${v ? esc(v) : "not filled in"}</span>
+    ${action || ""}
+  </div>`;
+}
+
+function render(){
+  // my own insurance line, right at the top where it's needed
+  const myRec = me ? recFor(me) : {};
+  const fallback = traveller(me).side === "au" ? SCTI_AU : SCTI_NZ;
+  const line = myRec.insLine ? tel(myRec.insLine) : fallback;
+  const label = myRec.insurer || "Southern Cross Travel Insurance";
+  $("myIns").innerHTML = `<a class="call" href="tel:${esc(line)}">
+    <span class="ic">🛟</span>
+    <span class="t"><b>${esc(label)} — 24hr assistance</b>
+      <span>${esc(myRec.insLine || (traveller(me).side === "au" ? "+61 2 9191 1180" : "+64 9 359 1600"))}${me ? " · " + esc(me) + "'s" : ""}</span></span>
+    <span class="go">→</span>
+  </a>`;
+
+  // everyone's cards
+  $("people").innerHTML = TRAVELLERS.map(t=>{
+    const r = recFor(t.name);
+    const insLine = r.insLine || (t.side === "au" ? "+61 2 9191 1180" : "+64 9 359 1600");
+    return `<article class="who" style="--c:${t.colour}">
+      <div class="hd"><i></i><b>${esc(t.name)}</b>${t.name===me ? `<span class="you">you</span>` : ""}</div>
+      <div class="rows">
+        ${row("Insurer", r.insurer || "Southern Cross Travel Insurance")}
+        ${row("Policy", r.policy)}
+        ${row("24hr line", insLine, `<a class="mini" href="tel:${esc(tel(insLine))}">Call</a>`)}
+        ${row("In an emergency call", r.kinName)}
+        ${row("Their phone", r.kinPhone, r.kinPhone ? `<a class="mini" href="tel:${esc(tel(r.kinPhone))}">Call</a>` : "")}
+      </div>
+      <div class="ft"><button data-edit="${esc(t.name)}">${t.name===me ? "Fill in yours" : "Edit " + esc(t.name) + "'s"}</button></div>
+    </article>`;
+  }).join("");
+
+  // who each consulate is for
+  const chips = side => TRAVELLERS.filter(t=>t.side===side)
+    .map(t=>`<i style="background:${t.colour}"></i>${esc(t.name)}`).join(" ");
+  $("auWho").innerHTML = "For " + chips("au");
+  $("nzWho").innerHTML = "For " + chips("nz");
+}
+
+/* ============================================================
+   Sheets
+   ============================================================ */
+function openSheet(html){ $("sheet").innerHTML = html; $("scrim").classList.add("on"); }
+function closeSheet(){ $("scrim").classList.remove("on"); editing = null; }
+
+function pickName(){
+  openSheet(`<h3>Who's this?</h3>
+    <p class="sub">so your own details sit up top</p>
+    <div class="namegrid">
+      ${TRAVELLERS.map(t=>`<button data-me="${t.name}"><i style="background:${t.colour}"></i>${t.name}</button>`).join("")}
+    </div>
+    <div class="sheetfoot"><button class="btn ghost" data-close>Cancel</button></div>`);
+}
+
+function detailSheet(name){
+  const t = traveller(name);
+  const r = recFor(name);
+  editing = r.id || null;
+  openSheet(`
+    <h3>${esc(name)}'s details</h3>
+    <p class="sub">everyone can see these</p>
+
+    <label for="dIns">Insurer</label>
+    <input id="dIns" value="${esc(r.insurer || "Southern Cross Travel Insurance")}" autocomplete="off">
+
+    <label for="dPol">Policy number</label>
+    <input id="dPol" value="${esc(r.policy)}" placeholder="from your certificate of insurance" autocomplete="off">
+
+    <label for="dLine">24 hour assistance line</label>
+    <input id="dLine" value="${esc(r.insLine || (t.side === "au" ? "+61 2 9191 1180" : "+64 9 359 1600"))}" autocomplete="off">
+    <div class="quick">
+      <button type="button" data-fill="+64 9 359 1600">Southern Cross NZ</button>
+      <button type="button" data-fill="+61 2 9191 1180">Southern Cross AU</button>
+    </div>
+    <p class="tip">Check it against your own policy documents — the line differs by policy and by country.</p>
+
+    <label for="dKin">In an emergency, who do we call at home?</label>
+    <input id="dKin" value="${esc(r.kinName)}" placeholder="Name and how they know you" autocomplete="off">
+
+    <label for="dKinP">Their phone</label>
+    <input id="dKinP" value="${esc(r.kinPhone)}" placeholder="+64 ..." autocomplete="off">
+
+    <div class="sheetfoot">
+      <button class="btn ghost" data-close>Cancel</button>
+      <button class="btn" data-save="${esc(name)}">Save</button>
+    </div>`);
+  setTimeout(()=>$("dPol").focus(), 60);
+}
+
+/* ============================================================
+   Events
+   ============================================================ */
+document.addEventListener("click", async e => {
+  const hit = s => e.target.closest(s);
+
+  const mePick = hit("[data-me]");
+  if(mePick){ me = mePick.dataset.me; localStorage.setItem("mbh_me", me); closeSheet(); render(); return; }
+
+  const ed = hit("[data-edit]");
+  if(ed){ detailSheet(ed.dataset.edit); return; }
+
+  const fill = hit("[data-fill]");
+  if(fill){ $("dLine").value = fill.dataset.fill; return; }
+
+  const sv = hit("[data-save]");
+  if(sv){
+    const v = {
+      who:      sv.dataset.save,
+      insurer:  $("dIns").value.trim(),
+      policy:   $("dPol").value.trim(),
+      insLine:  $("dLine").value.trim(),
+      kinName:  $("dKin").value.trim(),
+      kinPhone: $("dKinP").value.trim()
+    };
+    try{
+      if(editing) await store.update(editing, v); else await store.add(v);
+      closeSheet(); toast("Saved");
+    }catch(err){ toast(err.message); }
+    return;
+  }
+
+  if(hit("[data-close]") || e.target.id === "scrim"){ closeSheet(); return; }
+});
+
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeSheet(); });
+
+/* ============================================================
+   Go
+   ============================================================ */
+(async function start(){
+  render();
+  store = await makeStore();
+  if(store.kind === "local" && !FIREBASE.projectId) banner("Test mode — saving on this device only.");
+  store.subscribe(list => { records = list; render(); });
+  if(!me) pickName();
+})();
+
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  addEventListener("load", ()=> navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}
+</script>
+</body>
+</html>

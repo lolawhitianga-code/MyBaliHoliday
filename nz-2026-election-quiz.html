@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NZ 2026: Where Do You Stand?</title>
+<style>
+  :root{
+    --paper:#FBFAF6;
+    --ink:#1A2238;
+    --ink-soft:#4A5170;
+    --line:#D8D5C8;
+    --seal:#7A1F2B;
+    --seal-soft:#F3E4E2;
+    --brass:#9C7A34;
+    --brass-soft:#F1E9D6;
+    --card:#FFFFFF;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(26,34,56,0.025) 0px, rgba(26,34,56,0.025) 1px, transparent 1px, transparent 3px),
+      url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27240%27%20height%3D%27240%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%239C7A34%27%20stroke-width%3D%272.2%27%20stroke-linecap%3D%27round%27%3E%20%20%3Cpath%20d%3D%27M18%2C150%20C16%2C118%2042%2C96%2070%2C104%20C92%2C110%2097%2C132%2082%2C141%20C70%2C148%2058%2C140%2062%2C128%20C65%2C120%2074%2C121%2075%2C128%27/%3E%20%20%3Cpath%20d%3D%27M175%2C18%20L172%2C132%27/%3E%20%20%3Cpath%20d%3D%27M172%2C30%20L200%2C17%20M172%2C30%20L145%2C20%27/%3E%20%20%3Cpath%20d%3D%27M172%2C46%20L203%2C32%20M172%2C46%20L142%2C35%27/%3E%20%20%3Cpath%20d%3D%27M172%2C62%20L205%2C49%20M172%2C62%20L140%2C51%27/%3E%20%20%3Cpath%20d%3D%27M172%2C78%20L203%2C66%20M172%2C78%20L142%2C68%27/%3E%20%20%3Cpath%20d%3D%27M172%2C94%20L199%2C83%20M172%2C94%20L146%2C85%27/%3E%20%20%3Cpath%20d%3D%27M172%2C110%20L192%2C101%20M172%2C110%20L153%2C102%27/%3E%3C/g%3E%3Cpath%20d%3D%27M55%2C205%20l3%2C8%20l8%2C1.5%20l-6.4%2C5%20l1.6%2C8%20l-6.4%2C-5%20l-6.4%2C5%20l1.6%2C-8%20l-6.4%2C-5%20l8%2C-1.5%20z%27%20fill%3D%27%237A1F2B%27/%3E%3Cpath%20d%3D%27M145%2C190%20l2.4%2C6.4%20l6.4%2C1.2%20l-5.1%2C4%20l1.3%2C6.4%20l-5.1%2C-4%20l-5.1%2C4%20l1.3%2C-6.4%20l-5.1%2C-4%20l6.4%2C-1.2%20z%27%20fill%3D%27%239C7A34%27/%3E%3C/svg%3E");
+    background-size: auto, 240px 240px;
+    background-repeat: repeat, repeat;
+    color:var(--ink);
+    font-family:Georgia,'Times New Roman',serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* kiwiana trim — the pattern above sits at full colour in the paths themselves,
+     it's the tile's own line weight that keeps it from overpowering the text,
+     not a low-opacity wash */
+  header{ position:relative; overflow:hidden; isolation:isolate; }
+  .hero-fern{
+    position:absolute; inset:0; width:100%; height:100%;
+    z-index:-1; pointer-events:none;
+  }
+  .eyebrow-row{ display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:6px; }
+  .kiwi-icon{ width:30px; height:23px; flex:none; }
+  .fern-mark{ width:52px; height:23px; display:block; margin:0 auto 6px; opacity:.85; }
+  .paua-bar{
+    height:7px; margin:0 0 22px; border-radius:4px;
+    background:linear-gradient(100deg,#1A2238 0%,#2E5C6E 22%,#3E8E7E 42%,#6B4E8E 62%,#7A1F2B 82%,#9C7A34 100%);
+    background-size:220% 100%;
+  }
+  .corrugated{
+    height:12px; margin-top:26px; border-radius:2px;
+    background:repeating-linear-gradient(115deg, #D8D5C8 0 4px, #EDEBE1 4px 8px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(26,34,56,.08);
+  }
+  @media (max-width:420px){ .hero-fern{ opacity:.8; } }
+  .sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{
+    max-width:600px;
+    margin:0 auto;
+    padding:20px 18px 60px;
+    min-height:100vh;
+  }
+  header{
+    text-align:center;
+    padding:18px 0 4px;
+    margin-bottom:22px;
+  }
+  .eyebrow{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:11px;
+    color:var(--seal);
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  h1{
+    font-size:1.7rem;
+    margin:0 0 6px;
+    letter-spacing:-0.3px;
+    line-height:1.15;
+  }
+  .sub{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+  }
+  .progress-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:16px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+  }
+  .progress-track{
+    flex:1;
+    height:6px;
+    background:var(--line);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    background:var(--brass);
+    width:0%;
+    transition:width .35s ease;
+  }
+  .topic-tag{
+    display:inline-block;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:11px;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--brass);
+    background:var(--brass-soft);
+    padding:4px 10px;
+    border-radius:20px;
+    margin-bottom:12px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px 20px 18px;
+    box-shadow:0 1px 0 rgba(26,34,56,0.04);
+  }
+  .prompt{
+    font-size:1.18rem;
+    line-height:1.35;
+    margin:0 0 18px;
+  }
+  .options{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .opt{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:13px 14px;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    cursor:pointer;
+    transition:border-color .15s, background .15s;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:0.92rem;
+    line-height:1.4;
+    color:var(--ink);
+  }
+  .opt:active{background:var(--seal-soft);}
+  .opt.selected{
+    border-color:var(--seal);
+    background:var(--seal-soft);
+  }
+  .box{
+    flex:none;
+    width:22px;height:22px;
+    border:2px solid var(--ink-soft);
+    border-radius:4px;
+    position:relative;
+    margin-top:1px;
+  }
+  .opt.selected .box{border-color:var(--seal);}
+  .box svg{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    stroke:var(--seal);
+    stroke-width:3;
+    fill:none;
+    stroke-dasharray:24;
+    stroke-dashoffset:24;
+    transition:stroke-dashoffset .25s ease;
+  }
+  .opt.selected .box svg{stroke-dashoffset:0;}
+  .nav-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:22px;
+    gap:10px;
+  }
+  button{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:0.9rem;
+    font-weight:600;
+    border-radius:8px;
+    padding:12px 20px;
+    border:none;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  button:focus-visible{outline:3px solid var(--brass); outline-offset:2px;}
+  .btn-primary{
+    background:var(--ink);
+    color:var(--paper);
+    flex:1;
+  }
+  .btn-primary:disabled{
+    background:#B9BCC7;
+    cursor:not-allowed;
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink-soft);
+    padding:12px 8px;
+  }
+  .results h2{
+    font-size:1.4rem;
+    margin:0 0 4px;
+  }
+  .results h3{
+    font-size:1.05rem;
+    margin:28px 0 10px;
+    border-top:2px solid var(--ink);
+    padding-top:16px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .results h3::before{
+    content:"";
+    width:30px; height:14px; flex:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 40'%3E%3Cg fill='none' stroke='%239C7A34' stroke-width='4' stroke-linecap='round'%3E%3Cpath d='M6,36 L6,4'/%3E%3Cpath d='M6,10 L26,3 M6,10 L-8,4'/%3E%3Cpath d='M6,18 L30,10 M6,18 L-11,11'/%3E%3Cpath d='M6,26 L26,20 M6,26 L-8,20'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-size:contain;
+  }
+  .rank{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:14px 4px;
+    border-bottom:1px solid var(--line);
+  }
+  .rank:last-child{border-bottom:none;}
+  .rank-num{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-weight:800;
+    font-size:1.1rem;
+    color:var(--brass);
+    width:24px;
+    flex:none;
+  }
+  .rank-body{flex:1;}
+  .rank-name{font-size:1.05rem; font-weight:700; margin:0 0 2px;}
+  .rank-bar-track{
+    height:8px;
+    background:var(--line);
+    border-radius:4px;
+    overflow:hidden;
+    margin:5px 0 6px;
+  }
+  .rank-bar-fill{
+    height:100%;
+    background:var(--seal);
+    border-radius:4px;
+  }
+  .rank-desc{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:0.8rem;
+    color:var(--ink-soft);
+    line-height:1.4;
+  }
+  .note-box{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    background:var(--brass-soft);
+    border-radius:10px;
+    padding:14px 16px;
+    margin-top:20px;
+    line-height:1.5;
+  }
+  .note-box b{color:var(--ink);}
+  .links{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:0.82rem;
+    margin-top:10px;
+    line-height:1.7;
+  }
+  .links a{color:var(--seal); text-decoration:none; border-bottom:1px solid var(--seal);}
+  .manifesto-list{
+    list-style:none;
+    margin:0; padding:0;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:0.86rem;
+  }
+  .manifesto-list li{
+    padding:11px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .manifesto-list li:last-child{border-bottom:none;}
+  .manifesto-list .pname{font-weight:700;}
+  .manifesto-list a{color:var(--seal); word-break:break-all;}
+  .qa-item{
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  }
+  .qa-item:last-child{border-bottom:none;}
+  .qa-q{font-size:0.78rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.5px; margin:0 0 3px;}
+  .qa-a{font-size:0.9rem; margin:0 0 4px; font-family:Georgia,serif; line-height:1.4;}
+  .qa-src{font-size:0.76rem;}
+  .qa-src a{color:var(--seal);}
+  .qa-tag{
+    display:inline-block;
+    font-size:10px;
+    font-weight:700;
+    color:var(--brass);
+    background:var(--brass-soft);
+    padding:2px 7px;
+    border-radius:10px;
+    margin-right:6px;
+  }
+  .restart{
+    display:block;
+    width:100%;
+    margin-top:22px;
+    background:transparent;
+    border:1.5px solid var(--ink);
+    color:var(--ink);
+  }
+  footer{
+    text-align:center;
+    margin-top:26px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="hero-fern" viewBox="0 0 600 220" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <g fill="none" stroke="#9C7A34" stroke-width="3" stroke-linecap="round" opacity="0.5">
+    <path d="M40,210 C36,150 90,110 150,124 C196,135 206,182 172,200 C146,213 118,196 128,170 C134,154 154,157 156,172"/>
+    <path d="M60,210 L58,20"/>
+    <path d="M58,40 L100,18 M58,40 L18,24"/>
+    <path d="M58,62 L106,42 M58,62 L14,46"/>
+    <path d="M58,84 L110,66 M58,84 L10,68"/>
+    <path d="M58,106 L108,90 M58,106 L12,90"/>
+    <path d="M58,128 L102,114 M58,128 L18,114"/>
+    <path d="M58,150 L92,140 M58,150 L28,140"/>
+    <path d="M58,170 L82,163 M58,170 L38,163"/>
+  </g>
+  <g fill="none" stroke="#7A1F2B" stroke-width="3" stroke-linecap="round" opacity="0.42">
+    <path d="M540,215 L538,55"/>
+    <path d="M538,72 L575,52 M538,72 L502,55"/>
+    <path d="M538,92 L580,74 M538,92 L498,76"/>
+    <path d="M538,112 L582,96 M538,112 L496,97"/>
+    <path d="M538,132 L578,117 M538,132 L500,118"/>
+    <path d="M538,152 L568,140 M538,152 L510,141"/>
+    <path d="M538,172 L556,164 M538,172 L522,164"/>
+  </g>
+  <g fill="#9C7A34" opacity="0.55">
+    <ellipse cx="420" cy="150" rx="34" ry="24"/>
+    <path d="M388,142 C368,140 354,148 344,158" stroke="#9C7A34" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="405" cy="136" r="2.6" fill="#FBFAF6"/>
+    <path d="M410,128 l4,-7 M420,124 l3,-8 M430,126 l4,-7" stroke="#9C7A34" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g fill="#1A2238" opacity="0.4">
+    <path d="M300,30 l3,8 l8.4,1.4 l-6.7,5.3 l1.7,8.3 l-6.7,-5 l-6.7,5 l1.7,-8.3 l-6.7,-5.3 l8.4,-1.4 z"/>
+    <path d="M250,60 l2.2,5.8 l6,1 l-4.8,3.8 l1.2,6 l-4.8,-3.6 l-4.8,3.6 l1.2,-6 l-4.8,-3.8 l6,-1 z"/>
+    <path d="M340,15 l1.8,4.6 l4.8,0.8 l-3.8,3 l1,4.8 l-3.8,-2.9 l-3.8,2.9 l1,-4.8 l-3.8,-3 l4.8,-0.8 z"/>
+  </g>
+</svg>
+    <div class="eyebrow-row">
+      <svg class="kiwi-icon" viewBox="0 0 44 34" aria-hidden="true">
+  <ellipse cx="24" cy="20" rx="17" ry="12" fill="#1A2238"/>
+  <path d="M8,15 C1,14 -3,17 -6,21" stroke="#1A2238" stroke-width="4.5" fill="none" stroke-linecap="round" transform="translate(6,0)"/>
+  <circle cx="13" cy="13" r="1.8" fill="#FBFAF6"/>
+  <path d="M20,7 l3,-6 M27,5 l2.4,-6.4 M34,7 l3,-6" stroke="#1A2238" stroke-width="2.6" stroke-linecap="round"/>
+</svg>
+      <div class="eyebrow sans">General Election · 7 November 2026</div>
+    </div>
+    <h1>Where do you stand?</h1>
+    <div class="sub">20 questions on real, published 2026 policy — not slogans. Pick the option closest to your own view on each.</div>
+    <div class="paua-bar"></div>
+  </header>
+
+  <div id="quiz-screen">
+    <div class="progress-row">
+      <span id="progress-label">Question 1 of 20</span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <div class="topic-tag" id="topic-tag"></div>
+    <div class="card">
+      <p class="prompt" id="prompt"></p>
+      <ul class="options" id="options"></ul>
+    </div>
+    <div class="nav-row">
+      <button class="btn-ghost" id="back-btn">← Back</button>
+      <button class="btn-primary" id="next-btn" disabled>Next</button>
+    </div>
+  </div>
+
+  <div id="results-screen" class="results" style="display:none;"></div>
+
+  <div class="corrugated"></div>
+  <footer>Not affiliated with any party or the Electoral Commission. Built from each party's own published 2026 material, checked mid-August 2026 — always confirm details with the party or on <span class="sans">vote.nz</span> before voting.</footer>
+</div>
+
+<script>
+const PARTIES = {
+  NAT: {name:"National", desc:"Centre-right. Currently leads the governing coalition with ACT and NZ First.", manifesto:"https://www.national.org.nz/plan"},
+  LAB: {name:"Labour", desc:"Centre-left. Largest opposition party.", manifesto:"https://www.labour.org.nz/our-policies/"},
+  GRN: {name:"Green Party", desc:"Left-wing, environment-focused.", manifesto:"https://www.greens.org.nz/manifesto_2026"},
+  ACT: {name:"ACT", desc:"Classical-liberal / libertarian-leaning. Part of the governing coalition.", manifesto:"https://www.act.org.nz/policies"},
+  NZF: {name:"NZ First", desc:"Nationalist, socially conservative. Part of the governing coalition.", manifesto:"https://www.nzfirst.nz/policy"},
+  MRI: {name:"Te Pāti Māori", desc:"Built around Māori self-determination (tino rangatiratanga).", manifesto:"https://www.maoriparty.org.nz/policies.rss"},
+  TOP: {name:"The Opportunity Party", desc:"Centrist, evidence/policy-driven. No current seats.", manifesto:"https://www.opportunity.org.nz/tax-reset"}
+};
+
+const QUESTIONS = [
+{topic:"Economy & tax", prompt:"Which approach to tax and spending is closest to what you want?", options:[
+  {t:"Cut income tax, restrain new spending, and prioritise returning to surplus and paying down debt.", p:"NAT", src:"https://www.national.org.nz/policies/rebuilding-the-economy"},
+  {t:"Add a 28% capital gains tax on profits from selling investment property (family home excluded) to fund services.", p:"LAB", src:"https://www.labour.org.nz/our-policies/"},
+  {t:"Make the first $10,000 of income tax-free, and tax high wealth (2.5% above $10m net assets) and large inheritances instead.", p:"GRN", src:"https://www.greens.org.nz/tax_system_for_all"},
+  {t:"Shrink government to core services only, and keep taxes as low as possible across the board.", p:"ACT", src:"https://www.act.org.nz/policies/economy"},
+  {t:"Replace part of income tax with a land value tax, and reset income tax bands to 28/34/39%.", p:"TOP", src:"https://www.opportunity.org.nz/tax-reset"}
+]},
+{topic:"Economy & tax", prompt:"What should happen with KiwiSaver (retirement savings)?", options:[
+  {t:"Make it compulsory for all employees from 2028, lifting contributions to 12% by 2032.", p:"NAT", src:"https://www.national.org.nz/kiwisaver"},
+  {t:"Create a new compulsory \"KiwiSaver 2.0\" with lower 6% employer and employee contributions.", p:"TOP", src:"https://www.opportunity.org.nz/tax-reset"},
+  {t:"Leave it voluntary — people should choose whether and how much to save.", p:"ACT", src:"https://www.act.org.nz/policies/economy"},
+  {t:"Not a priority issue for me either way.", p:null, src:null}
+]},
+{topic:"Economy & tax", prompt:"Supermarkets, power companies and banks — what should government do?", options:[
+  {t:"Break up the supermarket duopoly, split power companies' generation from retail, and buy back the Bank of New Zealand.", p:"NZF", src:"https://web.archive.org/web/20260801053613/https://www.nzfirst.nz/power_to_the_people_sotn_2026"},
+  {t:"Stay out of ownership questions — focus on cutting red tape, not restructuring or buying businesses.", p:"ACT", src:"https://www.act.org.nz/policies/economy"},
+  {t:"Push for more competition through regulation, without government taking ownership stakes.", p:null, src:null},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Health", prompt:"On GP visits and prescription costs, which do you support?", options:[
+  {t:"Three free GP visits a year for everyone, and scrap the $5 prescription charge.", p:"LAB", src:"https://www.labour.org.nz/election-policy-pages/free-prescriptions/"},
+  {t:"Put new health funding into screening and child health — earlier bowel screening, more child palliative care and medicine funding.", p:"NAT", src:"https://www.national.org.nz/plan"},
+  {t:"Focus new money on cutting wait times and workforce shortages rather than new free services.", p:null, src:null},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Health", prompt:"How should the health and justice systems treat Māori-specific outcomes?", options:[
+  {t:"Rebuild Māori-led health and justice services, with a focus on prevention, cultural safety and reducing mass imprisonment.", p:"MRI", src:"https://www.maoriparty.org.nz/health"},
+  {t:"Run one universal system applied the same way to everyone, regardless of ethnicity.", p:null, src:null},
+  {t:"Somewhere in between, depending on the evidence for what works.", p:null, src:null},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Roads & transport", prompt:"Where should transport investment be prioritised?", options:[
+  {t:"Finish the programme of 17 \"Roads of National Significance\" (major highways) and freight corridors.", p:"NAT", src:"https://www.national.org.nz/plan"},
+  {t:"Cap weekly public transport fares at $20, with unlimited trips after that.", p:"LAB", src:"https://www.labour.org.nz/news/release-labour-to-deliver-unlimited-public-transport-for-20-max-a-week/"},
+  {t:"Prioritise public transport and nature over building new highways.", p:"GRN", src:"https://web.archive.org/web/20260728044341/https://www.greens.org.nz/manifesto_2026"},
+  {t:"Roughly a balance of both roads and public transport.", p:null, src:null}
+]},
+{topic:"Housing", prompt:"How should the rental market be regulated?", options:[
+  {t:"Cap rent increases at 2% a year, restrict no-cause terminations, set a minimum rental quality standard, and build much more public housing.", p:"GRN", src:"https://web.archive.org/web/20260410090203/https://www.greens.org.nz/greens_announce_plan_to_end_homelessness_fix_housing_crisis"},
+  {t:"Build more public and affordable housing, and remove barriers to building on Māori-owned land.", p:"MRI", src:"https://web.archive.org/web/20260804114427/https://www.maoriparty.org.nz/housing"},
+  {t:"Focus on boosting housing supply rather than capping rents directly — let the market adjust.", p:null, src:null},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Housing", prompt:"What's the better fix for house prices and supply?", options:[
+  {t:"Accept prices may need to fall, simplify zoning and consenting, and build a lot more housing.", p:"TOP", src:"https://web.archive.org/web/20260728043705/https://www.opportunity.org.nz/affordable_housing"},
+  {t:"Build more public/affordable housing and remove barriers to building on Māori land.", p:"MRI", src:"https://web.archive.org/web/20260804114427/https://www.maoriparty.org.nz/housing"},
+  {t:"Be cautious about supply-side changes that could reduce existing homeowners' equity.", p:null, src:null},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Immigration", prompt:"What should happen to migrants convicted of serious crimes?", options:[
+  {t:"Extend how long a resident-visa holder stays liable for deportation after serious offending, from 10 to 20 years.", p:"NAT", src:"https://www.national.org.nz/news/20260318-hon-erica-stanford-immigration-bill-to-hold-people-accountable-for-serious-offending"},
+  {t:"Remove the time limit entirely for anyone convicted of an offence carrying 10+ years, regardless of how long they've lived here.", p:"ACT", src:"https://www.act.org.nz/news/making-immigration-work-for-new-zealand"},
+  {t:"Keep the current settings as they are.", p:null, src:null},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Immigration", prompt:"On work visas and residence pathways, which is closest to your view?", options:[
+  {t:"Keep the new Skilled Work Experience and Trades/Technician residence pathways introduced for migrant workers.", p:"NAT", src:"https://www.immigration.govt.nz/about-us/news-centre/further-changes-to-the-skilled-migrant-category-to-come-into-effect-in-august-2026/"},
+  {t:"Extend existing migrants' work visas for short-term demand rather than granting residence.", p:"NZF", src:"https://web.archive.org/web/20250929030638/https://www.nzfirst.nz/nz_first_invokes_agree_to_disagree_on_skilled_migrant_visa_changes"},
+  {t:"Make each work-visa skill category expire yearly unless labour demand evidence supports keeping it open.", p:"ACT", src:"https://www.act.org.nz/news/making-immigration-work-for-new-zealand"},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Immigration", prompt:"On costs and welfare access for new migrants, which do you support?", options:[
+  {t:"A five-year stand-down from benefits for new residents, plus a $6/day infrastructure charge on temporary work visas.", p:"ACT", src:"https://www.act.org.nz/news/making-immigration-work-for-new-zealand"},
+  {t:"Require equal pay and conditions for temporary migrant workers, and increase the refugee quota.", p:"GRN", src:"https://web.archive.org/web/20260428155559/https://www.greens.org.nz/immigration_policy"},
+  {t:"Keep current settings as they are.", p:null, src:null},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Climate & environment", prompt:"On agricultural emissions and the Paris Agreement, which is closest to your view?", options:[
+  {t:"Treat farm methane separately from other emissions, keep agriculture permanently out of the Emissions Trading Scheme, and consider leaving the Paris Agreement if it can't accommodate that.", p:"ACT", src:"https://www.act.org.nz/paris"},
+  {t:"Expand publicly-owned renewable energy and reduce reliance on fossil fuels.", p:"GRN", src:"https://www.greens.org.nz/nature_and_climate"},
+  {t:"Keep the current balanced approach to farming and climate policy.", p:null, src:null},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Climate & environment", prompt:"On energy, which approach do you prefer?", options:[
+  {t:"A support scheme for household solar panels and battery storage to cut power bills.", p:"LAB", src:"https://www.labour.org.nz/news/release-labour-to-make-power-bills-more-affordable-with-solarsaver/"},
+  {t:"Split electricity generation from retail to separate out pricing and increase competition.", p:"NZF", src:"https://web.archive.org/web/20260801053613/https://www.nzfirst.nz/power_to_the_people_sotn_2026"},
+  {t:"Expand publicly-owned renewable generation directly.", p:"GRN", src:"https://www.greens.org.nz/nature_and_climate"},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Law & justice", prompt:"On sentencing for serious or repeat offenders, which is closest to your view?", options:[
+  {t:"Restore \"three strikes\", cap sentence discounts at 40%, and give police wider powers against gangs.", p:"NAT", src:"https://www.national.org.nz/lawandorder"},
+  {t:"Deport serious offenders, apply \"three strikes\" to burglary, and impose heavier penalties on repeat offenders.", p:"ACT", src:"https://www.act.org.nz/policies/law-and-order"},
+  {t:"Build Māori-led justice programmes and reform laws that criminalise poverty.", p:"MRI", src:"https://www.maoriparty.org.nz/justice"},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Law & justice", prompt:"Overall, should the justice system focus more on...", options:[
+  {t:"Reducing the prison population and reforming laws that criminalise poverty.", p:"MRI", src:"https://www.maoriparty.org.nz/justice"},
+  {t:"Tougher sentencing, gang crackdowns and deporting offenders.", p:"NAT", src:"https://www.national.org.nz/lawandorder"},
+  {t:"Not sure / depends on the crime.", p:null, src:null}
+]},
+{topic:"Te Tiriti & democracy", prompt:"On the Treaty of Waitangi's role in law and government, which is closest to your view?", options:[
+  {t:"Strengthen Māori political power and governance, and advance the return of land and rangatiratanga.", p:"MRI", src:"https://web.archive.org/web/20260804114427/https://www.maoriparty.org.nz/mana_motuhake"},
+  {t:"Redefine government's approach to Treaty principles around equal citizenship for everyone.", p:"ACT", src:"https://www.act.org.nz/policies"},
+  {t:"Keep current settings as they are — no major change needed.", p:null, src:null},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Te Tiriti & democracy", prompt:"On voting rights and elections, which do you support?", options:[
+  {t:"Lower the voting age to 16, restore prisoner voting, and reduce large donors' influence on politics.", p:"GRN", src:"https://web.archive.org/web/20260728044341/https://www.greens.org.nz/manifesto_2026"},
+  {t:"Limit voting in national elections to citizens only, and hold a referendum on the Māori electorate seats.", p:"NZF", src:"https://web.archive.org/web/20260728032447/https://www.nzfirst.nz/policy"},
+  {t:"Keep the current voting rules as they are.", p:null, src:null},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Foreign affairs & sovereignty", prompt:"On foreign investment and ownership, which is closest to your view?", options:[
+  {t:"Prioritise domestic ownership and political sovereignty over foreign investment.", p:"NZF", src:"https://web.archive.org/web/20260728032447/https://www.nzfirst.nz/policy"},
+  {t:"Stay open to foreign trade and investment as usual.", p:null, src:null},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Family & social policy", prompt:"On refugees and migration driven by climate change, which do you support?", options:[
+  {t:"Increase the refugee quota, add a visa pathway for people displaced by climate change, and push for free movement with Pacific nations.", p:"GRN", src:"https://web.archive.org/web/20260428155559/https://www.greens.org.nz/immigration_policy"},
+  {t:"Keep refugee and humanitarian settings roughly as they are.", p:null, src:null},
+  {t:"Not sure.", p:null, src:null}
+]},
+{topic:"Overall philosophy", prompt:"Which statement is closest to your overall view of government's role?", options:[
+  {t:"Government should do less, cost less, and get out of people's way.", p:"ACT", src:"https://www.act.org.nz/policies/economy"},
+  {t:"Steady, centrist management — moderate tax, moderate spending, focus on the basics.", p:"NAT", src:"https://www.national.org.nz/plan"},
+  {t:"Government should invest more actively in public services, funded partly by taxing wealth more.", p:"GRN", src:"https://www.greens.org.nz/tax_system_for_all"},
+  {t:"Government should expand free public services and fund them by taxing capital gains.", p:"LAB", src:"https://www.labour.org.nz/our-policies/"},
+  {t:"Government should protect NZ ownership, jobs and sovereignty against overseas interests.", p:"NZF", src:"https://web.archive.org/web/20260728032447/https://www.nzfirst.nz/policy"},
+  {t:"Power and decisions should shift toward Māori self-determination (tino rangatiratanga).", p:"MRI", src:"https://web.archive.org/web/20260804114427/https://www.maoriparty.org.nz/mana_motuhake"}
+]}
+];
+
+let current = 0;
+const answers = new Array(QUESTIONS.length).fill(null);
+
+const progressLabel = document.getElementById('progress-label');
+const progressFill = document.getElementById('progress-fill');
+const topicTag = document.getElementById('topic-tag');
+const promptEl = document.getElementById('prompt');
+const optionsEl = document.getElementById('options');
+const nextBtn = document.getElementById('next-btn');
+const backBtn = document.getElementById('back-btn');
+const quizScreen = document.getElementById('quiz-screen');
+const resultsScreen = document.getElementById('results-screen');
+
+function renderQuestion(){
+  const q = QUESTIONS[current];
+  progressLabel.textContent = `Question ${current+1} of ${QUESTIONS.length}`;
+  progressFill.style.width = `${(current/QUESTIONS.length)*100}%`;
+  topicTag.textContent = q.topic;
+  promptEl.textContent = q.prompt;
+  optionsEl.innerHTML = '';
+  q.options.forEach((opt, i)=>{
+    const li = document.createElement('li');
+    li.className = 'opt' + (answers[current]===i ? ' selected' : '');
+    li.innerHTML = `<span class="box"><svg viewBox="0 0 24 24"><path d="M4 13 L10 19 L20 6"/></svg></span><span>${opt.t}</span>`;
+    li.addEventListener('click', ()=>{
+      answers[current] = i;
+      renderQuestion();
+    });
+    optionsEl.appendChild(li);
+  });
+  nextBtn.disabled = answers[current]===null;
+  nextBtn.textContent = current === QUESTIONS.length-1 ? 'See results' : 'Next';
+  backBtn.style.visibility = current===0 ? 'hidden' : 'visible';
+}
+
+nextBtn.addEventListener('click', ()=>{
+  if(answers[current]===null) return;
+  if(current < QUESTIONS.length-1){
+    current++;
+    renderQuestion();
+    window.scrollTo({top:0, behavior:'smooth'});
+  } else {
+    showResults();
+  }
+});
+backBtn.addEventListener('click', ()=>{
+  if(current>0){
+    current--;
+    renderQuestion();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+});
+
+function showResults(){
+  const scores = {};
+  Object.keys(PARTIES).forEach(k=>scores[k]=0);
+  QUESTIONS.forEach((q,i)=>{
+    const chosen = answers[i];
+    if(chosen!==null){
+      const p = q.options[chosen].p;
+      if(p) scores[p] = (scores[p]||0)+1;
+    }
+  });
+  const ranked = Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  const maxScore = ranked[0][1] || 1;
+
+  let html = `<h2>Your policy alignment</h2>
+  <p class="sub" style="margin-bottom:18px;">Based on which published positions you picked across all 20 questions.</p>
+  <div class="card">`;
+  ranked.forEach(([code,score],idx)=>{
+    const pct = maxScore ? Math.round((score/maxScore)*100) : 0;
+    html += `<div class="rank">
+      <div class="rank-num">${idx+1}</div>
+      <div class="rank-body">
+        <p class="rank-name">${PARTIES[code].name} <span class="sans" style="font-weight:400;color:var(--ink-soft);font-size:0.8rem;">— ${score} match${score===1?'':'es'}</span></p>
+        <div class="rank-bar-track"><div class="rank-bar-fill" style="width:${pct}%"></div></div>
+        <p class="rank-desc">${PARTIES[code].desc}</p>
+      </div>
+    </div>`;
+  });
+  html += `</div>
+  <div class="note-box">
+    <b>Read this before you vote.</b> This only compares the specific, citable 2026 policies covered in these 20 questions — it doesn't cover every issue, every registered party (there are 17), or the electorate candidate standing where you live. Under MMP you get two votes: a party vote and an electorate vote, and they don't have to go to the same party. Treat this as a starting point for reading the full manifestos, not a verdict.
+  </div>`;
+
+  html += `<h3>Your answers, and where each came from</h3>`;
+  QUESTIONS.forEach((q,i)=>{
+    const chosen = answers[i];
+    const opt = chosen!==null ? q.options[chosen] : null;
+    if(!opt) return;
+    html += `<div class="qa-item">
+      <p class="qa-q">Q${i+1} · ${q.topic}</p>
+      <p class="qa-a">${opt.p ? `<span class="qa-tag">${PARTIES[opt.p].name}</span>`:''}${opt.t}</p>
+      <p class="qa-src">${opt.src ? `Source: <a href="${opt.src}" target="_blank">${opt.src}</a>` : `<span style="color:var(--ink-soft);">General / no specific party citation for this option</span>`}</p>
+    </div>`;
+  });
+
+  html += `<h3>Full manifestos for further research</h3>
+  <ul class="manifesto-list">`;
+  Object.values(PARTIES).forEach(p=>{
+    html += `<li><span class="pname">${p.name}</span><br><a href="${p.manifesto}" target="_blank">${p.manifesto}</a></li>`;
+  });
+  html += `</ul>
+  <div class="links">
+    Independent policy tracker comparing all 17 registered parties, with sources for every claim: <a href="https://partymap.co.nz" target="_blank">partymap.co.nz</a><br>
+    Check enrolment / how to vote: <a href="https://vote.nz" target="_blank">vote.nz</a><br>
+    Enrolment closes midnight 25 October · Early voting 26 October · Election day Saturday 7 November 2026
+  </div>
+  <button class="restart" id="restart-btn">Retake the quiz</button>`;
+
+  resultsScreen.innerHTML = html;
+  quizScreen.style.display = 'none';
+  resultsScreen.style.display = 'block';
+  document.getElementById('restart-btn').addEventListener('click', ()=>{
+    current = 0;
+    answers.fill(null);
+    resultsScreen.style.display='none';
+    quizScreen.style.display='block';
+    renderQuestion();
+    window.scrollTo({top:0});
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+renderQuestion();
+</script>
+</body>
+</html>

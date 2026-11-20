@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B2A1E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="robots" content="noindex,nofollow">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>The Bookies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --baize:#0B2A1E; --baize-2:#124532; --felt:#16543C;
+  --gold:#E6B84C; --gold-lit:#FFD98A;
+  --cream:#F4EEDF; --dim:rgba(244,238,223,.6);
+  --win:#4ADE80; --lose:#FF6B6B;
+  --mark:#0BA5C7; --claire:#FF9F1C; --clare:#16A97C; --kylie:#9B5DE5;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(900px 500px at 50% -12%, #1B6647 0%, rgba(27,102,71,0) 62%),
+    var(--baize);
+  color:var(--cream);
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;min-height:100svh;
+  padding-bottom:calc(30px + env(safe-area-inset-bottom));
+}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+/* ---------- the door ---------- */
+.door{
+  min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:calc(30px + env(safe-area-inset-top)) 22px calc(30px + env(safe-area-inset-bottom));
+  text-align:center;
+}
+.door .lamp{
+  font-size:46px;line-height:1;margin-bottom:14px;
+  filter:drop-shadow(0 0 22px rgba(230,184,76,.55));
+}
+.door h1{
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(32px,10vw,50px);
+  margin:0;color:var(--gold);letter-spacing:.01em;
+  text-shadow:0 0 34px rgba(230,184,76,.35);
+}
+.door .sub{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--dim);margin:9px 0 26px;
+}
+.pins{display:flex;gap:11px;margin-bottom:22px}
+.pins i{
+  width:16px;height:16px;border-radius:50%;display:block;
+  border:2px solid rgba(230,184,76,.5);background:transparent;transition:all .15s ease;
+}
+.pins i.on{background:var(--gold);border-color:var(--gold);box-shadow:0 0 14px rgba(230,184,76,.7)}
+.pins.bad i{border-color:var(--lose);animation:shake .4s}
+@keyframes shake{
+  0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)}
+  40%{transform:translateX(8px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)}
+}
+.pad{display:grid;grid-template-columns:repeat(3,74px);gap:12px}
+.pad button{
+  height:74px;border-radius:50%;border:1px solid rgba(230,184,76,.3);
+  background:rgba(244,238,223,.06);color:var(--cream);
+  font-family:'Fraunces',serif;font-weight:700;font-size:27px;
+  backdrop-filter:blur(6px);transition:transform .1s ease, background .15s ease;
+}
+.pad button:active{transform:scale(.93);background:rgba(230,184,76,.25)}
+.pad .wide{grid-column:span 1;font-size:19px;font-family:'Outfit',sans-serif;font-weight:500;border-style:dashed}
+.door .back{
+  margin-top:26px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--dim);text-decoration:underline;text-underline-offset:5px;
+}
+
+/* ---------- the floor ---------- */
+.floor{display:none}
+.floor.on{display:block}
+.top{
+  position:relative;text-align:center;padding:calc(22px + env(safe-area-inset-top)) 20px 22px;
+  border-bottom:1px solid rgba(230,184,76,.22);
+}
+.top h1{
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(26px,7.5vw,38px);
+  margin:0;color:var(--gold);
+}
+.top .sub{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--dim);margin:7px 0 0}
+.purse{
+  margin:14px auto 0;display:inline-flex;align-items:center;gap:9px;
+  background:rgba(230,184,76,.13);border:1px solid rgba(230,184,76,.35);
+  border-radius:999px;padding:7px 17px;font-family:'DM Mono',monospace;font-size:14px;
+}
+.purse b{color:var(--gold-lit);font-weight:500}
+
+main{max-width:780px;margin:0 auto;padding:18px 14px 40px}
+h2.sec{
+  font-family:'DM Mono',monospace;font-weight:500;font-size:11px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--dim);margin:26px 0 11px 2px;
+}
+h2.sec:first-child{margin-top:0}
+
+/* market */
+.mkt{
+  background:linear-gradient(170deg,rgba(22,84,60,.85),rgba(11,42,30,.9));
+  border:1px solid rgba(230,184,76,.26);border-radius:16px;
+  padding:15px;margin-bottom:13px;
+  box-shadow:0 14px 34px -18px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.mkt.done{opacity:.72}
+.mkt .q{
+  font-family:'Fraunces',serif;font-weight:700;font-size:19px;line-height:1.25;margin-bottom:3px;
+}
+.mkt .by{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--dim);margin-bottom:12px}
+.mkt .by .flag{color:var(--gold);margin-left:6px}
+
+.runner{
+  display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+  background:rgba(244,238,223,.06);border:1px solid rgba(244,238,223,.13);
+  border-radius:12px;padding:11px 13px;margin-bottom:7px;
+  transition:background .14s ease, transform .1s ease;
+}
+.runner:hover{background:rgba(230,184,76,.14)}
+.runner:active{transform:scale(.99)}
+.runner .nm{flex:1;min-width:0;font-size:15px;line-height:1.3}
+.runner .pool{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--dim);display:block;margin-top:3px}
+.runner .odds{
+  font-family:'DM Mono',monospace;font-size:17px;font-weight:500;color:var(--gold-lit);
+  flex:none;background:rgba(11,42,30,.7);border:1px solid rgba(230,184,76,.35);
+  border-radius:9px;padding:5px 11px;
+}
+.runner.winner{border-color:var(--win);background:rgba(74,222,128,.16)}
+.runner.winner .odds{color:var(--win);border-color:var(--win)}
+.runner.loser{opacity:.4}
+.runner .mine{
+  display:inline-block;font-family:'DM Mono',monospace;font-size:10px;
+  background:var(--gold);color:#0B2A1E;border-radius:5px;padding:1px 6px;margin-left:7px;
+}
+
+.mktfoot{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap}
+.mktfoot button{
+  border:1px solid rgba(244,238,223,.24);background:transparent;color:var(--dim);
+  border-radius:9px;padding:6px 13px;font-family:'DM Mono',monospace;font-size:11px;
+}
+.mktfoot button:hover{color:var(--cream);border-color:var(--cream)}
+.mktfoot .settled{color:var(--win);border-color:rgba(74,222,128,.4)}
+
+/* standings */
+.table{
+  background:rgba(11,42,30,.6);border:1px solid rgba(230,184,76,.22);
+  border-radius:16px;padding:5px 15px;
+}
+.tr{display:flex;align-items:center;gap:11px;padding:11px 0}
+.tr + .tr{border-top:1px solid rgba(244,238,223,.1)}
+.tr .pos{font-family:'DM Mono',monospace;font-size:13px;color:var(--dim);width:20px;flex:none}
+.tr .nm{flex:1;display:flex;align-items:center;gap:8px;font-weight:600;font-size:16px}
+.tr .nm i{width:11px;height:11px;border-radius:50%;flex:none}
+.tr .amt{font-family:'DM Mono',monospace;font-size:16px;flex:none}
+.tr .amt.up{color:var(--win)}
+.tr .amt.down{color:var(--lose)}
+.tr .amt small{display:block;font-size:9.5px;letter-spacing:.12em;color:var(--dim);text-align:right;margin-top:2px}
+
+.addbtn{
+  width:100%;margin-top:6px;border:1px dashed rgba(230,184,76,.4);
+  background:transparent;color:var(--gold);border-radius:13px;
+  padding:13px;font-size:15px;font-weight:500;
+}
+.addbtn:hover{background:rgba(230,184,76,.1)}
+.empty{
+  border:1.5px dashed rgba(244,238,223,.2);border-radius:14px;padding:22px 16px;
+  text-align:center;color:var(--dim);font-size:14px;
+}
+.smallprint{font-size:11.5px;color:var(--dim);line-height:1.6;margin-top:24px;border-top:1px solid rgba(244,238,223,.14);padding-top:13px}
+.buildstamp{text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--dim);opacity:.6;margin:22px 0 0}
+
+/* sheet */
+.scrim{
+  position:fixed;inset:0;background:rgba(4,16,11,.78);z-index:70;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .18s ease;
+}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{
+  background:linear-gradient(175deg,#124532,#0B2A1E);
+  border-top:1px solid rgba(230,184,76,.35);
+  width:100%;max-width:520px;max-height:92vh;overflow-y:auto;
+  border-radius:20px 20px 0 0;padding:20px 18px calc(28px + env(safe-area-inset-bottom));
+  transform:translateY(14px);transition:transform .2s ease;
+}
+.scrim.on .sheet{transform:none}
+.sheet h3{font-family:'Fraunces',serif;font-weight:700;font-size:21px;margin:0 0 3px;color:var(--gold)}
+.sheet .sub{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:0 0 15px}
+label{display:block;font-size:12px;font-weight:500;letter-spacing:.04em;margin:12px 0 5px;color:var(--dim)}
+input,select,textarea{
+  width:100%;font:inherit;font-size:16px;padding:10px 12px;
+  border:1px solid rgba(244,238,223,.22);border-radius:10px;
+  background:rgba(11,42,30,.7);color:var(--cream);
+}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:7px}
+.chips button{
+  border:1px solid rgba(230,184,76,.4);background:rgba(230,184,76,.1);color:var(--gold-lit);
+  border-radius:999px;padding:7px 15px;font-family:'DM Mono',monospace;font-size:13px;
+}
+.chips button:hover{background:var(--gold);color:#0B2A1E}
+.payout{
+  font-family:'DM Mono',monospace;font-size:13px;color:var(--gold-lit);
+  margin-top:11px;min-height:19px;
+}
+.sheetfoot{display:flex;gap:9px;margin-top:20px;padding-bottom:4px}
+.sheetfoot .btn{
+  flex:1;border:1px solid var(--gold);background:var(--gold);color:#0B2A1E;
+  border-radius:11px;padding:12px;font-weight:600;
+}
+.sheetfoot .btn.ghost{background:transparent;color:var(--dim);border-color:rgba(244,238,223,.24)}
+.namegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:9px;margin-top:6px}
+.namegrid button{
+  padding:13px 8px;border-radius:12px;border:2px solid rgba(244,238,223,.2);
+  background:rgba(244,238,223,.05);color:var(--cream);
+  font-weight:600;font-size:15px;display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.namegrid button i{width:18px;height:18px;border-radius:50%;display:block}
+.outrow{display:flex;gap:8px;margin-bottom:7px}
+.outrow input:first-child{flex:1}
+.outrow input:last-child{width:82px;flex:none}
+
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,12px);
+  background:var(--gold);color:#0B2A1E;padding:11px 18px;border-radius:999px;
+  font-size:14px;font-weight:500;z-index:95;opacity:0;pointer-events:none;transition:all .2s ease;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.hide{display:none !important}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important;animation:none !important} }
+</style>
+</head>
+<body>
+
+<!-- ============ the door ============ -->
+<section class="door" id="door">
+  <div class="lamp">🎰</div>
+  <h1>The Bookies</h1>
+  <p class="sub">members only</p>
+
+  <div class="pins" id="pins"><i></i><i></i><i></i><i></i></div>
+
+  <div class="pad" id="pad">
+    <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+    <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+    <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+    <button class="wide" data-k="clear">clear</button>
+    <button data-k="0">0</button>
+    <button class="wide" data-k="back">←</button>
+  </div>
+
+  <a class="back" href="index.html">nothing to see here →</a>
+</section>
+
+<!-- ============ the floor ============ -->
+<div class="floor" id="floor">
+  <header class="top">
+    <h1>The Bookies</h1>
+    <p class="sub">what happens, and when</p>
+    <div class="purse" id="purse">—</div>
+  </header>
+
+  <main>
+    <h2 class="sec">Open markets</h2>
+    <div id="open"></div>
+    <button class="addbtn" id="btnNew">＋ Open a new market</button>
+
+    <div id="settledWrap" class="hide">
+      <h2 class="sec">Settled</h2>
+      <div id="settled"></div>
+    </div>
+
+    <h2 class="sec">Standings</h2>
+    <div class="table" id="table"></div>
+
+    <p class="smallprint">
+      Chips only — nobody actually owes anybody anything, and it stays well away from the money page.
+      Everyone starts on 1,000. Odds are decimal, so a 100 chip bet at 2.50 returns 250.
+      Anyone can settle a market once the answer's known; whoever does it gets their name against it.
+    </p>
+    <p class="buildstamp">build v75</p>
+  </main>
+</div>
+
+<div class="scrim" id="scrim"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+const BUILD = "v75";
+
+const FIREBASE = {
+  apiKey: "AIzaSyB1NnJlvpL_dv7aPrAeFGtl5MM1oSa1YPk",
+  authDomain: "mybaliholiday-5170c.firebaseapp.com",
+  projectId: "mybaliholiday-5170c",
+  storageBucket: "mybaliholiday-5170c.firebasestorage.app",
+  messagingSenderId: "29285891302",
+  appId: "1:29285891302:web:9497074c278aed8c0ccf27"
+};
+
+/* the grown-ups only — Alice isn't in here */
+const PUNTERS = [
+  { name:"Mark",   colour:"#0BA5C7" },
+  { name:"Claire", colour:"#FF9F1C" },
+  { name:"Clare",  colour:"#16A97C" },
+  { name:"Kylie",  colour:"#9B5DE5" }
+];
+
+const BANKROLL = 1000;
+const FALLBACK_PIN = "2709";
+
+/* what's on the board to begin with — priced for the run-in, not months out */
+const SEED = [
+  {
+    id: "clare-passport",
+    q: "Does Clare's passport turn up before we fly?",
+    outcomes: [
+      { key:"comfy", label:"Yes — with a couple of days to spare",   odds:3.25 },
+      { key:"just",  label:"Yes — but it's a photo finish",          odds:1.50 },
+      { key:"never", label:"No. Scenes at the airport.",             odds:5.50 }
+    ]
+  },
+  {
+    id: "clare-passport-when",
+    q: "How many days out is it when the passport lands?",
+    outcomes: [
+      { key:"d5", label:"Today or tomorrow",       odds:4.50 },
+      { key:"d3", label:"Three days to go",        odds:3.00 },
+      { key:"d2", label:"Two days to go",          odds:2.75 },
+      { key:"d1", label:"The day before",          odds:2.40 },
+      { key:"d0", label:"The morning we fly",      odds:7.00 },
+      { key:"no", label:"It never shows up",       odds:15.00 }
+    ]
+  }
+];
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const punter = n => PUNTERS.find(p => p.name === n) || { name:n||"?", colour:"#888" };
+const chips = n => Math.round(n).toLocaleString("en-NZ");
+
+let fs, db, markets = [], bets = [], pin = FALLBACK_PIN, entry = "", flyDay = null;
+let me = localStorage.getItem("mbh_me");
+if(me && !PUNTERS.some(p => p.name === me)) me = null;   // Alice doesn't bet
+
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("on");
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove("on"), 2600);
+}
+
+/* ============================================================
+   Connect first — we need the PIN before the door can open
+   ============================================================ */
+(async function boot(){
+  try{
+    const [appMod, fsMod, faMod] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")
+    ]);
+    fs = fsMod;
+    const app = appMod.getApps().length ? appMod.getApp() : appMod.initializeApp(FIREBASE);
+    try{ await faMod.signInAnonymously(faMod.getAuth(app)); }catch(e){ /* open rules */ }
+    db = fs.getFirestore(app);
+
+    fs.onSnapshot(fs.doc(db, "settings", "bookies"), d => {
+      const p = d.exists() && d.data().pin;
+      pin = (p && String(p).length === 4) ? String(p) : FALLBACK_PIN;
+    }, () => {});
+
+    fs.onSnapshot(fs.collection(db, "markets"), async snap => {
+      markets = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+      await seed();
+      paint();
+    }, err => toast("markets: " + (err.code || err.message)));
+
+    fs.onSnapshot(fs.doc(db, "settings", "trip"), d => {
+      if(d.exists() && d.data().start){ flyDay = d.data().start; paintCountdown(); }
+    }, () => {});
+
+    fs.onSnapshot(fs.collection(db, "bets"), snap => {
+      bets = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+      paint();
+    }, () => {});
+  }catch(e){
+    toast("Can't reach the book — " + e.message);
+  }
+
+  // already through the door this session?
+  if(sessionStorage.getItem("mbh_bookies") === "1") openFloor();
+})();
+
+/* The house markets are re-priced as the trip gets closer. Anything already
+   settled is left alone, and bets keep the odds they were struck at. */
+let seeding = false;
+async function seed(){
+  if(seeding) return;
+  seeding = true;
+  try{
+    for(const m of SEED){
+      const have = markets.find(x => x.id === m.id);
+      if(have && have.settled) continue;
+      const same = have && have.q === m.q &&
+        JSON.stringify(have.outcomes) === JSON.stringify(m.outcomes);
+      if(same) continue;
+      await fs.setDoc(fs.doc(db, "markets", m.id), {
+        q: m.q, outcomes: m.outcomes,
+        settled:false, winner:null,
+        createdBy: (have && have.createdBy) || "the house",
+        createdAt: (have && have.createdAt) || Date.now()
+      }, { merge:true });
+    }
+  }catch(e){ /* someone else got there first */ }
+  seeding = false;
+}
+
+function paintCountdown(){
+  if(!flyDay) return;
+  const d0 = new Date(flyDay + "T00:00:00");
+  const now = new Date(); now.setHours(0,0,0,0);
+  const n = Math.round((d0 - now) / 86400000);
+  const el = document.querySelector(".top .sub");
+  if(!el) return;
+  el.textContent = n > 1 ? `${n} days to go` : n === 1 ? "one day to go"
+                 : n === 0 ? "we fly today" : "what happens, and when";
+}
+
+/* ============================================================
+   The door
+   ============================================================ */
+function paintPins(bad){
+  const box = $("pins");
+  box.classList.toggle("bad", !!bad);
+  [...box.children].forEach((el,i) => el.classList.toggle("on", i < entry.length));
+  if(bad) setTimeout(()=>box.classList.remove("bad"), 450);
+}
+
+$("pad").addEventListener("click", e => {
+  const b = e.target.closest("[data-k]");
+  if(!b) return;
+  const k = b.dataset.k;
+  if(k === "clear"){ entry = ""; paintPins(); return; }
+  if(k === "back"){ entry = entry.slice(0,-1); paintPins(); return; }
+  if(entry.length >= 4) return;
+  entry += k;
+  paintPins();
+  if(entry.length === 4){
+    setTimeout(() => {
+      if(entry === pin){
+        sessionStorage.setItem("mbh_bookies", "1");
+        openFloor();
+      }else{
+        paintPins(true);
+        entry = "";
+        setTimeout(paintPins, 460);
+      }
+    }, 180);
+  }
+});
+
+function openFloor(){
+  $("door").style.display = "none";
+  $("floor").classList.add("on");
+  paint();
+  paintCountdown();
+  if(!me) pickName();
+}
+
+/* ============================================================
+   Working out who's up and who's down
+   ============================================================ */
+function purseOf(name){
+  let bal = BANKROLL;
+  bets.filter(b => b.who === name).forEach(b => {
+    bal -= Number(b.stake) || 0;
+    const m = markets.find(x => x.id === b.marketId);
+    if(m && m.settled && m.winner === b.outcome) bal += (Number(b.stake)||0) * (Number(b.odds)||0);
+  });
+  return bal;
+}
+const stakedOn = (mid, key) =>
+  bets.filter(b => b.marketId === mid && b.outcome === key).reduce((s,b) => s + (Number(b.stake)||0), 0);
+const myBetOn = (mid, key) =>
+  me ? bets.filter(b => b.marketId === mid && b.outcome === key && b.who === me)
+           .reduce((s,b) => s + (Number(b.stake)||0), 0) : 0;
+
+/* ============================================================
+   Painting
+   ============================================================ */
+function marketHtml(m){
+  const runners = (m.outcomes || []).map(o => {
+    const pool = stakedOn(m.id, o.key);
+    const mine = myBetOn(m.id, o.key);
+    const cls = m.settled ? (m.winner === o.key ? "winner" : "loser") : "";
+    return `<button class="runner ${cls}" ${m.settled ? "disabled" : `data-bet="${esc(m.id)}|${esc(o.key)}"`}>
+      <span class="nm">${esc(o.label)}${mine ? `<span class="mine">you ${chips(mine)}</span>` : ""}
+        <span class="pool">${pool ? chips(pool) + " chips riding" : "nothing on it yet"}</span></span>
+      <span class="odds">${Number(o.odds).toFixed(2)}</span>
+    </button>`;
+  }).join("");
+
+  return `<article class="mkt ${m.settled ? "done" : ""}">
+    <div class="q">${esc(m.q)}</div>
+    <div class="by">opened by ${esc(m.createdBy || "?")}${
+      m.settled ? `<span class="flag">· settled by ${esc(m.settledBy || "?")}</span>` : ""}</div>
+    ${runners}
+    <div class="mktfoot">
+      ${m.settled
+        ? `<button class="settled" disabled>Result in</button>`
+        : `<button data-settle="${esc(m.id)}">Settle it</button>`}
+      <button data-drop="${esc(m.id)}">Remove</button>
+    </div>
+  </article>`;
+}
+
+function paint(){
+  if(!$("floor").classList.contains("on")) return;
+
+  const open = markets.filter(m => !m.settled).sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+  const done = markets.filter(m => m.settled).sort((a,b)=>(b.settledAt||0)-(a.settledAt||0));
+
+  $("open").innerHTML = open.length ? open.map(marketHtml).join("")
+    : `<div class="empty">Nothing on the board. Open one.</div>`;
+  $("settledWrap").classList.toggle("hide", done.length === 0);
+  $("settled").innerHTML = done.map(marketHtml).join("");
+
+  const rows = PUNTERS.map(p => ({ ...p, bal: purseOf(p.name) }))
+                      .sort((a,b) => b.bal - a.bal);
+  $("table").innerHTML = rows.map((r,i) => {
+    const d = r.bal - BANKROLL;
+    return `<div class="tr">
+      <span class="pos">${i+1}</span>
+      <span class="nm"><i style="background:${r.colour}"></i>${esc(r.name)}${r.name===me?" (you)":""}</span>
+      <span class="amt ${d>0?"up":d<0?"down":""}">${chips(r.bal)}
+        <small>${d===0?"level":(d>0?"+":"") + chips(d)}</small></span>
+    </div>`;
+  }).join("");
+
+  $("purse").innerHTML = me
+    ? `<span>${esc(me)}'s purse</span> <b>${chips(purseOf(me))}</b> <span>chips</span>`
+    : `<span>tap to say who you are</span>`;
+}
+
+/* ============================================================
+   Sheets
+   ============================================================ */
+function openSheet(html){ $("sheet").innerHTML = html; $("scrim").classList.add("on"); }
+function closeSheet(){ $("scrim").classList.remove("on"); }
+
+function pickName(){
+  openSheet(`<h3>Who's betting?</h3>
+    <p class="sub">so we know whose chips are whose</p>
+    <div class="namegrid">
+      ${PUNTERS.map(p=>`<button data-me="${p.name}"><i style="background:${p.colour}"></i>${p.name}</button>`).join("")}
+    </div>`);
+}
+
+function betSheet(mid, key){
+  const m = markets.find(x => x.id === mid);
+  const o = m.outcomes.find(x => x.key === key);
+  const have = purseOf(me);
+  openSheet(`
+    <h3>${esc(o.label)}</h3>
+    <p class="sub">${esc(m.q)} · ${Number(o.odds).toFixed(2)}</p>
+
+    <label for="stake">How many chips?</label>
+    <input type="number" id="stake" min="1" max="${Math.floor(have)}" inputmode="numeric" placeholder="100">
+    <div class="chips">
+      <button data-stake="25">25</button>
+      <button data-stake="50">50</button>
+      <button data-stake="100">100</button>
+      <button data-stake="250">250</button>
+      <button data-stake="${Math.floor(have)}">all in</button>
+    </div>
+    <div class="payout" id="payout">You've ${chips(have)} chips</div>
+
+    <div class="sheetfoot">
+      <button class="btn ghost" data-close>Leave it</button>
+      <button class="btn" data-place="${esc(mid)}|${esc(key)}">Have a bet</button>
+    </div>`);
+
+  const inp = $("stake");
+  const draw = () => {
+    const s = Number(inp.value) || 0;
+    $("payout").textContent = s > 0
+      ? `Returns ${chips(s * o.odds)} chips · leaves you ${chips(have - s)}`
+      : `You've ${chips(have)} chips`;
+  };
+  inp.addEventListener("input", draw);
+  setTimeout(()=>inp.focus(), 60);
+}
+
+function settleSheet(mid){
+  const m = markets.find(x => x.id === mid);
+  openSheet(`
+    <h3>What happened?</h3>
+    <p class="sub">${esc(m.q)}</p>
+    <p style="font-size:14px;color:var(--dim);margin:0 0 4px">Pick the winner. Chips are paid out straight away and it can't be undone.</p>
+    ${m.outcomes.map(o => `
+      <button class="runner" data-winner="${esc(mid)}|${esc(o.key)}" style="margin-top:8px">
+        <span class="nm">${esc(o.label)}</span>
+        <span class="odds">${Number(o.odds).toFixed(2)}</span>
+      </button>`).join("")}
+    <div class="sheetfoot"><button class="btn ghost" data-close>Not yet</button></div>`);
+}
+
+function newSheet(){
+  openSheet(`
+    <h3>Open a market</h3>
+    <p class="sub">something we'll actually find out</p>
+
+    <label for="mq">The question</label>
+    <input type="text" id="mq" placeholder="Does anyone lose a thong in the pool?" autocomplete="off">
+
+    <label>The runners, and their odds</label>
+    <div id="outs">
+      ${[1,2,3].map(i=>`<div class="outrow">
+        <input type="text" class="olabel" placeholder="${i===1?"Yes":i===2?"No":"Something else"}" autocomplete="off">
+        <input type="number" class="oodds" placeholder="${i===1?"1.80":i===2?"2.00":"5.00"}" step="0.05" min="1.01">
+      </div>`).join("")}
+    </div>
+    <button class="chips" id="addRunner" style="border:1px solid rgba(230,184,76,.4);background:transparent;color:var(--gold-lit);border-radius:999px;padding:7px 15px;font-family:'DM Mono',monospace;font-size:12px">＋ another runner</button>
+
+    <div class="sheetfoot">
+      <button class="btn ghost" data-close>Cancel</button>
+      <button class="btn" id="doNew">Put it on the board</button>
+    </div>`);
+
+  $("addRunner").addEventListener("click", () => {
+    const d = document.createElement("div");
+    d.className = "outrow";
+    d.innerHTML = `<input type="text" class="olabel" placeholder="Another one" autocomplete="off">
+                   <input type="number" class="oodds" placeholder="3.00" step="0.05" min="1.01">`;
+    $("outs").appendChild(d);
+  });
+}
+
+/* ============================================================
+   Events
+   ============================================================ */
+document.addEventListener("click", async e => {
+  const hit = s => e.target.closest(s);
+
+  const mePick = hit("[data-me]");
+  if(mePick){ me = mePick.dataset.me; localStorage.setItem("mbh_me", me); closeSheet(); paint(); return; }
+
+  const bet = hit("[data-bet]");
+  if(bet){
+    if(!me) return pickName();
+    const [mid, key] = bet.dataset.bet.split("|");
+    betSheet(mid, key);
+    return;
+  }
+
+  const q = hit("[data-stake]");
+  if(q){ $("stake").value = q.dataset.stake; $("stake").dispatchEvent(new Event("input")); return; }
+
+  const place = hit("[data-place]");
+  if(place){
+    const [mid, key] = place.dataset.place.split("|");
+    const m = markets.find(x => x.id === mid);
+    const o = m.outcomes.find(x => x.key === key);
+    const stake = Number($("stake").value);
+    if(!stake || stake < 1){ toast("How many chips?"); return; }
+    if(stake > purseOf(me)){ toast("You haven't got that many"); return; }
+    try{
+      await fs.addDoc(fs.collection(db, "bets"), {
+        marketId: mid, outcome: key, odds: o.odds, stake, who: me, createdAt: Date.now()
+      });
+      closeSheet();
+      toast(`${chips(stake)} on ${o.label}`);
+    }catch(err){ toast(err.message); }
+    return;
+  }
+
+  const settle = hit("[data-settle]");
+  if(settle){ if(!me) return pickName(); settleSheet(settle.dataset.settle); return; }
+
+  const win = hit("[data-winner]");
+  if(win){
+    const [mid, key] = win.dataset.winner.split("|");
+    if(!confirm("Settle it on that? Chips get paid out and it can't be undone.")) return;
+    try{
+      await fs.updateDoc(fs.doc(db, "markets", mid),
+        { settled:true, winner:key, settledBy:me, settledAt:Date.now() });
+      closeSheet();
+      toast("Settled");
+    }catch(err){ toast(err.message); }
+    return;
+  }
+
+  const drop = hit("[data-drop]");
+  if(drop){
+    if(!confirm("Take this market off the board? Any bets on it go too.")) return;
+    const mid = drop.dataset.drop;
+    try{
+      for(const b of bets.filter(x => x.marketId === mid)) await fs.deleteDoc(fs.doc(db,"bets",b.id));
+      await fs.deleteDoc(fs.doc(db, "markets", mid));
+      toast("Off the board");
+    }catch(err){ toast(err.message); }
+    return;
+  }
+
+  if(e.target.id === "btnNew"){ if(!me) return pickName(); newSheet(); return; }
+
+  if(e.target.id === "doNew"){
+    const qs = $("mq").value.trim();
+    if(!qs){ toast("What's the question?"); return; }
+    const labels = [...document.querySelectorAll(".olabel")].map(i => i.value.trim());
+    const odds   = [...document.querySelectorAll(".oodds")].map(i => Number(i.value));
+    const outcomes = labels.map((l,i) => ({ key:"o"+i, label:l, odds:odds[i] }))
+                           .filter(o => o.label && o.odds >= 1.01);
+    if(outcomes.length < 2){ toast("Needs at least two runners with odds"); return; }
+    try{
+      await fs.addDoc(fs.collection(db, "markets"), {
+        q: qs, outcomes, settled:false, winner:null, createdBy:me, createdAt: Date.now()
+      });
+      closeSheet();
+      toast("On the board");
+    }catch(err){ toast(err.message); }
+    return;
+  }
+
+  if(hit("[data-close]") || e.target.id === "scrim"){ closeSheet(); return; }
+});
+
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape") closeSheet();
+  if($("door").style.display !== "none" && /^[0-9]$/.test(e.key)){
+    $("pad").querySelector(`[data-k="${e.key}"]`)?.click();
+  }
+});
+
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  addEventListener("load", ()=> navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}
+</script>
+</body>
+</html>

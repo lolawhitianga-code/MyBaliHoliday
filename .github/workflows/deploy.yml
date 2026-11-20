@@ -1,0 +1,39 @@
+# Uploads the Bali holiday site to the website (public_html) by FTP whenever main changes.
+# FTP login is kept in the repo's Actions secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD.
+# Only files that changed since the last upload are sent. Everything else in public_html
+# (Casino, xmas, nsw, Tools, bali.html, the zips) is left alone.
+# state-name keeps this repo's sync record separate from any other upload into public_html.
+name: Upload to website
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: website-upload-bali
+  cancel-in-progress: false
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Upload to public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          security: loose
+          server-dir: ./
+          state-name: .bali-sync-state.json
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            README.md
+            CLAUDE.md
+            .claude/**

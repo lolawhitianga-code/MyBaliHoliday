@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B1730">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bali">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>Ideas · My Bali Holiday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1730; --ink-soft:#4A4266;
+  --sand:#FFF3E2; --sand-deep:#F6E3C8; --line:#E4CDA9;
+  --frangipani:#FF4D8D; --lagoon:#0BA5C7; --marigold:#FF9F1C; --pandan:#16A97C; --dusk:#9B5DE5;
+  --shadow:0 2px 0 rgba(27,23,48,.10), 0 10px 26px -14px rgba(27,23,48,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--sand);color:var(--ink);
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom));
+}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+.top{
+  position:relative;overflow:hidden;text-align:center;color:#fff;
+  padding:calc(26px + env(safe-area-inset-top)) 20px 30px;
+  background:
+    radial-gradient(120px 120px at 80% 92%, rgba(255,209,102,.5), rgba(255,159,28,0) 70%),
+    linear-gradient(178deg, rgba(27,23,48,.72) 0%, rgba(75,42,99,.50) 42%, rgba(196,63,118,.42) 72%, rgba(255,122,69,.34) 100%),
+    url('hero-ideas.jpg') center 32% / cover no-repeat;
+}
+.top::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:10px;
+  background:linear-gradient(90deg,var(--frangipani),var(--marigold),var(--pandan),var(--lagoon),var(--dusk));
+}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.75;margin:0 0 6pxtext-shadow:0 1px 8px rgba(27,23,48,.6);}
+.wordmark{
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(30px,8.5vw,44px);
+  line-height:.95;margin:0;font-variation-settings:'SOFT' 40,'WONK' 1;
+}
+.sum{margin:13px 0 0;font-family:'DM Mono',monospace;font-size:12.5px;letter-spacing:.06em;opacity:.9}
+
+.mebar{
+  display:flex;align-items:center;gap:8px;justify-content:center;
+  padding:10px 16px;background:var(--sand-deep);border-bottom:1px solid var(--line);font-size:14px;
+}
+.medot{width:12px;height:12px;border-radius:50%;flex:none}
+.linkish{background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;font-size:14px}
+
+main{max-width:780px;margin:0 auto;padding:16px 14px 40px}
+h2.sec{
+  font-family:'DM Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-soft);margin:26px 0 11px 2px;
+}
+h2.sec:first-child{margin-top:0}
+
+/* idea card */
+.idea{
+  display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-left:5px solid var(--c);
+  border-radius:14px;padding:12px 13px;margin-bottom:9px;box-shadow:var(--shadow);
+}
+.idea.done{opacity:1}
+.vote{
+  flex:none;width:52px;border:1px solid var(--line);background:var(--sand);border-radius:11px;
+  padding:7px 4px;text-align:center;line-height:1.1;
+  transition:transform .12s ease;
+}
+.vote:hover{transform:translateY(-2px)}
+.vote b{display:block;font-family:'DM Mono',monospace;font-size:17px;font-weight:500}
+.vote span{font-size:15px;display:block;margin-bottom:1px}
+.vote[aria-pressed="true"]{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+.body{flex:1;min-width:0}
+.ttl{font-weight:600;font-size:16px;line-height:1.25}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center}
+.tag{
+  font-family:'DM Mono',monospace;font-size:11px;background:var(--sand);
+  border:1px solid var(--line);border-radius:6px;padding:2px 7px;
+}
+.tag.on{background:var(--pandan);color:#fff;border-color:var(--pandan)}
+.note{font-size:13.5px;opacity:.75;margin-top:6px;line-height:1.4}
+.voters{display:flex;gap:4px;margin-top:8px;align-items:center}
+.voters i{width:9px;height:9px;border-radius:50%;display:block}
+.voters em{font-family:'DM Mono',monospace;font-size:10.5px;font-style:normal;opacity:.5;margin-left:3px}
+.acts{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.mini{
+  border:1px solid var(--line);background:var(--sand);border-radius:8px;
+  padding:4px 11px;font-size:12px;font-family:'DM Mono',monospace;
+}
+.mini:hover{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+.mini.strong{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+.mini.strong:hover{opacity:.85}
+
+.blurb{font-size:13px;color:var(--ink-soft);margin:0 0 11px 2px;line-height:1.4}
+.cat{
+  background:#fff;border:1px solid var(--line);border-radius:14px;
+  margin-bottom:9px;box-shadow:var(--shadow);overflow:hidden;
+}
+.cat summary{
+  list-style:none;cursor:pointer;padding:13px 15px;display:flex;align-items:baseline;gap:9px;
+  font-family:'Fraunces',serif;font-weight:700;font-size:17px;
+}
+.cat summary::-webkit-details-marker{display:none}
+.cat summary::after{content:'\25BE';margin-left:auto;opacity:.4;font-size:12px;align-self:center}
+.cat[open] summary::after{content:'\25B4'}
+.cat summary:hover{background:var(--sand)}
+.cn{font-family:'DM Mono',monospace;font-size:11px;opacity:.45;font-weight:400}
+.catbody{padding:0 15px 14px}
+.blurb{font-size:13px;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.mapbtn{
+  display:inline-block;border:1px solid var(--line);background:var(--sand);border-radius:999px;
+  padding:3px 12px;font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-soft);margin-left:6px;vertical-align:middle;
+}
+.mapbtn:hover{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+.eats{display:flex;flex-wrap:wrap;gap:7px}
+.peek{font-size:15px;line-height:1.5;margin:0 0 14px}
+.peekstrip{
+  display:flex;gap:7px;overflow-x:auto;margin:0 -18px 15px;padding:0 18px 2px;
+  scrollbar-width:none;
+}
+.peekstrip::-webkit-scrollbar{display:none}
+.peekstrip img{
+  width:78px;height:58px;object-fit:cover;border-radius:8px;flex:none;
+  border:2px solid transparent;cursor:pointer;opacity:.65;transition:opacity .12s ease;
+}
+.peekstrip img.on{border-color:var(--ink);opacity:1}
+.peekstrip img:hover{opacity:1}
+.peekpic{
+  display:block;width:calc(100% + 36px);margin:-20px -18px 15px;
+  aspect-ratio:16/10;object-fit:cover;background:var(--sand-deep);
+  border-radius:20px 20px 0 0;
+}
+.peeknote{
+  font-family:'DM Mono',monospace;font-size:12px;color:var(--pandan);
+  margin:14px 0 0;line-height:1.5;
+}
+.peekbtns{display:flex;gap:8px}
+.bookbtn{
+  display:block;text-align:center;background:#25D366;color:#06331b;
+  border:1px solid #1faa53;border-radius:999px;padding:12px;margin:0 0 9px;
+  font-weight:600;font-size:14.5px;
+}
+.bookbtn:hover{filter:brightness(1.05)}
+.mapbtn.wide{
+  display:block;flex:1;text-align:center;margin:0;padding:10px 6px;font-size:11.5px;
+  background:#fff;border-color:var(--line);
+}
+.eats button{
+  border:1px dashed var(--line);background:#fff;border-radius:999px;
+  padding:7px 14px;font-size:13.5px;color:var(--ink-soft);text-align:left;line-height:1.3;
+}
+.eats button:hover{border-style:solid;color:var(--ink);border-color:var(--ink)}
+.eats button em{font-style:normal;opacity:.55;font-size:11.5px;font-family:'DM Mono',monospace;margin-left:5px}
+.eats .done{opacity:.55;border-style:solid}
+
+.empty{border:1.5px dashed var(--line);border-radius:14px;padding:24px 16px;text-align:center;color:var(--ink-soft);font-size:14.5px}
+.addbtn{
+  width:100%;margin-top:8px;border:1px solid var(--ink);background:var(--ink);color:var(--sand);
+  border-radius:12px;padding:13px;font-size:15px;font-weight:500;
+}
+
+.buildstamp{
+  text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;
+  color:var(--ink-soft);opacity:.45;margin:26px 0 0;
+}
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:rgba(255,243,226,.94);border-top:1px solid var(--line);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav a{
+  flex:1;text-align:center;padding:8px 2px 9px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.nav b{display:block;font-size:18px;font-weight:400;line-height:1.3;margin-bottom:2px}
+.nav [aria-current="page"]{color:var(--ink);font-weight:500}
+
+.scrim{
+  position:fixed;inset:0;background:rgba(27,23,48,.55);z-index:70;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .18s ease;
+}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{
+  background:var(--sand);width:100%;max-width:520px;max-height:92vh;overflow-y:auto;
+  border-radius:20px 20px 0 0;padding:20px 18px calc(28px + env(safe-area-inset-bottom));
+  transform:translateY(14px);transition:transform .2s ease;
+}
+.scrim.on .sheet{transform:none}
+.sheet h3{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:0 0 3px}
+.sheet .sub{font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin:0 0 14px}
+label{display:block;font-size:12px;font-weight:500;letter-spacing:.04em;margin:12px 0 5px}
+input,textarea,select{
+  width:100%;font:inherit;font-size:16px;padding:10px 12px;
+  border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);
+}
+textarea{min-height:60px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg{display:flex;gap:8px;margin-top:5px}
+.seg button{flex:1;padding:10px;border-radius:10px;border:1px solid var(--line);background:#fff;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+.namegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:9px;margin-top:6px}
+.namegrid button{
+  padding:13px 8px;border-radius:12px;border:2px solid var(--line);background:#fff;
+  font-weight:600;font-size:15px;display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.namegrid button i{width:18px;height:18px;border-radius:50%;display:block}
+.sheetfoot{display:flex;gap:9px;margin-top:20px;padding-bottom:4px}
+.sheetfoot .btn{flex:1;border:1px solid var(--ink);background:var(--ink);color:var(--sand);border-radius:10px;padding:11px;font-weight:500}
+.sheetfoot .btn.ghost{background:transparent;color:var(--ink)}
+.sheetfoot .btn.danger{background:transparent;border-color:var(--frangipani);color:var(--frangipani)}
+
+.banner{margin:12px 14px 0;padding:10px 13px;border-radius:11px;font-size:13px;background:#FFF0C2;border:1px solid #E8C766}
+.toast{
+  position:fixed;left:50%;bottom:84px;transform:translate(-50%,12px);
+  background:var(--ink);color:var(--sand);padding:11px 18px;border-radius:999px;
+  font-size:14px;z-index:95;opacity:0;pointer-events:none;transition:all .2s ease;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.hide{display:none !important}
+:focus-visible{outline:3px solid var(--lagoon);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <p class="eyebrow">chuck it in, we'll vote on it</p>
+  <h1 class="wordmark">Ideas</h1>
+  <p class="sum" id="sum">—</p>
+</header>
+
+<div class="mebar">
+  <span class="medot" id="meDot"></span>
+  <span>You're <b id="meName">…</b></span>
+  <button class="linkish" id="btnSwitch">switch</button>
+</div>
+
+<div id="banner" class="banner hide"></div>
+
+<main>
+  <div id="body"></div>
+  <button class="addbtn" id="btnAdd">＋ Add an idea</button>
+
+  <div id="local"></div>
+  <p class="buildstamp">build v75</p>
+</main>
+
+<nav class="nav">
+  <a href="home.html"><b>🏝</b>Home</a>
+  <a href="planner.html"><b>🗓</b>Plan</a>
+  <a href="flights.html"><b>✈️</b>Fly</a>
+  <a href="stays.html"><b>🛏</b>Stay</a>
+  <a href="money.html"><b>💸</b>Money</a>
+  <a href="photos.html"><b>📸</b>Photos</a>
+</nav>
+
+<div class="scrim" id="scrim"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+/* ============================================================
+   Celebration — deliberately inline. Nothing has to download
+   first, so it cannot fail because a file was missed or cached.
+   The leaderboard write is the only part that's fetched, and
+   that one is allowed to be late.
+   ============================================================ */
+const BUILD = "v75";
+const STAR = {
+  alldone:[50,"That's the lot","nothing left on your list"],
+  visa:   [25,"Admin done","one less thing"],
+  flight: [15,"Flight added","we know when you land"],
+  stay:   [15,"Beds sorted","nice one"],
+  shoplog:[15,"Shop logged","and squared up"],
+  planner:[10,"On the plan","the trip takes shape"],
+  idea:   [10,"Good idea","let's see what they think"],
+  expense:[10,"Expense in","nobody's out of pocket"],
+  photo:  [10,"Photo up","on the wall"],
+  packing:[5,"You're bringing it","so nobody else does"],
+  packed: [5,"In the bag",""],
+  shopping:[5,"On the list",""],
+  vote:   [5,"Voted",""],
+  trolley:[3,"In the trolley",""]
+};
+
+let _ac = null;
+function _actx(){
+  if(localStorage.getItem("mbh_muted") === "1") return null;
+  try{
+    if(!_ac) _ac = new (window.AudioContext || window.webkitAudioContext)();
+    if(_ac.state === "suspended") _ac.resume();
+    return _ac;
+  }catch(e){ return null; }
+}
+addEventListener("pointerdown", function u(){
+  const c = _actx();
+  if(c && c.state === "running") removeEventListener("pointerdown", u, true);
+}, true);
+
+function _note(c,f,at,dur,vol,type){
+  const o=c.createOscillator(), g=c.createGain();
+  o.type=type||"triangle"; o.frequency.setValueAtTime(f,at);
+  g.gain.setValueAtTime(0.0001,at);
+  g.gain.exponentialRampToValueAtTime(vol,at+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001,at+dur);
+  o.connect(g); g.connect(c.destination);
+  o.start(at); o.stop(at+dur+0.05);
+}
+function _sound(pts){
+  const c=_actx(); if(!c) return;
+  const t=c.currentTime+0.02, big=pts>=15;
+  const ns = big ? [523.25,659.25,783.99,1046.5,1318.51] : [523.25,659.25,783.99,1046.5];
+  ns.forEach((f,i)=>{ _note(c,f,t+i*0.075,0.42,0.16,"triangle"); _note(c,f*2,t+i*0.075,0.2,0.05,"sine"); });
+  const tail=t+ns.length*0.075;
+  for(let i=0;i<(big?7:4);i++) _note(c,1600+Math.random()*1600,tail+i*0.045,0.16,0.035,"sine");
+  if(big) _note(c,130.81,t,0.9,0.1,"sine");
+}
+
+function _css(){
+  if(document.getElementById("mbh-star-css")) return;
+  const s=document.createElement("style"); s.id="mbh-star-css";
+  s.textContent=`#mbh-stars{position:fixed;inset:0;z-index:99998;pointer-events:none;overflow:hidden}
+#mbh-stars b{position:absolute;top:-8vh;display:block;line-height:1;color:#FFD166;
+ text-shadow:0 0 14px rgba(255,193,71,.9),0 2px 5px rgba(120,70,0,.45);will-change:transform,opacity;
+ animation:mbh-fall var(--dur) cubic-bezier(.35,.1,.6,1) var(--delay) both}
+@keyframes mbh-fall{0%{transform:translate3d(0,0,0) rotate(0) scale(.7);opacity:0}
+ 10%{opacity:1;transform:translate3d(0,10vh,0) rotate(60deg) scale(1)}
+ 100%{transform:translate3d(var(--dx),112vh,0) rotate(var(--rot)) scale(1);opacity:0}}
+#mbh-pop{position:fixed;left:50%;top:34%;transform:translate(-50%,-50%);z-index:99999;
+ pointer-events:none;text-align:center;animation:mbh-pop 2.1s cubic-bezier(.2,1.3,.4,1) both}
+#mbh-pop .n{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:clamp(54px,17vw,92px);
+ line-height:.9;color:#FFD166;text-shadow:0 0 34px rgba(255,193,71,.75),0 4px 14px rgba(60,32,0,.5);display:block}
+#mbh-pop .l{font-family:'Outfit',system-ui,sans-serif;font-weight:600;font-size:19px;color:#fff;
+ text-shadow:0 2px 12px rgba(27,23,48,.85);margin-top:4px;display:block}
+#mbh-pop .s{font-family:'DM Mono',ui-monospace,monospace;font-size:11.5px;letter-spacing:.16em;
+ text-transform:uppercase;color:rgba(255,255,255,.8);text-shadow:0 2px 10px rgba(27,23,48,.85);margin-top:6px;display:block}
+@keyframes mbh-pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}
+ 14%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}24%{transform:translate(-50%,-50%) scale(1)}
+ 74%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-58%) scale(.96)}}
+@media (prefers-reduced-motion:reduce){#mbh-stars b{animation-duration:.9s}}`;
+  document.head.appendChild(s);
+}
+
+function celebrate(kind, opts){
+  const a = STAR[kind];
+  if(!a) return;
+  const [pts,label,note] = a;
+  _css();
+
+  const old = document.getElementById("mbh-pop"); if(old) old.remove();
+  const p = document.createElement("div"); p.id = "mbh-pop";
+  p.innerHTML = `<span class="n">+${pts}</span><span class="l">${label}</span>` +
+                (note ? `<span class="s">${note}</span>` : "");
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(), 2200);
+
+  const wrap = document.createElement("div"); wrap.id = "mbh-stars";
+  const n = Math.min(64, 16 + pts * 1.6);
+  const gl = ["\u2605","\u2605","\u2605","\u2726","\u2b50"];
+  let h = "";
+  for(let i=0;i<n;i++){
+    h += `<b style="left:${Math.random()*100}%;font-size:${13+Math.random()*26}px;
+      --dur:${1.5+Math.random()*1.6}s;--delay:${Math.random()*0.7}s;
+      --dx:${(Math.random()*2-1)*22}vw;--rot:${(Math.random()*2-1)*720}deg;
+      opacity:${0.65+Math.random()*0.35}">${gl[i%gl.length]}</b>`;
+  }
+  wrap.innerHTML = h;
+  document.body.appendChild(wrap);
+  setTimeout(()=>wrap.remove(), 4200);
+
+  _sound(pts);
+
+  const who = (opts && opts.who) || localStorage.getItem("mbh_me");
+  if(who) import("./stars.js").then(m => m.score && m.score(who, kind, pts)).catch(()=>{});
+}
+console.info("celebration inline, build", BUILD);
+
+/* ============================================================
+   Settings — same block as the other pages
+   ============================================================ */
+const FIREBASE = {
+  apiKey: "AIzaSyB1NnJlvpL_dv7aPrAeFGtl5MM1oSa1YPk",
+  authDomain: "mybaliholiday-5170c.firebaseapp.com",
+  projectId: "mybaliholiday-5170c",
+  storageBucket: "mybaliholiday-5170c.firebasestorage.app",
+  messagingSenderId: "29285891302",
+  appId: "1:29285891302:web:9497074c278aed8c0ccf27"
+};
+
+const TRAVELLERS = [
+  { name:"Mark",   colour:"#0BA5C7" },
+  { name:"Claire", colour:"#FF9F1C" },
+  { name:"Clare",  colour:"#16A97C" },
+  { name:"Kylie",  colour:"#9B5DE5" },
+  { name:"Alice",  colour:"#FF4D8D" }
+];
+
+const TRIP_DAYS = 14;
+const DEFAULT_START = "2026-08-08";
+const SLOTS = [
+  { key:"morning", label:"Morning" },
+  { key:"noon",    label:"Middle of the day" },
+  { key:"evening", label:"Evening" }
+];
+
+
+/* Handy lists — checked July 2026. Distances are from the villa on Jl. Sari Dewi. */
+const LOCAL = [
+  { key:"eat", title:"Places to eat", blurb:"Seminyak, near the villa.", map:"restaurants",
+    items:[
+      { title:"Ku De Ta",           where:"Jl. Kayu Aya, Seminyak",   note:"The original beach club, going since 2000. Sunset drinks rather than a cheap dinner — a bottle of rosé runs over a million." },
+      { title:"La Lucciola",        where:"Jl. Kayu Aya, Seminyak",   note:"Italian, right on the sand. Book ahead — walk-ins have waited two hours for the sunset sitting." },
+      { title:"Potato Head",        where:"Jl. Petitenget, Seminyak", note:"The big one. Free before 4pm, minimum spend after. Book if you want to sit down." },
+      { title:"Sunset Beach Bali",  where:"Jl. Sarinande, Seminyak",  note:"Beanbags on the sand, happy hour, far less of a scene than the big clubs." },
+      { title:"Warung Nia",         where:"Jl. Kayu Aya, Seminyak",   note:"Balinese food and pork ribs. Huge portions, honest prices." },
+      { title:"Waroeng Bernadette", where:"Jl. Kayu Aya, Seminyak",   note:"Go for the beef rendang. Unfussy room, very good food." },
+      { title:"Made's Warung",      where:"Jl. Raya Seminyak",        note:"Been there decades. Nasi campur, satay, babi guling, Balinese dance some nights." },
+      { title:"Warung Big Boss",    where:"Seminyak",                 note:"Tucked away and cheap. Nasi goreng kampung and Bintang for a third of beach club prices." },
+      { title:"Saltlick",           where:"Jl. Kayu Aya, Seminyak",   note:"Steak, opens 5pm. Dry-aged, bone marrow, the works. Bring your wallet." },
+      { title:"Zia Tina",           where:"Jl. Petitenget, Seminyak", note:"Italian, and they'll sing at you if it's someone's birthday." },
+      { title:"Kilo Kitchen",       where:"Jl. Drupadi, Seminyak",    note:"Asian fusion, smart room. Beef tongue tacos and squid ink rice." },
+      { title:"Yellowstone Ranch",  where:"Jl. Plawa, Seminyak",      note:"Bar and grill with a mechanical bull and a pool table. Daft, and good fun." }
+    ]},
+
+  { key:"silver", title:"Silver and silversmithing", blurb:"Shops nearby, and workshops where you make your own.", map:"silver+jewellery",
+    items:[
+      { title:"Seminyak Silver Class",   where:"Jl. Drupadi 88a, Seminyak", note:"Make your own ring in about 90 minutes, ten minutes from the villa. Book by WhatsApp. The closest hands-on option by a long way." },
+      { title:"Argentum 47 Silver Factory", where:"Jl. Camplung Tanduk, Seminyak", note:"Made on the premises, fixed prices, open till 10pm. Ask before photographing anything." },
+      { title:"Bambu Silver",            where:"Jl. Raya Seminyak 28",     note:"Proper 925 silver and they'll make a custom piece from a drawing you send on WhatsApp." },
+      { title:"Sae Design",              where:"Jl. Plawa, Seminyak",      note:"Handmade silver and brass, designs change weekly. Closed Sundays, shuts at 5 on Saturdays." },
+      { title:"Tulola Designs",          where:"Jl. Raya Seminyak",        note:"Smarter end — gold plated over silver, Indonesian motifs. A year's warranty on tarnishing." },
+      { title:"Celuk Bali Silver Class", where:"Jl. Raya Celuk, Gianyar",  note:"Celuk is the silversmithing village — about an hour's drive. One-on-one classes, pick a design or bring your own." },
+      { title:"SUNSRI House of Jewelry", where:"Jl. Raya Celuk, Gianyar",  note:"Half and full day workshops in Celuk. Welcome drink, local snacks, paired with a working silversmith." }
+    ]},
+
+  { key:"cook", title:"Cooking classes", blurb:"Most start with a trip to the local market.", map:"cooking+class",
+    items:[
+      { title:"Nia Bali Cooking Class",  where:"Jl. Kayu Aya 22, Seminyak", note:"Market tour first, then twelve dishes, then you eat the lot. Recipe book to take home. Same people as Warung Nia." },
+      { title:"Rendang Bali Cooking Class", where:"Jl. Petitenget, Seminyak", note:"Market visit then a proper run at beef rendang, plus starters and dessert." },
+      { title:"Cooking Class at The Amala", where:"Jl. Kunti I, Seminyak",  note:"Includes pickup. Gentler format — the chef does a good share of it, so it's more watching than chopping." },
+      { title:"Kin Vegan Cooking Class", where:"Jl. Kayu Aya 22, Seminyak", note:"Nine vegan dishes. Tuesday, Thursday and Saturday afternoons only." },
+      { title:"Villa Coco Cooking Class", where:"Gg. Villa Coco, Seminyak", note:"Relaxed and good with kids. You keep the apron and the recipes. Less hands-on than the others." },
+      { title:"Anika Cooking Class",     where:"Jl. Nuri, Tuban",           note:"Down by the airport, includes pickup. Market tour then nine dishes. Closed Sundays." }
+    ]},
+
+  { key:"spa", title:"Massage nearby", blurb:"The first two come to the villa.", map:"massage+spa",
+    items:[
+      { title:"Sanara Home Massage",  where:"Gg. Drona, Seminyak",         note:"Outcall — they come to you, any hour. Have done groups of eight at once, massages and nails together. Two minutes away." },
+      { title:"Edelweiss Spa",        where:"Jl. Raya Seminyak",           note:"Also comes to you, 24 hours. People report therapists arriving within 20 minutes of booking at midnight." },
+      { title:"Eden Spa & Beauty",    where:"Jl. Drupadi 20, Seminyak",    note:"Five minutes from the villa and the best reviewed spa in Seminyak by some distance. Fruit and water before, tea after." },
+      { title:"Ssamaya Balinese Spa", where:"Jl. Camplung Tanduk 8",       note:"Newer, private rooms, open till 11pm. Book on WhatsApp." },
+      { title:"Mello Spa",            where:"Jl. Kayu Aya 10, Seminyak",   note:"The smart option — facials, packages, proper consultation. Shuts at 7." }
+    ]},
+
+  { key:"wash", title:"Laundry", blurb:"Lucky is on our street — number 30, we're at 23C.", map:"laundry",
+    items:[
+      { title:"Lucky Laundry",     where:"Jl. Sari Dewi 30, Seminyak",  note:"Same street as the villa, about a two minute walk. Free pickup and delivery, six hour express, they WhatsApp a photo of the scales before charging." },
+      { title:"Ba-bless Laundry",  where:"Jl. Plawa 10A, Seminyak",     note:"Three hour express, free collection, and they'll do fragrance-free if anyone's fussy about detergent." },
+      { title:"Laundry Hub",       where:"Gg. Kahyangan 5, Seminyak",   note:"Cheap and same-day. Around 99,000 for three kilos." },
+      { title:"Hubit Laundry Express", where:"Jl. Yudistira 11, Seminyak", note:"Cheapest per kilo if you're not in a hurry — about 12,000/kg on the two to three day service. Open till 10pm." },
+      { title:"Easy Day Laundry",  where:"Jl. Mertanadi 22E, Kerobokan", note:"Further out but very consistent. Pickup and delivery available." }
+    ]},
+
+  { key:"sunset", title:"Sunset spots", blurb:"Sun goes down around 6.15 in August. Get there by 5.30.", map:"sunset+bar",
+    items:[
+      { title:"Potato Head Sunset Park", where:"Jl. Petitenget, Seminyak", note:"Rooftop above the beach club, 5pm to 9pm only. Same view, none of the crush downstairs. The pick of them." },
+      { title:"Double Six Rooftop Bar",  where:"Jl. Double Six, Seminyak", note:"Two-for-one cocktails, opens 5pm. Sunken lounges have a minimum spend but you'll hit it on drinks anyway." },
+      { title:"Beach Bar at Alila",      where:"Jl. Petitenget 9A, Seminyak", note:"Live band before sunset, daybeds, 400,000 minimum spend. Calmer than the beach clubs." },
+      { title:"Seminyak Beach itself",   where:"Jl. Sarinande, Seminyak",  note:"Free. Walk down, buy a Bintang off someone with a cooler, sit on the sand. Ten minutes from the villa." }
+    ]},
+
+  { key:"cheap", title:"Cheap local warungs", blurb:"Where the locals actually eat. 15,000 to 30,000 a plate.", map:"warung",
+    items:[
+      { title:"Warung Kawan",   where:"Jl. Beraban, Kerobokan",     note:"Around 15,000 a plate and no tourist pricing. Tiny, queues at lunch, most people take away. The corn fritters are the thing." },
+      { title:"Warung 3 Putri", where:"Jl. Kayu Aya 18C, Seminyak", note:"Hole in the wall, family run, best nasi goreng around for the money. Easy to walk straight past." },
+      { title:"Warung Dayu",    where:"Gg. Bima 17, Seminyak",      note:"Dinner only, 6pm to 9pm. Family run and very cheap. Satay chicken and capcay." },
+      { title:"Ferry's",        where:"Jl. Beraban 34, Seminyak",   note:"Full of Balinese workers at lunch. Under 10,000 for a vegetarian plate. Properly spicy — say so if you don't want it." },
+      { title:"Warung Kopi",    where:"Jl. Raya Seminyak 22",       note:"Nasi campur about 25,000, in a quiet garden off the main road. Open 9 to 6." },
+      { title:"Warung Anyelir", where:"Jl. Raya Seminyak 32",       note:"Go for the ayam betutu. Small portions by our standards, but so cheap you just order two. Closed Sundays." }
+    ]},
+
+  { key:"shop", title:"Supermarkets", blurb:"For beer, water, sunscreen and breakfast at the villa.", map:"supermarket",
+    items:[
+      { title:"Bintang Supermarket", where:"Jl. Raya Seminyak 17",     note:"The big one. Far cheaper than any minimart, huge range, homewares upstairs. Open 7.30am to 10pm." },
+      { title:"Frestive Supermarket", where:"Jl. Kunti I, Seminyak",   note:"Best of the lot for fresh stuff — bakery, deli, ready meals. Open 7am to 11pm." },
+      { title:"Coco Supermarket",    where:"Jl. Laksamana, Kerobokan", note:"Open 24 hours, which is the point of it. Pricier than Bintang." },
+      { title:"Mega Mart",           where:"Seminyak Square",          note:"Groceries plus a decent souvenir section — batik trays, bowls, that sort of thing." },
+      { title:"Minimart on our street", where:"Jl. Sari Dewi 24a",     note:"Right next door, open all hours, and fine for a forgotten bottle of water. Check the price before you hand money over — reviews are not kind on that front." }
+    ]},
+
+  { key:"out", title:"Days out", blurb:"Worth blocking out a whole day for.", map:"attractions",
+    items:[
+      { title:"Waterbom Bali", where:"Jl. Kartika Plaza, Kuta", note:"Twenty minutes down the road, 9am to 6pm. Buy tickets online or you'll queue. Cashless inside — load the wristband at the gate. No outside food, so bring towels and eat there. A gazebo is worth it for a group." }
+    ]}
+];
+
+
+/* Photos from Google Maps, sized down for mobile. If one ever stops loading
+   the sheet just falls back to no picture — nothing breaks. */
+const PIC_BASE = "https://lh3.googleusercontent.com/place-photos/";
+const PIC_SIZE = "=w640-h420";
+const PICS = {
+  "Ku De Ta": "AG9NLjBDnqjKOtMqDtWkA0aMK31EGwvUBye65hnVbYlw87SnFxdSuvJLS44c0PFgL9K6kPT-JogAgEpp7XXiGsoee9QlOEjshEmQFBIgas6Mrf7VDcPSuagTo336nwj_PweFdXOj9SMtsjgPbsS0jp34nM1K",
+  "La Lucciola": "AG9NLjDerY40zKfCNUjZrq7RKS1gGA3heHCXQ6CWcSSTwdyD9xVgMHf6vPV67MRC1mxQcmNY9mPd8UtnIflB5kwJjzAQ58hw3c5ldg4mfj6OvjCQVBq3WoNH1O1WgDXaNuSp5xuTfFWkqUVk_7o5_EMaKfyN",
+  "Potato Head": "AG9NLjBL_b_x6B2Vlcri5HhCG4fSfUuQ6PgFr5quqtnUi38BryT5EMZ4-toqg_RapCL4PqpPSdNAghGALoMETsNbRMe7D5fvplE9ERRhLfDga2xMchVYJH-ZChUCYq-I-IU2hFHjLdzXlBw1kaLYFQ",
+  "Sunset Beach Bali": "AG9NLjCHcfutQD6qq-66p7R20607eJjvRPLSle7VvLl3nt7XOUtoL8h-mseMtBoR3xplVtxUYjvfzGp6py-3tnhcYQ3YgZlWiKw8C-AcWDAxnOgTZgnOpG1RXEAAISzu-LJNprhDi73tJKNENAsC2xnJJTXy",
+  "Warung Nia": "AG9NLjD85-j54-PS0nAn3aS3w0NSr8Z4m5AhwrQsPfMxILSLP4JRcgN9VzZGjSlF_T8dcIr6O-1gMzx0op4xd2UAgj2ylBS6MgvfyADuQ923SeNCPL1T1II3OgjSahqD4treJfG-BWGvSNKmsJmFxw",
+  "Waroeng Bernadette": "AG9NLjAFcOiDg3biX_aP245iA1p7a7nkAlKM-aX7jFlfpNPpY138p7oEbIMMHJKE5A7HHkqvQ_6M7fq3FXG7YBzgpbak6zTfr2hsbbC4t4-AiOFpt3UKcSOqHIWqvYsdFX3C8b88KE5qGMvLiSiBx2RT18ndcw",
+  "Made's Warung": "AG9NLjDrsLh0ZO3P_PcXQMdWJmuXMz-rgKM847d5ldyIbiKT7nQIaPmPv0N9EUzkOMTjWx0_5YPiXoMwUy1Fk3Qg-cT_VxDsTFCUPN2tS9uk8QatG6yZ8iWiqpp9AOJvRZQ5X8liRqhS5UFwNaTE",
+  "Warung Big Boss": "AG9NLjAqteLurSBLT_9mdMP7pYDAgbnUv30Azsjar5defOPF4QecIL7RPSMLGxczXQJ7m08F8J2xewLDS_1LknrOhTYWgchH9MKm7p2ipdxgpxmOetLsCBbwkTRPeWxmrcmaTwH9HaUqSDdxYx9D0g",
+  "Saltlick": "AG9NLjDpcMRCsFvwhJna1fSYUC0S7KGNXYoCLlc3v4Y6HbPJqoNTIMbMKKjuZit6lEuh1kUuyBau6pm2WSgUAXm1g3rDSDystxjZCSZwwNRuNiZ0X4vHDtoYmdawg1NFPBge0xlMSRNMeM3OO5iltM8",
+  "Zia Tina": "AG9NLjAx1KD4QtrvTQfRhNAkoJrBU0YkZZP-1xhQHxZ6l_a7lh9tSo2PJ_NUijVvG06oQ07XZb4ysC4uv5RKtp0ELfTj9uIQTZEnBu3QZr7esiPfTINgHb-fFzWcmyNtVcFVkKtxms6AEthdT-bHtXgkNVR6gw",
+  "Kilo Kitchen": "AG9NLjBbYO6PmTz6aA0yJWV8H7NdNNIYhtxbEeT63lrmJ_UiqxPN_hH5zcwF6XF9VQWrluOruzUUcSLK7vQYR3o2r9mqoYc2SWkFirVY7fyi0AzWqMw4raJUTzFq-EMGx_rSzK9KcReMsKNFYH0F7P-jwKw7RA",
+  "Yellowstone Ranch": "AG9NLjAJ8R230YE15pT7leBz-Tv8g7tRkce-pq5krzrNevQZy-c4Mi_qLZjjMgt9sWQ3GwetYazwoF1xK7JWE1giZbPz9UKlCBw7bZKDyofLNpwD3bCMnoUqcT6rj5aorXy3LKr1kbEPmQ8x4T520A",
+  "Seminyak Silver Class": "AG9NLjDy8lqdQr0kJTikkHfx5KfoFoh78fR4y_sJTS_zP5J6B83L1VVsaqHySrvlcI2CTyVK2jrjAXmoVy_pigfxZeg3JET87n2QimDnUCZuNbL2KOTeuaO6HHBYVJUt8mZK0ikZ4GYryd7_gHPuWA",
+  "Argentum 47 Silver Factory": "AG9NLjAG5yIa--ZobH3yLKReEhdWOnsExf96WCmxwm_pCPVze2nLZWUzw-ZRCW19xKDILx_DqYNpk7HjwPFPCq4f2-Nr5GpL5w9t9LUnK0nYJ2IYDUgJ28rP_U0AQFhbXZLQr1QtaWwffKpXXpaB",
+  "Bambu Silver": "AG9NLjCw-ltD2wW3b-ClhvXsJ278ITo4j8uQDmmepmyT3jRJgYSEIC9_euOjKnm_U5DUY794YdNuftc5e5vYWRIPV3NSsSBY49uDzzMZn5axPBdNqMy9UnXGFep9wBs1HcXiQByurcw1ijUagup_L84",
+  "Sae Design": "AG9NLjAXWejQaHKbxRfaYhLAeOPFMrp--HtQ_UuUlOK0vlE1wb7rrTln3HdQXVDnlOzynL6gy5uVQKd2MlwtPphuFeB6sfDjJ_-sF1RMJQEwEoakIEBQJyiZcR_CtR98CojjR-Mjs4ml6w4f6s21GsyuWPOt",
+  "Tulola Designs": "AG9NLjBdWkKZzaWG2xxfJSvXpzUcO9KTcT6vy8LRaIVEYGIOTXcvrWuRNzF24uh122LyAfNjA3A_oaJMGe9zCj0EvQ7V8M7ZNRPgLC96ZvbtzR5-vGhpgNDWP2iAcQOMHp-9bAuyYMXMibnyxdw",
+  "Celuk Bali Silver Class": "AG9NLjA10FyMFdgd9BWoq5Ld9P5uRmSm_qLoq4yJHzYVFYgTM_emBit9RCDoEbGLLhafKAQGsgjEVUpnZhGQQ5_DtJuHqLRQ-MlNyHRlu-toiQEBGZ2LkhSBsC-H3V30FntFOeBfbTBJo11TLl0dzA",
+  "SUNSRI House of Jewelry": "AG9NLjAcyZkJ_xW7fCkvTvRSO9yrW2hPrdlv6r48_9HpKng_itiWk0yH2EhvdBByUUoyl2G0hfqx5k3XSzA_BUOucni6rknNEjshlrW5PnPfZRflCi76IJjR-uVb7rTPYhoAkjTjXu5AOJj0uGfUvg",
+  "Nia Bali Cooking Class": "AG9NLjDPR9VlY7Bw3c2QLPihQMXDpESY0yJU7DcZRMOetD4WQU0pZ9Hrb6sMhQhPNB_ou2S8vjMOctsge6JZJfDqXdKTWdPYFYfjHSXSkUj6W-amynQzzF0WwdCJcLvXAffBjfuGNE8VtANcTKWQz5Q",
+  "Rendang Bali Cooking Class": "AG9NLjC89A-ntY44iu8eP6h7rzjvyoUdNGW8S-OR_Dc7BFHq_3QbhfV493evZpALnsyKEvpCL0PgghS4vQ04Rl4_R1Ijv0YpV2O4oftsDlJ1nhe1qqS53646lWufMY7Q1mwbFUiQU1src4rlTZO-Wg",
+  "Cooking Class at The Amala": "AG9NLjBHoOzl_TXNwKTacTHx----UBFM0vqP6wvKvC49Qyvzo1mOcS6ry-vaXoGfe-fHer-yuuCklrT7IzjsLIBl_GXzaWjGN8FZq0ovc_0psFK6lhIFWojjEQtyxL-LdNjSpuQD0pgQ4Z501b6r9AU",
+  "Kin Vegan Cooking Class": "AG9NLjDghWCzI_Em7I627m4jcFjYWjqROIqmbcoccjFKEqRyTB1hVfJdt7sQ-UUNu7DEv1po8q_MCWKHB9rctfTlySouLGWcEVCa-G44rEv87oM6t_LF1MSO6HrxnaUWcotdoS4mo26ZVxWzYoed7lnrb-aFCQ",
+  "Villa Coco Cooking Class": "AG9NLjBQuODGWHCZo7lPCxUS5UQCL3Q48ZtU-QtedugI6rTO1yzlWycXqbYV0Sy7zNNZnMuxNOersAZGdFfawauP0CWDEyqXK10J4vRySAZOCHTeQfzmJYCqnIcYoNB0Oy8qeO1VBe4xdqQkl8vHMw",
+  "Anika Cooking Class": "AG9NLjAxqKME2kxsXe9sd29YTu_Cd9UomojzgsWDQcOrsi488cBwOmzx1u_5qfYVPQLAyK8-Ormj1ILTjs3qRHefxTQir4PIVqGTsWO0Jka7fJTfE9cZPIj-BA2F77iDk4cV09fPSQiX7QOq0RBUZM_eRJ0JMQ",
+  "Sanara Home Massage": "AG9NLjDLznIJu1vAKiGla1awo1Aijs2QL4ZwNgANU1n-d67qPs7Oh48pWe839u0p5yKL2djU94ipMaxppV9v4ZsHrkE0M06C3TTjN5fm9OEH5b_kvG-_CuP26a3oJjty_GIl0EUJUhUMHAzP5jiYL0OYCikOcg",
+  "Edelweiss Spa": "AG9NLjDGHIJ-rZCXNwdkMWaU2i1wKNjlxRZ6xIUdxs4EFVLSNXQv3oIcTNrlSYqHh8SMQSCRMqF_Ft3dYfEwwIWMgDZlvKMnvXrdvKHRU2sKsyG_87H1RnCKPatG2Ehm72ekelKOleV1AdjWCEctPCM",
+  "Eden Spa & Beauty": "AG9NLjBUefJcg_2VO7EiInq_1eei1Og9_GJXqP0itqHGWkcLtuOQsSJzZLMKKyPOYWNYJBNnxVB9zsyFngpB32p13l0AH2QA0TnziTABySDYPgsMeld7_nIqv2-pHzHs6Ceq34o8TJfCpmfQcE2-Jw",
+  "Ssamaya Balinese Spa": "AG9NLjB6t-9U7iOmjR-RkFwVTKN3472z10Zmtg3aMtzThvegaTH9xBZiryvrGztYXO1umQ6SCf5Q6VSWWM3ePlQFX9vZ824mDg0dFU3qgf9VDWZw_9ctFCeLXS0kk5XyjGdd6Eh390ccYOQkbAcz4Iwcz725Bg",
+  "Mello Spa": "AG9NLjDzwsE6bgt-MTBvVcQihddhlZrL4-BcVFrvnoVRNSQHJdlQmBQePNLq0e2jjCSVP0kBskD0NNxU4QpzXFgXon0ebqt-22ILbTf1-jI1NwT1hKx1kv25SuM8b1llhm9U-KJD0FR2UQ_Pt5cmWg",
+  "Lucky Laundry": "AG9NLjBbi-4l3gKgWFZueDafjeULRqlT0i3y3iMOd1BZlYZpxPcxC7jSdIYO5CHClSUUmtVnyXgwZHC-vcKG6YvFHUxx4mP2s1sTbzNhAgn9AYlSE5v17i0aj2CRej_nf-_4lVxTnr-qTttFt8Ruaes",
+  "Ba-bless Laundry": "AG9NLjATVHv-DHN8Vux1dM1S3jp-aTX9W1zwg6De2rUxrsOvhtXxH-8QQL4D-CynowN3Sv4USKSah43C5v_XL-62BngzKQ99_MP_E9NV6Sj1n1Pp6noVQJYFBMeCbQJak6nkCcJNtDnRhcafoTbrWGbnZiVqLg",
+  "Laundry Hub": "AG9NLjDeRP6u8sncBectLnTOJyHwWb8OLO2Lsn6bdlFDt6_c3E-gODcQNHKg6cy5BBK-NXCJbedJZZrHYOvBWBIx9S4bdJW8HrPS2gtg5AR-tK4dF6Nxed8ou73Se_scjKhbtwEhQWfJuSTw4b2i_aRSOSz_",
+  "Hubit Laundry Express": "AG9NLjCUnYiuo2L9s_67nOshwWvZE9ve_tsoHSnvPizAlfBZOOWbZ7lEh9wG73eSJNYyBwTJh0QJAWNoW4zEAN-Rs0-0ivZ95jmcKc0449hbPY6eqUjv7iQZoqv5ZeStrxIu5fKYr7VAZSkMIStspDc",
+  "Easy Day Laundry": "AG9NLjAuVGtrzt9Et3PYqk2lCKIxZPw5vMyMKnll8UTCzvA6UgvdeaeCMYe9rGMidRbAwC9NMC_6m80G95FIXTv8fuAGK5VpyNLykQqEKc-cqV8_pxXs7t5fs7hfccuzsJV3cXvVi9QvyD1ZZeSSVAb1fQfR",
+  "Potato Head Sunset Park": "AG9NLjBkWyy5oFiFHU-Y1G5VDfT6otg9T1_Dehu9EfH1-3WUTEQZNZ3Zswv67OCsRP3k-j7tWCN8582Zhryf4VBARCXk5vpSVb3BuJ07W4SkJFA56Ev3xH75F3quacKqARWuh-bHCct9snkEeAhTb8blnLso",
+  "Double Six Rooftop Bar": "AG9NLjDIvFyQHaTiHAalhHSMiJpnkTWqiusuRbN8rcWyynpcxH1jbFl2oQDRUyiRr6FUqoRh_tRudKB7oKOiRsBePeKVqKkyW9BcFoS5qAlnLjLn333KEBsWBVpwvQVR4WayOc0M3fQxzRwUWRz5MN7C9XAmYg",
+  "Beach Bar at Alila": "AG9NLjDd_R6dDlZMLbeb2IAg7Pehsi-Q__oikK_Tg-7qAFtaSaVTAfKYS6Ud1UelqUoyxPJ4Jp3jP0_oxK5s-TRNDF1Dtx6IaVpFnWQ2yjKPWUnSi9RgUB3niCPNZ8vLYBg1pcoqTgKSm7Rd6jEooqWfQKdtjA",
+  "Warung Kawan": "AG9NLjDYWh3O7k70ZXond9V_9df2yAnhQ5lwfUXUTGpw6XhvPwuoBNYwUUOYVyjY7Yil0-7uP5G9USODCBdz4U1vm6XsVhqrtJ_qR9Xdg5uhtqJ3syzQWZUV31eayCK3uOoyTEECku6p-cRMLxVsoi0",
+  "Warung 3 Putri": "AG9NLjC2IAz4PZDvHhO7f-vsARzH6PA7jPvAUmeoXFi1Po2h2KqqunrmlKuV-o6oeEcb42W0slyxnxVWO2mQEW3UOqxROSbKKLePwJLRTKdZjmYA_7_B6h-bYKWJ04YHX04ECfboj3JPstsoSSRPwnshvee9AA",
+  "Warung Dayu": "AG9NLjDayG79fKtOtyLVFx67suj6-NRmtawIQ_Q9BhVcbN4qWXpcPcPWz_ml5J307uOIz8lYZ4fB0aecA82RIkTnor_zCuHVaE4T4uJ9x-AHKFZ-y15SLxeXMVQRqO3h8cY7BKj4avqFFeSGN4BT6EhB3oUTPQ",
+  "Ferry's": "AG9NLjCwlVQiEW0CvCsaTmihhQ0R8fqXdfy3_6W2qH1vrrZ8h5FnT7kUvy4Xgm7eCwRgW9yCxl2nJxe460_4llubSlYgOAtwuhUpNcuUQDvMtJkqxNYAfGCycC6xr6Yk8GymapMT-wPPp4eofXM2ve2WZGZI",
+  "Warung Kopi": "AG9NLjDoynw8rTMWTNE_8awh-kJJd-OEm9QqUAl0YB_jttE7-wzvBHERkGa4aWRYy95jJMjrdTbO0j1Eq6bkXt8wRAcE7badmYuOase5z4M4q3ZXTqHV2kjUo10Wqzy9-efRTYYwLQvZGWEkJcsQKw",
+  "Warung Anyelir": "AG9NLjAUUPrdkO5ZDLQl2SiYno3QeX6grm-iCQVRh2Q8_wopi5-NlC_RPJnXP87mhZgAheAFaPlZJwgbZg55aZl2eua_DVvuFKd8hNQ-FvsFob6ck9RgLWzd2JDFlow1s6q5EvasrFzgCu5RN5E0S3jO56bt",
+  "Bintang Supermarket": "AG9NLjC2NiBMkkeYMO0Lx-16w8Jx3PgDkXSu8A_rqCJcQ8DGKfijYObcDCuCiE1h87X3hUuIaNvKxBYd_IsL_WRlauOX4Mg0p7cuvhT8iOHqUle7iXiD6graDhXrp3lAP2ASiI-TWKs2CMbsTFZKsdU",
+  "Frestive Supermarket": "AG9NLjCl3eOxuAXcGo8qKp6o9ZG0ay1P7RP3LGsQA-Zt_eRBIfVRsty-bNX__zEUeXBo6PlBFqGkWjNab5TgWmLPaeC5bEl7e_5w44MulbalYOLOAgo6MTAHsNQjdTj__PT14OslpqQSPTs5mXeTu4M",
+  "Coco Supermarket": "AG9NLjA3n3x55G-bHLd_yFDJzUlD5xUPT3tKePoA74hjkDo-_j1CnzNnFwJ17A24cHOkJdV8ifF1b_xk9zC-mmUHC2jyDw7KDZgy-lxovopiEK9_htQHBnL3pu7DSb4eSprNavcPBvc3EAzmAZes7A",
+  "Mega Mart": "AG9NLjDHeKx7C3B86VLlu3-Rz9oJp7t2okAh6kV9-l_QtiLZ_aP1fjrzu-VhPq-es-w0LfNG2HFcnY6En6JgO4ep7R4OK1jWxsO_wlfKtLpvKidqzz3IvuuYoqXsRU3VShIRX1aLHIIt5p1wOCothsJFbss2Sg",
+  "Minimart on our street": "AG9NLjC_eTli3dkU_PZ12qlWMRty6RaGq3kvpjiWwnc85kaezKTE7rcsobR2xubyVu-M3rCh7SRCSXoTMZLDMoxIAWYJN89e-jwhyiq8dAqOs9CL6KiacBkFgIw6Id5CCjgOVBG54yOV1EeD4SwYyYg",
+  "Waterbom Bali": "AG9NLjD0RAxQkwqQoAh-VQhTk41KozNb59zRY0QZDSDe4A7ZlQMPZd-_3tLlXRRT0NYOjF390jZB84baABHUsUTUpqD_tw7vyhh64_ZQsnC0GcqIDU5FZO2dnu6-xOC1mDw_D1tEfWh6ecLs2tqbbJw"
+};
+
+/* Official sites, where the place has one. Carried through to the planner. */
+const WEB = {
+  "Ku De Ta": "https://www.kudeta.com/",
+  "La Lucciola": "https://lalucciolabali.com/",
+  "Potato Head": "https://seminyak.potatohead.co/feast/beach-club",
+  "Sunset Beach Bali": "https://www.sunsetbeachbali.com/",
+  "Warung Nia": "https://warungnia.com/",
+  "Waroeng Bernadette": "https://www.instagram.com/waroengbernadette/",
+  "Made's Warung": "https://madeswarung.com/",
+  "Warung Big Boss": "https://www.instagram.com/bigbosswarung/",
+  "Saltlick": "https://saltlickbali.com/",
+  "Zia Tina": "https://zia-tina.com/",
+  "Kilo Kitchen": "http://kiloseminyak.com/",
+  "Yellowstone Ranch": "http://yellowstoneranch.id/",
+  "Seminyak Silver Class": "https://www.seminyaksilverandgoldclass.com/",
+  "Bambu Silver": "http://bambusilver.com/",
+  "Sae Design": "http://saedesignjewelry.com/",
+  "Tulola Designs": "http://www.shoptulola.com/",
+  "Celuk Bali Silver Class": "http://www.celuksilverclass.com/",
+  "SUNSRI House of Jewelry": "http://sunsrijewelry.com/",
+  "Nia Bali Cooking Class": "https://niacookingclass.com/",
+  "Rendang Bali Cooking Class": "https://rendangbalicookingclass.com/",
+  "Cooking Class at The Amala": "https://www.theamala.com/",
+  "Kin Vegan Cooking Class": "https://kinvegancookingclass.com/",
+  "Villa Coco Cooking Class": "https://www.villacoco.com/cooking-class/",
+  "Anika Cooking Class": "https://anikacookingclass.com/",
+  "Sanara Home Massage": "http://homemassagebali.online/",
+  "Edelweiss Spa": "https://www.edelweiss-spa.com/",
+  "Eden Spa & Beauty": "https://www.instagram.com/edenspabali/",
+  "Ssamaya Balinese Spa": "https://ssamayaspabali.com/",
+  "Mello Spa": "http://mellospa.co/",
+  "Ba-bless Laundry": "https://wa.me/6285157753355",
+  "Hubit Laundry Express": "https://hubitlaundry.com/",
+  "Easy Day Laundry": "https://easydaylaundry.com/",
+  "Potato Head Sunset Park": "https://seminyak.potatohead.co/feast/sunset-park",
+  "Double Six Rooftop Bar": "https://doublesixrooftop.com/",
+  "Beach Bar at Alila": "https://www.hyatt.com/alila-hotels-and-resorts/en-US/dpsas-alila-seminyak/dining",
+  "Warung Anyelir": "https://instagram.com/warunganyelir_seminyak",
+  "Bintang Supermarket": "http://bintangsupermarket.com/",
+  "Frestive Supermarket": "https://www.frestive.com/about.html",
+  "Waterbom Bali": "https://waterbom-bali.com/"
+};
+
+/* Google place IDs — used for an exact map pin and the full photo gallery. */
+const PLACES = {
+  "Ku De Ta": "ChIJ5esTIBtH0i0RaqMKf-MsMZE",
+  "La Lucciola": "ChIJ7XmB1A9H0i0RC642dTRQAvA",
+  "Potato Head": "ChIJ_XZL_xFH0i0RTo0EWBqsnRs",
+  "Sunset Beach Bali": "ChIJp_OADgBH0i0RsfgY1QGIrck",
+  "Warung Nia": "ChIJ16_VXhpH0i0RJm_bsp3gFF8",
+  "Waroeng Bernadette": "ChIJV-WqKKRH0i0REm1ftXkSQ6g",
+  "Made's Warung": "ChIJGYnnmiFH0i0RscaeM-Sx3t8",
+  "Warung Big Boss": "ChIJL7KTHOhH0i0RPcpQVD4iWOA",
+  "Saltlick": "ChIJC7XaV3ZH0i0RY1S63phoNlQ",
+  "Zia Tina": "ChIJ5yVfA9FH0i0RT_TrnuZg2b8",
+  "Kilo Kitchen": "ChIJb-BRehhH0i0RUcIoZtXLtUM",
+  "Yellowstone Ranch": "ChIJp8c27GVH0i0RYA7CtKmzJsY",
+  "Seminyak Silver Class": "ChIJrWOeYbJH0i0Ro3enZEEPTFg",
+  "Argentum 47 Silver Factory": "ChIJ5ZB5FvRH0i0RMX-iqvgvk2Y",
+  "Bambu Silver": "ChIJqeJjYgNH0i0RYinCCAHaRzk",
+  "Sae Design": "ChIJHQxboSBH0i0R5H4OzUc1bjI",
+  "Tulola Designs": "ChIJ07oN02xH0i0ROl2xGCiiEqI",
+  "Celuk Bali Silver Class": "ChIJC0RruQM_0i0RLSc7K5DTV14",
+  "SUNSRI House of Jewelry": "ChIJLVd8RDE-0i0RhBkqcimBsX8",
+  "Nia Bali Cooking Class": "ChIJbVDOXTpH0i0RcrCyF4LWRg0",
+  "Rendang Bali Cooking Class": "ChIJvTq8DY5H0i0RCiwOPHHZcx0",
+  "Cooking Class at The Amala": "ChIJY0A3sSZH0i0R3bvRx5WMbaE",
+  "Kin Vegan Cooking Class": "ChIJ4RI1kBFH0i0RSMYzPC09fn0",
+  "Villa Coco Cooking Class": "ChIJBZoMp0BH0i0RRgAvb96CGvE",
+  "Anika Cooking Class": "ChIJX4tVCxpE0i0RJKTfThZIqcI",
+  "Sanara Home Massage": "ChIJwb5KBpVH0i0R4JjvJRnhEJw",
+  "Edelweiss Spa": "ChIJJ6hZQa0eQA4Rw7Vq6kENwdc",
+  "Eden Spa & Beauty": "ChIJcS4rkixH0i0R2IkX1bXbFYA",
+  "Ssamaya Balinese Spa": "ChIJR1FtRmBH0i0RBlmMNK62eFk",
+  "Mello Spa": "ChIJtZkohiFH0i0Rezy6PFOGvAo",
+  "Lucky Laundry": "ChIJ62cIf9FH0i0RoThCgXzOOxw",
+  "Ba-bless Laundry": "ChIJFSraCgBH0i0R_NvboVykPA8",
+  "Laundry Hub": "ChIJLwaItmRH0i0RDINADr5Dgq4",
+  "Hubit Laundry Express": "ChIJ73NKUaM50i0RyHZQqCSoutc",
+  "Easy Day Laundry": "ChIJhQc_5g1H0i0RwI7nnGUjG8E",
+  "Potato Head Sunset Park": "ChIJN5h59SFH0i0RNTl9Zk0ewRQ",
+  "Double Six Rooftop Bar": "ChIJl0nY4QhH0i0R-U7SNqR2WB8",
+  "Beach Bar at Alila": "ChIJo4nYhg5H0i0Rs4H_8K4pmFg",
+  "Warung Kawan": "ChIJgaVQXRZH0i0Roi-nSQziT20",
+  "Warung 3 Putri": "ChIJfxYmWgBH0i0RadLIeRUQwPQ",
+  "Warung Dayu": "ChIJhz8NSiBH0i0RClRVh3HPQFA",
+  "Ferry's": "ChIJIcEH2BVH0i0RQVT9EBJMj4M",
+  "Warung Kopi": "ChIJ9_R9f99G0i0RwETikY0Kh_Y",
+  "Warung Anyelir": "ChIJ90-8X8tH0i0RjcYyXQN6TTQ",
+  "Bintang Supermarket": "ChIJdT8Tgt9G0i0RWILBsNv7gjU",
+  "Frestive Supermarket": "ChIJm3L-GYVH0i0R_b8C79APwXg",
+  "Coco Supermarket": "ChIJv_9MhBdH0i0RhQFC8P286Mk",
+  "Mega Mart": "ChIJl6kYYxBH0i0RMUvYhy8ugd4",
+  "Minimart on our street": "ChIJBcAbZtdH0i0Rz_dYmbQuMvQ",
+  "Waterbom Bali": "ChIJ34KP7qNG0i0RpX9A85PWkRI"
+};
+const mapLink = (title, where) => {
+  const q = encodeURIComponent(`${title} ${where}, Bali`);
+  const id = PLACES[title];
+  return "https://www.google.com/maps/search/?api=1&query=" + q +
+         (id ? "&query_place_id=" + id : "");
+};
+
+
+/* Extra photos for places worth seeing more of. Tap a thumbnail to enlarge it. */
+const GALLERY = {
+  "Double Six Rooftop Bar": [
+    "AG9NLjDIvFyQHaTiHAalhHSMiJpnkTWqiusuRbN8rcWyynpcxH1jbFl2oQDRUyiRr6FUqoRh_tRudKB7oKOiRsBePeKVqKkyW9BcFoS5qAlnLjLn333KEBsWBVpwvQVR4WayOc0M3fQxzRwUWRz5MN7C9XAmYg",
+    "AG9NLjDRXZt7DmZ7-QQlyk831FitQg1_1Je7sLMyjrgehuPxZSmlBIbwmp70JC-2vWNqENx0JICAvQ3brwJ7nACofSxEMYTX2n8sUF68hFunE5BsKktjz4y7OgJ5LHKDfesg7UGzSRO7K-EBR_bGp4msKNlSwQ",
+    "AG9NLjAjl990OCwGxNOeiM8FtJcdV_Z7HkkYa6ragkJqSwiGc_dBoudRiQmRvU_5RpdVJU4UF89CrZG2q3eLTr-0CNm4w9b7KHw2SZFklQJJaKBR79tjsup8WiRNvZllDqv8m2h1q3RsNqe-KhrC7X3GgAnTog",
+    "AG9NLjBs5Kign4W5Kx3atK_0PlMcRqrB1igCdeegtm4-M2ZvLzmjj1jx7a4IASdoBbqtQpxA0EWj82s09suLBV1mabuy4XC0u-UPFGPvtmQZHxDkP7Uo4TPHTJkdHdiqOpP-KSp7KqCDdMgykVG2BwT0mHeoeA",
+    "AG9NLjBtmd3_f8wc3DZG6TL4Goj-epZrC-TSQGK9hfFIi0mPhBEv4wcDmU_n3Jpuq4JkOl3VkhtxC3A6VgNflgyVEP0cNiMgY7Wtgip9yTHI6M752qTGEYuj_7eIQRW6nlGa1pQwBcZ9rxL13ZvVaRaYdLy_6Q"
+  ]
+};
+const galleryFor = t => (GALLERY[t] || []).map(id => PIC_BASE + id + PIC_SIZE);
+
+/* Phone numbers. In Bali, booking mostly happens on WhatsApp — Indonesian mobiles
+   start 628, landlines don't, so we offer WhatsApp for one and a call for the other. */
+const PHONES = {
+  "Ku De Ta": "+62 361 736969",
+  "La Lucciola": "+62 361 730838",
+  "Potato Head": "+62 361 6207979",
+  "Sunset Beach Bali": "+62 812-3781-4448",
+  "Warung Nia": "+62 857-7701-2377",
+  "Waroeng Bernadette": "+62 817-6618-999",
+  "Made's Warung": "+62 361 732130",
+  "Warung Big Boss": "+62 813-3820-3486",
+  "Saltlick": "+62 822-4797-2138",
+  "Zia Tina": "+62 811-3990-8905",
+  "Kilo Kitchen": "+62 812-4616-7618",
+  "Seminyak Silver Class": "+62 878-6306-6551",
+  "Argentum 47 Silver Factory": "+62 878-5003-0729",
+  "Bambu Silver": "+62 812-3704-1264",
+  "Sae Design": "+62 823-2289-3366",
+  "Tulola Designs": "+62 812-3859-524",
+  "Celuk Bali Silver Class": "+62 822-3539-3242",
+  "SUNSRI House of Jewelry": "+62 811-3960-4855",
+  "Nia Bali Cooking Class": "+62 877-6155-6688",
+  "Rendang Bali Cooking Class": "+62 819-2666-655",
+  "Cooking Class at The Amala": "+62 361 738866",
+  "Kin Vegan Cooking Class": "+62 878-6091-3800",
+  "Villa Coco Cooking Class": "+62 818-0230-0888",
+  "Anika Cooking Class": "+62 818-889-369",
+  "Sanara Home Massage": "+62 881-0383-79844",
+  "Edelweiss Spa": "+62 878-9366-7108",
+  "Eden Spa & Beauty": "+62 859-5454-0633",
+  "Ssamaya Balinese Spa": "+62 813-6579-2777",
+  "Mello Spa": "+62 811-2890-8080",
+  "Lucky Laundry": "+62 878-6553-5955",
+  "Ba-bless Laundry": "+62 851-5775-3355",
+  "Laundry Hub": "+62 877-7006-8994",
+  "Hubit Laundry Express": "+62 815-2943-6207",
+  "Easy Day Laundry": "+62 821-4608-2744",
+  "Potato Head Sunset Park": "+62 361 6207979",
+  "Double Six Rooftop Bar": "+62 811-3831-0166",
+  "Beach Bar at Alila": "+62 361 3021888",
+  "Warung Dayu": "+62 361 9347543",
+  "Ferry's": "+62 878-6336-6002",
+  "Warung Kopi": "+62 361 736884",
+  "Warung Anyelir": "+62 881-0382-02375",
+  "Bintang Supermarket": "+62 361 730552",
+  "Frestive Supermarket": "+62 859-4074-8190",
+  "Coco Supermarket": "+62 811-7172-9099",
+  "Waterbom Bali": "+62 361 755676"
+};
+const ASK = {
+  eat:    "Hi! We'd like to book a table for 4 please.",
+  sunset: "Hi! We'd like to book for 4 for sunset please.",
+  cheap:  "Hi! We'd like to book a table for 4 please.",
+  cook:   "Hi! Do you have space for 4 on a cooking class?",
+  silver: "Hi! Could you tell me about your silver classes for 4 people?",
+  spa:    "Hi! We'd like to book massages for 4 please.",
+  wash:   "Hi! Could you collect laundry from Jl. Sari Dewi, Seminyak?",
+  shop:   "Hi!",
+  out:    "Hi! Could you tell me about tickets for 4?"
+};
+
+const digits   = t => (PHONES[t] || "").replace(/[^0-9]/g, "");
+const isMobile = t => digits(t).startsWith("628");
+const waLink   = (t, key) => isMobile(t)
+  ? "https://wa.me/" + digits(t) + "?text=" + encodeURIComponent(ASK[key] || ASK.eat)
+  : "";
+const telLink  = t => (PHONES[t] && !isMobile(t)) ? "tel:+" + digits(t) : "";
+
+const picFor = title => PICS[title] ? PIC_BASE + PICS[title] + PIC_SIZE : "";
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const traveller = n => TRAVELLERS.find(t=>t.name===n) || { name:n||"Someone", colour:"#4A4266" };
+const withTimeout = (p, ms=8000) => Promise.race([
+  p, new Promise((_,rej)=>setTimeout(()=>rej(new Error("Took too long to reach the server")), ms))
+]);
+
+let store, ideas = [], tripStart = DEFAULT_START, editing = null, sendSlot = "noon", sending = null;
+let me = localStorage.getItem("mbh_me") || null;
+if(me && !TRAVELLERS.some(t => t.name === me)){ me = null; localStorage.removeItem("mbh_me"); }
+
+const dayDate = i => { const d = new Date(tripStart+"T00:00:00"); d.setDate(d.getDate()+i-1); return d; };
+const dayLabel = i => `Day ${i} · ${dayDate(i).toLocaleDateString("en-NZ",{ weekday:"short", day:"numeric", month:"short" })}`;
+const mapUrl = p => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p + ", Bali");
+
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("on");
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove("on"), 2600);
+}
+function banner(msg){ const b = $("banner"); b.textContent = msg; b.classList.remove("hide"); }
+
+/* ============================================================
+   Storage — ideas, plus write access to the planner
+   ============================================================ */
+async function makeStore(){
+  if(!FIREBASE.projectId) return localStore();
+  try{
+    const [{ initializeApp }, fs, fa] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")
+    ]);
+    const app = initializeApp(FIREBASE);
+    try{ await withTimeout(fa.signInAnonymously(fa.getAuth(app)), 8000); }catch(e){ /* open rules */ }
+    const db = fs.initializeFirestore(app, {
+      localCache: fs.persistentLocalCache({ tabManager: fs.persistentMultipleTabManager() })
+    });
+    const col = fs.collection(db, "ideas");
+    const plannerCol = fs.collection(db, "planner");
+    const setDoc = fs.doc(db, "settings", "trip");
+    return {
+      kind:"cloud",
+      subscribe(onList, onSettings){
+        fs.onSnapshot(col,
+          snap => onList(snap.docs.map(d=>({ id:d.id, ...d.data() }))),
+          err  => banner("Can't reach the board right now — " + (err.code || err.message))
+        );
+        fs.onSnapshot(setDoc, d => { if(d.exists() && d.data().start) onSettings(d.data().start); });
+      },
+      add:    v => withTimeout(fs.addDoc(col, { ...v, createdAt: Date.now() })),
+      update: (id,v) => withTimeout(fs.updateDoc(fs.doc(db,"ideas",id), v)),
+      remove: id => withTimeout(fs.deleteDoc(fs.doc(db,"ideas",id))),
+      toPlanner: v => withTimeout(fs.addDoc(plannerCol, { ...v, createdAt: Date.now() }))
+    };
+  }catch(e){
+    banner("Couldn't reach the shared board, so this is saving on your device only.");
+    return localStore();
+  }
+}
+
+function localStore(){
+  const KEY = "mbh_ideas_v1";
+  const read = () => JSON.parse(localStorage.getItem(KEY) || "[]");
+  const write = v => localStorage.setItem(KEY, JSON.stringify(v));
+  let cb = ()=>{}, cs = ()=>{};
+  const push = () => {
+    cb(read());
+    try{
+      const p = JSON.parse(localStorage.getItem("mbh_planner_v1") || "null");
+      if(p?.settings?.start) cs(p.settings.start);
+    }catch(e){ /* nothing */ }
+  };
+  return {
+    kind:"local",
+    subscribe(onList, onSettings){ cb = onList; cs = onSettings; push(); },
+    add(v){ const d = read(); d.push({ ...v, id:"i"+Date.now()+Math.random().toString(36).slice(2,6), createdAt:Date.now() }); write(d); push(); },
+    update(id,v){ const d = read(); const i = d.find(x=>x.id===id); if(i) Object.assign(i,v); write(d); push(); },
+    remove(id){ write(read().filter(x=>x.id!==id)); push(); },
+    toPlanner(v){
+      const K = "mbh_planner_v1";
+      const p = JSON.parse(localStorage.getItem(K) || '{"items":[],"settings":{}}');
+      p.items.push({ ...v, id:"i"+Date.now()+Math.random().toString(36).slice(2,6), createdAt:Date.now() });
+      localStorage.setItem(K, JSON.stringify(p));
+    }
+  };
+}
+
+/* ============================================================
+   Render
+   ============================================================ */
+function ideaHtml(x){
+  const t = traveller(x.who);
+  const votes = x.votes || [];
+  const mineVoted = me && votes.includes(me);
+  const dots = votes.map(v=>`<i style="background:${traveller(v).colour}"></i>`).join("");
+  return `<article class="idea ${x.planned ? "done" : ""}" style="--c:${t.colour}">
+    <button class="vote" data-vote="${x.id}" aria-pressed="${!!mineVoted}" aria-label="Vote for ${esc(x.title)}">
+      <span>${mineVoted ? "♥" : "♡"}</span><b>${votes.length}</b>
+    </button>
+    <div class="body">
+      <div class="ttl">${esc(x.title)}</div>
+      <div class="meta">
+        ${x.where ? `<a class="tag" href="${mapUrl(x.title + ' ' + x.where)}" target="_blank" rel="noopener">📍 ${esc(x.where)}</a>` : ""}
+        ${x.planned ? `<span class="tag on">In the planner${x.plannedDay ? " · day " + x.plannedDay : ""}</span>` : ""}
+        <span class="tag">${esc(t.name)}'s idea</span>
+      </div>
+      ${x.note ? `<div class="note">${esc(x.note)}</div>` : ""}
+      ${votes.length ? `<div class="voters">${dots}<em>${votes.length} of ${TRAVELLERS.length} keen</em></div>` : ""}
+      <div class="acts">
+        ${x.link ? `<a class="mini" href="${esc(x.link)}" target="_blank" rel="noopener">Link</a>` : ""}
+        <button class="mini strong" data-send="${x.id}">${x.planned ? "Add to another day" : "Put it in the planner"}</button>
+        <button class="mini" data-edit="${x.id}">Edit</button>
+      </div>
+    </div>
+  </article>`;
+}
+
+function render(){
+  const t = traveller(me);
+  $("meName").textContent = me || "…";
+  $("meDot").style.background = t.colour;
+
+  const list = ideas.slice().sort((a,b)=>
+    ((b.votes||[]).length - (a.votes||[]).length) || (b.createdAt||0)-(a.createdAt||0));
+  const open = list.filter(x=>!x.planned);
+  const done = list.filter(x=>x.planned);
+
+  $("sum").textContent = ideas.length
+    ? `${ideas.length} idea${ideas.length===1?"":"s"} · ${done.length} already booked in`
+    : "Nothing on the board yet";
+
+  paintLocal();
+
+  if(!ideas.length){
+    $("body").innerHTML = `<div class="empty">Empty board.<br>Tap something from the list below, or add your own — the others vote, and the winners go straight into the planner.</div>`;
+    return;
+  }
+
+  let html = "";
+  if(open.length){
+    html += `<h2 class="sec">Up for grabs</h2>` + open.map(ideaHtml).join("");
+  }
+  if(done.length){
+    html += `<h2 class="sec">Made the cut</h2>` + done.map(ideaHtml).join("");
+  }
+  $("body").innerHTML = html;
+}
+
+function paintLocal(){
+  const on = new Set(ideas.map(x => x.title));
+  $("local").innerHTML = LOCAL.map((cat, ci) => `
+    <details class="cat"${ci === 0 ? " open" : ""}>
+      <summary><span class="ct">${esc(cat.title)}</span><span class="cn">${cat.items.length}</span></summary>
+      <div class="catbody">
+        <p class="blurb">${esc(cat.blurb)}
+          <a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=${cat.map}+Seminyak+Bali"
+             target="_blank" rel="noopener">Map</a>
+        </p>
+        <div class="eats">
+          ${cat.items.map((e,i) => `
+            <button data-peek="${cat.key}|${i}" class="${on.has(e.title) ? "done" : ""}">
+              ${esc(e.title)}<em>${on.has(e.title) ? "on the board" : esc(e.where.split(",")[0])}</em>
+            </button>`).join("")}
+        </div>
+      </div>
+    </details>`).join("");
+}
+
+/* ============================================================
+   Sheets
+   ============================================================ */
+function openSheet(html){ $("sheet").innerHTML = html; $("scrim").classList.add("on"); }
+function closeSheet(){ $("scrim").classList.remove("on"); editing = null; }
+
+function pickName(force){
+  openSheet(`<h3>Who's this?</h3>
+    <p class="sub">so we know whose idea it was</p>
+    <div class="namegrid">
+      ${TRAVELLERS.map(t=>`<button data-me="${t.name}"><i style="background:${t.colour}"></i>${t.name}</button>`).join("")}
+    </div>
+    ${force ? "" : `<div class="sheetfoot"><button class="btn ghost" data-close>Cancel</button></div>`}`);
+}
+
+function suggestSheet(key, idx){
+  const cat = LOCAL.find(c => c.key === key);
+  const e = cat.items[+idx];
+  const already = ideas.find(x => x.title === e.title);
+  const map  = mapLink(e.title, e.where);
+  const wa   = waLink(e.title, key);
+  const call = telLink(e.title);
+  const site = WEB[e.title] || "";
+  const shots = galleryFor(e.title);
+
+  const pic = picFor(e.title);
+  openSheet(`
+    ${pic ? `<img class="peekpic" id="peekMain" src="${shots[0] || pic}" alt="" loading="lazy" onerror="this.remove()">` : ""}
+    <h3>${esc(e.title)}</h3>
+    <p class="sub">${esc(cat.title)} · ${esc(e.where)}</p>
+    <p class="peek">${esc(e.note)}</p>
+    ${shots.length > 1 ? `<div class="peekstrip">${shots.map((s,k)=>
+        `<img src="${s}" alt="" loading="lazy" data-swap="${s}"
+              class="${k===0?"on":""}" onerror="this.remove()">`).join("")}</div>` : ""}
+    ${wa || call ? `<a class="bookbtn" href="${wa || call}" target="_blank" rel="noopener">
+        ${wa ? "Book on WhatsApp" : "Ring them"}</a>` : ""}
+    <div class="peekbtns">
+      <a class="mapbtn wide" href="${map}" target="_blank" rel="noopener">Open in Maps</a>
+      ${site ? `<a class="mapbtn wide" href="${esc(site)}" target="_blank" rel="noopener">Website</a>` : ""}
+    </div>
+    ${already ? `<p class="peeknote">Already on the board${(already.votes||[]).length
+          ? ` — ${(already.votes||[]).length} of ${TRAVELLERS.length} keen so far` : ""}.</p>` : ""}
+    <div class="sheetfoot">
+      ${already
+        ? `<button class="btn ghost" data-close>Close</button>`
+        : `<button class="btn ghost" data-confirm-local="${esc(key)}|${esc(String(idx))}">To the board</button>`}
+      <button class="btn" data-send-local="${esc(key)}|${esc(String(idx))}">Into the planner</button>
+    </div>`);
+}
+
+function ideaSheet(existing){
+  const x = existing || {};
+  editing = existing ? existing.id : null;
+  openSheet(`
+    <h3>${existing ? "Edit idea" : "Add an idea"}</h3>
+    <p class="sub">anything you fancy doing</p>
+
+    <label for="iTitle">What is it?</label>
+    <input id="iTitle" value="${esc(x.title)}" placeholder="Sunrise trek up Mount Batur" autocomplete="off">
+
+    <label for="iWhere">Where</label>
+    <input id="iWhere" value="${esc(x.where)}" placeholder="Kintamani" autocomplete="off">
+
+    <label for="iNote">Why</label>
+    <textarea id="iNote" placeholder="Leaves at 2am but everyone says it's worth it">${esc(x.note)}</textarea>
+
+    <label for="iLink">Link</label>
+    <input id="iLink" value="${esc(x.link)}" placeholder="https://" autocomplete="off">
+
+    <div class="sheetfoot">
+      ${existing ? `<button class="btn danger" data-remove="${existing.id}">Remove</button>`
+                 : `<button class="btn ghost" data-close>Cancel</button>`}
+      <button class="btn" data-save>Save</button>
+    </div>`);
+  setTimeout(()=>$("iTitle").focus(), 60);
+}
+
+function sendSheet(src){
+  sending = src;
+  sendSlot = "noon";
+  openSheet(`
+    <h3>Into the planner</h3>
+    <p class="sub">${esc(src.title)}</p>
+
+    <label for="sDay">Which day?</label>
+    <select id="sDay">
+      ${Array.from({length:TRIP_DAYS},(_,k)=>`<option value="${k+1}">${dayLabel(k+1)}</option>`).join("")}
+    </select>
+
+    <label for="sTime">What time? (optional)</label>
+    <input type="time" id="sTime" value="">
+
+    <label>When in the day?</label>
+    <div class="seg" id="sSlot">
+      ${SLOTS.map(s=>`<button type="button" data-slot="${s.key}" aria-pressed="${s.key==="noon"}">${s.label}</button>`).join("")}
+    </div>
+
+    <div class="sheetfoot">
+      <button class="btn ghost" data-close>Cancel</button>
+      <button class="btn" data-confirm>Add it</button>
+    </div>`);
+
+  $("sTime").addEventListener("change", () => {
+    const v = $("sTime").value;
+    if(!v) return;
+    const h = +v.split(":")[0];
+    sendSlot = h < 11 ? "morning" : h < 17 ? "noon" : "evening";
+    $("sSlot").querySelectorAll("button").forEach(b =>
+      b.setAttribute("aria-pressed", b.dataset.slot === sendSlot));
+  });
+}
+
+/* ============================================================
+   Events
+   ============================================================ */
+document.addEventListener("click", async e => {
+  const hit = s => e.target.closest(s);
+
+  const mePick = hit("[data-me]");
+  if(mePick){ me = mePick.dataset.me; localStorage.setItem("mbh_me", me); closeSheet(); render(); return; }
+
+  const swap = hit("[data-swap]");
+  if(swap){
+    const main = $("peekMain");
+    if(main) main.src = swap.dataset.swap;
+    document.querySelectorAll(".peekstrip img").forEach(x => x.classList.toggle("on", x === swap));
+    return;
+  }
+
+  const peek = hit("[data-peek]");
+  if(peek){
+    const [key, idx] = peek.dataset.peek.split("|");
+    suggestSheet(key, idx);
+    return;
+  }
+
+  const addLocal = hit("[data-confirm-local]");
+  if(addLocal){
+    if(!me) return pickName(true);
+    const [key, idx] = addLocal.dataset.confirmLocal.split("|");
+    const e = LOCAL.find(c => c.key === key).items[+idx];
+    try{
+      const w = store.add({ title:e.title, where:e.where, note:e.note,
+        link: WEB[e.title] || "",
+        book: waLink(e.title, key) || telLink(e.title) || "",
+        who:me, votes:[me], planned:false });
+      closeSheet();
+      celebrate("idea");
+      await w;
+      toast("On the board — scroll up to vote");
+    }catch(err){ toast(err.message); }
+    return;
+  }
+
+  const v = hit("[data-vote]");
+  if(v){
+    if(!me) return pickName(true);
+    const x = ideas.find(i=>i.id===v.dataset.vote);
+    if(!x) return;
+    const votes = x.votes || [];
+    const next = votes.includes(me) ? votes.filter(n=>n!==me) : [...votes, me];
+    try{
+      if(!votes.includes(me)) celebrate("vote");
+      await store.update(x.id, { votes: next });
+    }catch(err){ toast(err.message); }
+    return;
+  }
+
+  const sl = hit("[data-slot]");
+  if(sl){
+    sendSlot = sl.dataset.slot;
+    $("sSlot").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed", b===sl));
+    return;
+  }
+
+  const send = hit("[data-send]");
+  if(send){
+    if(!me) return pickName(true);
+    const x = ideas.find(i => i.id === send.dataset.send);
+    if(x) sendSheet({ title:x.title, where:x.where, note:x.note, link:x.link,
+                      book:x.book || waLink(x.title,"eat") || telLink(x.title) || "",
+                      pic:picFor(x.title), who:x.who, ideaId:x.id });
+    return;
+  }
+
+  const sendLocal = hit("[data-send-local]");
+  if(sendLocal){
+    if(!me) return pickName(true);
+    const [key, idx] = sendLocal.dataset.sendLocal.split("|");
+    const e = LOCAL.find(c => c.key === key).items[+idx];
+    sendSheet({ title:e.title, where:e.where, note:e.note,
+                link: WEB[e.title] || "",
+                book: waLink(e.title, key) || telLink(e.title) || "",
+                pic:  picFor(e.title) });
+    return;
+  }
+
+  if(hit("[data-confirm]")){
+    if(!sending) return;
+    if(!me) return pickName(true);
+    const day = Number($("sDay").value);
+    try{
+      const w = store.toPlanner({
+        day, slot: sendSlot,
+        title: sending.title,
+        place: sending.where || "",
+        link:  sending.link || "",
+        book:  sending.book || "",
+        pic:   sending.pic  || "",
+        notes: sending.note || "",
+        time:  $("sTime").value || "",
+        cost:"", travel:"",
+        status:"maybe",
+        who: sending.who || me
+      });
+      await w;
+      if(sending.ideaId) store.update(sending.ideaId, { planned:true, plannedDay:day, plannedSlot:sendSlot });
+      closeSheet();
+      celebrate("planner");
+      toast("Added to day " + day);
+    }catch(err){ toast(err.message); }
+    return;
+  }
+
+  const ed = hit("[data-edit]");
+  if(ed){ const x = ideas.find(i=>i.id===ed.dataset.edit); if(x) ideaSheet(x); return; }
+
+  const rm = hit("[data-remove]");
+  if(rm){
+    try{ await store.remove(rm.dataset.remove); closeSheet(); toast("Removed"); }
+    catch(err){ toast(err.message); }
+    return;
+  }
+
+  if(hit("[data-save]")){
+    const title = $("iTitle").value.trim();
+    if(!title){ toast("Give it a name first"); $("iTitle").focus(); return; }
+    const val = {
+      title,
+      where: $("iWhere").value.trim(),
+      note:  $("iNote").value.trim(),
+      link:  $("iLink").value.trim()
+    };
+    try{
+      if(editing) await store.update(editing, val);
+      else { celebrate("idea"); await store.add({ ...val, who: me, votes: me ? [me] : [], planned:false }); }
+      closeSheet(); toast("On the board");
+    }catch(err){ toast(err.message); }
+    return;
+  }
+
+  if(hit("[data-close]") || e.target.id === "scrim"){ closeSheet(); return; }
+  if(e.target.id === "btnSwitch"){ pickName(false); return; }
+  if(e.target.id === "btnAdd"){ if(!me) return pickName(true); ideaSheet(null); return; }
+});
+
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeSheet(); });
+
+/* ============================================================
+   Go
+   ============================================================ */
+(async function start(){
+  store = await makeStore();
+  if(store.kind === "local" && !FIREBASE.projectId) banner("Test mode — saving on this device only.");
+  store.subscribe(
+    list => { ideas = list; render(); },
+    start => { tripStart = start; render(); }
+  );
+  render();
+  if(!me) pickName(true);
+})();
+
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  addEventListener("load", ()=> navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}
+</script>
+</body>
+</html>

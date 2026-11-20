@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B1730">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bali">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>Where we stay · My Bali Holiday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1730; --ink-soft:#4A4266;
+  --sand:#FFF3E2; --sand-deep:#F6E3C8; --line:#E4CDA9;
+  --frangipani:#FF4D8D; --lagoon:#0BA5C7; --marigold:#FF9F1C; --pandan:#16A97C; --dusk:#9B5DE5;
+  --shadow:0 2px 0 rgba(27,23,48,.10), 0 10px 26px -14px rgba(27,23,48,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--sand);color:var(--ink);
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom));
+}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+
+.top{
+  position:relative;overflow:hidden;text-align:center;color:#fff;
+  padding:calc(26px + env(safe-area-inset-top)) 20px 30px;
+  background:
+    radial-gradient(120px 120px at 80% 92%, rgba(255,209,102,.5), rgba(255,159,28,0) 70%),
+    linear-gradient(178deg, rgba(27,23,48,.72) 0%, rgba(75,42,99,.50) 42%, rgba(196,63,118,.42) 72%, rgba(255,122,69,.34) 100%),
+    url('hero-stays.jpg') center 30% / cover no-repeat;
+}
+.top::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:10px;
+  background:linear-gradient(90deg,var(--frangipani),var(--marigold),var(--pandan),var(--lagoon),var(--dusk));
+}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.75;margin:0 0 6pxtext-shadow:0 1px 8px rgba(27,23,48,.6);}
+.wordmark{
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(30px,8.5vw,44px);
+  line-height:.95;margin:0;font-variation-settings:'SOFT' 40,'WONK' 1;
+}
+.sum{margin:13px 0 0;font-family:'DM Mono',monospace;font-size:12.5px;letter-spacing:.06em;opacity:.9}
+
+.mebar{
+  display:flex;align-items:center;gap:8px;justify-content:center;
+  padding:10px 16px;background:var(--sand-deep);border-bottom:1px solid var(--line);font-size:14px;
+}
+.medot{width:12px;height:12px;border-radius:50%;flex:none}
+.linkish{background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;font-size:14px}
+
+main{max-width:780px;margin:0 auto;padding:16px 14px 40px}
+
+/* stay card */
+.stay{
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  box-shadow:var(--shadow);margin-bottom:14px;position:relative;
+}
+.head{
+  background:var(--c,var(--ink));color:#fff;border-radius:15px 15px 0 0;
+  padding:11px 15px;display:flex;align-items:flex-start;gap:11px;
+}
+.head .no{font-family:'DM Mono',monospace;font-size:18px;line-height:1.2;opacity:.65;flex:none}
+.head .nm{font-family:'Fraunces',serif;font-weight:700;font-size:19px;line-height:1.15;flex:1}
+.head .area{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.8;display:block;margin-top:2px}
+.head .nights{font-family:'DM Mono',monospace;font-size:11.5px;text-align:right;flex:none;opacity:.9;padding-top:3px}
+
+.shot{
+  display:block;width:100%;aspect-ratio:16/9;object-fit:cover;
+  border-bottom:1px solid var(--line);background:var(--sand-deep);
+}
+.head.hasshot{border-radius:0}
+.stay.hasshot{overflow:hidden}
+
+.strip{
+  display:flex;gap:6px;padding:9px 14px 0;overflow-x:auto;scrollbar-width:none;
+}
+.strip::-webkit-scrollbar{display:none}
+.strip img{
+  width:74px;height:56px;object-fit:cover;border-radius:8px;flex:none;
+  border:1px solid var(--line);cursor:zoom-in;transition:transform .12s ease;
+}
+.strip img:hover{transform:translateY(-2px)}
+.shot{cursor:zoom-in}
+
+.vlb{
+  position:fixed;inset:0;z-index:80;background:rgba(20,16,36,.95);
+  display:none;align-items:center;justify-content:center;
+  padding:calc(20px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));
+}
+.vlb.on{display:flex}
+.vlb img{max-width:100%;max-height:84vh;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.55)}
+.vlb button{
+  position:absolute;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);
+  color:#fff;border-radius:999px;width:44px;height:44px;font-size:20px;line-height:1;
+  backdrop-filter:blur(6px);
+}
+.vlb .x{top:calc(14px + env(safe-area-inset-top));right:14px}
+.vlb .p{left:12px;top:50%;transform:translateY(-50%)}
+.vlb .n{right:12px;top:50%;transform:translateY(-50%)}
+.vlb .c{
+  position:absolute;bottom:calc(16px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);
+  font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.14em;color:rgba(255,255,255,.7);
+}
+
+.dates{display:flex;padding:13px 15px 12px;gap:10px}
+.dates .col{flex:1}
+.dates .lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:2px}
+.dates .val{font-weight:600;font-size:15px}
+.dates .tm{font-family:'DM Mono',monospace;font-size:12px;opacity:.6}
+.dates .arrow{align-self:center;opacity:.35;font-size:15px}
+
+.rows{border-top:2px dashed var(--line);padding:11px 15px 13px;position:relative}
+.rows::before,.rows::after{
+  content:'';position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;
+  background:var(--sand);border:1px solid var(--line);
+}
+.rows::before{left:-11px;clip-path:inset(0 0 0 50%)}
+.rows::after{right:-11px;clip-path:inset(0 50% 0 0)}
+.r{display:flex;align-items:center;gap:9px;padding:5px 0;font-size:14px}
+.r + .r{border-top:1px solid rgba(228,205,169,.5)}
+.r .k{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-soft);width:62px;flex:none;
+}
+.r .v{flex:1;min-width:0;word-break:break-word}
+.r .v.mono{font-family:'DM Mono',monospace;font-size:13.5px}
+.mini{
+  border:1px solid var(--line);background:var(--sand);border-radius:8px;
+  padding:4px 9px;font-size:11.5px;font-family:'DM Mono',monospace;flex:none;
+}
+.mini:hover{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+.beds{display:flex;flex-wrap:wrap;gap:5px}
+.bed{display:flex;align-items:center;gap:5px;font-size:12.5px;background:var(--sand);border:1px solid var(--line);border-radius:999px;padding:2px 9px 2px 6px}
+.bed i{width:9px;height:9px;border-radius:50%;display:block}
+.money{display:flex;flex-wrap:wrap;gap:6px;align-items:baseline}
+.rp{font-family:'DM Mono',monospace;font-size:14px;font-weight:500}
+.conv{font-family:'DM Mono',monospace;font-size:11.5px;opacity:.6}
+.editrow{border-top:1px solid var(--line);padding:9px 15px;text-align:center}
+.editrow button{background:none;border:0;font-size:13px;color:var(--ink-soft);text-decoration:underline;text-underline-offset:3px}
+
+/* gaps between stays */
+.link{
+  display:flex;align-items:center;gap:9px;margin:-6px 0 12px;padding:7px 14px;
+  font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.06em;
+}
+.link.ok{color:var(--ink-soft);opacity:.7}
+.link.warn{
+  background:#FFF0C2;border:1px solid #E8C766;border-radius:10px;color:#7A5A12;
+  letter-spacing:.02em;font-family:'Outfit',sans-serif;font-size:13px;opacity:1;
+}
+
+h2.sec{
+  font-family:'DM Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 11px 2px;
+}
+.empty{border:1.5px dashed var(--line);border-radius:14px;padding:24px 16px;text-align:center;color:var(--ink-soft);font-size:14.5px}
+.addbtn{
+  width:100%;margin-top:6px;border:1px solid var(--ink);background:var(--ink);color:var(--sand);
+  border-radius:12px;padding:13px;font-size:15px;font-weight:500;
+}
+
+.buildstamp{
+  text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;
+  color:var(--ink-soft);opacity:.45;margin:26px 0 0;
+}
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:rgba(255,243,226,.94);border-top:1px solid var(--line);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav a,.nav button{
+  flex:1;border:0;background:none;text-align:center;padding:8px 2px 9px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.nav b{display:block;font-size:18px;font-weight:400;line-height:1.3;margin-bottom:2px}
+.nav [aria-current="page"]{color:var(--ink);font-weight:500}
+.nav .off{opacity:.55}
+.nav .off b{opacity:.4}
+
+.scrim{
+  position:fixed;inset:0;background:rgba(27,23,48,.55);z-index:70;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .18s ease;
+}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{
+  background:var(--sand);width:100%;max-width:520px;max-height:92vh;overflow-y:auto;
+  border-radius:20px 20px 0 0;padding:20px 18px calc(28px + env(safe-area-inset-bottom));
+  transform:translateY(14px);transition:transform .2s ease;
+}
+.scrim.on .sheet{transform:none}
+.sheet h3{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:0 0 3px}
+.sheet .sub{font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin:0 0 14px}
+label{display:block;font-size:12px;font-weight:500;letter-spacing:.04em;margin:12px 0 5px}
+input,textarea{
+  width:100%;font:inherit;font-size:16px;padding:10px 12px;
+  border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);
+}
+textarea{min-height:60px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tip{font-family:'DM Mono',monospace;font-size:11px;opacity:.6;margin:6px 0 0;line-height:1.5}
+.hint{font-family:'DM Mono',monospace;font-size:12.5px;margin-top:7px;color:var(--ink-soft);min-height:18px}
+.picks{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.picks button{
+  border:2px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px 7px 9px;
+  display:flex;align-items:center;gap:7px;font-size:14px;font-weight:500;
+}
+.picks button i{width:14px;height:14px;border-radius:50%;display:block}
+.picks button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--sand)}
+.namegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:9px;margin-top:6px}
+.namegrid button{
+  padding:13px 8px;border-radius:12px;border:2px solid var(--line);background:#fff;
+  font-weight:600;font-size:15px;display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.namegrid button i{width:18px;height:18px;border-radius:50%;display:block}
+.sheetfoot{display:flex;gap:9px;margin-top:20px;padding-bottom:4px}
+.sheetfoot .btn{flex:1;border:1px solid var(--ink);background:var(--ink);color:var(--sand);border-radius:10px;padding:11px;font-weight:500}
+.sheetfoot .btn.ghost{background:transparent;color:var(--ink)}
+.sheetfoot .btn.danger{background:transparent;border-color:var(--frangipani);color:var(--frangipani)}
+
+.banner{margin:12px 14px 0;padding:10px 13px;border-radius:11px;font-size:13px;background:#FFF0C2;border:1px solid #E8C766}
+.toast{
+  position:fixed;left:50%;bottom:84px;transform:translate(-50%,12px);
+  background:var(--ink);color:var(--sand);padding:11px 18px;border-radius:999px;
+  font-size:14px;z-index:95;opacity:0;pointer-events:none;transition:all .2s ease;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.hide{display:none !important}
+:focus-visible{outline:3px solid var(--lagoon);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <p class="eyebrow">beds, wifi and check-in times</p>
+  <h1 class="wordmark">Where we stay</h1>
+  <p class="sum" id="sum">—</p>
+</header>
+
+<div class="mebar">
+  <span class="medot" id="meDot"></span>
+  <span>You're <b id="meName">…</b></span>
+  <button class="linkish" id="btnSwitch">switch</button>
+</div>
+
+<div id="banner" class="banner hide"></div>
+
+<main>
+  <div id="body"></div>
+  <button class="addbtn" id="btnAdd">＋ Add a place</button>
+  <p class="buildstamp">build v75</p>
+</main>
+
+<nav class="nav">
+  <a href="home.html"><b>🏝</b>Home</a>
+  <a href="planner.html"><b>🗓</b>Plan</a>
+  <a href="flights.html"><b>✈️</b>Fly</a>
+  <a href="stays.html" aria-current="page"><b>🛏</b>Stay</a>
+  <a href="money.html"><b>💸</b>Money</a>
+  <a href="photos.html"><b>📸</b>Photos</a>
+</nav>
+
+<div class="scrim" id="scrim"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="vlb" id="vlb">
+  <button class="x" id="vlbX" aria-label="Close">✕</button>
+  <button class="p" id="vlbP" aria-label="Previous">‹</button>
+  <img id="vlbImg" alt="">
+  <button class="n" id="vlbN" aria-label="Next">›</button>
+  <span class="c" id="vlbC"></span>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+/* ============================================================
+   Celebration — deliberately inline. Nothing has to download
+   first, so it cannot fail because a file was missed or cached.
+   The leaderboard write is the only part that's fetched, and
+   that one is allowed to be late.
+   ============================================================ */
+const BUILD = "v75";
+const STAR = {
+  alldone:[50,"That's the lot","nothing left on your list"],
+  visa:   [25,"Admin done","one less thing"],
+  flight: [15,"Flight added","we know when you land"],
+  stay:   [15,"Beds sorted","nice one"],
+  shoplog:[15,"Shop logged","and squared up"],
+  planner:[10,"On the plan","the trip takes shape"],
+  idea:   [10,"Good idea","let's see what they think"],
+  expense:[10,"Expense in","nobody's out of pocket"],
+  photo:  [10,"Photo up","on the wall"],
+  packing:[5,"You're bringing it","so nobody else does"],
+  packed: [5,"In the bag",""],
+  shopping:[5,"On the list",""],
+  vote:   [5,"Voted",""],
+  trolley:[3,"In the trolley",""]
+};
+
+let _ac = null;
+function _actx(){
+  if(localStorage.getItem("mbh_muted") === "1") return null;
+  try{
+    if(!_ac) _ac = new (window.AudioContext || window.webkitAudioContext)();
+    if(_ac.state === "suspended") _ac.resume();
+    return _ac;
+  }catch(e){ return null; }
+}
+addEventListener("pointerdown", function u(){
+  const c = _actx();
+  if(c && c.state === "running") removeEventListener("pointerdown", u, true);
+}, true);
+
+function _note(c,f,at,dur,vol,type){
+  const o=c.createOscillator(), g=c.createGain();
+  o.type=type||"triangle"; o.frequency.setValueAtTime(f,at);
+  g.gain.setValueAtTime(0.0001,at);
+  g.gain.exponentialRampToValueAtTime(vol,at+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001,at+dur);
+  o.connect(g); g.connect(c.destination);
+  o.start(at); o.stop(at+dur+0.05);
+}
+function _sound(pts){
+  const c=_actx(); if(!c) return;
+  const t=c.currentTime+0.02, big=pts>=15;
+  const ns = big ? [523.25,659.25,783.99,1046.5,1318.51] : [523.25,659.25,783.99,1046.5];
+  ns.forEach((f,i)=>{ _note(c,f,t+i*0.075,0.42,0.16,"triangle"); _note(c,f*2,t+i*0.075,0.2,0.05,"sine"); });
+  const tail=t+ns.length*0.075;
+  for(let i=0;i<(big?7:4);i++) _note(c,1600+Math.random()*1600,tail+i*0.045,0.16,0.035,"sine");
+  if(big) _note(c,130.81,t,0.9,0.1,"sine");
+}
+
+function _css(){
+  if(document.getElementById("mbh-star-css")) return;
+  const s=document.createElement("style"); s.id="mbh-star-css";
+  s.textContent=`#mbh-stars{position:fixed;inset:0;z-index:99998;pointer-events:none;overflow:hidden}
+#mbh-stars b{position:absolute;top:-8vh;display:block;line-height:1;color:#FFD166;
+ text-shadow:0 0 14px rgba(255,193,71,.9),0 2px 5px rgba(120,70,0,.45);will-change:transform,opacity;
+ animation:mbh-fall var(--dur) cubic-bezier(.35,.1,.6,1) var(--delay) both}
+@keyframes mbh-fall{0%{transform:translate3d(0,0,0) rotate(0) scale(.7);opacity:0}
+ 10%{opacity:1;transform:translate3d(0,10vh,0) rotate(60deg) scale(1)}
+ 100%{transform:translate3d(var(--dx),112vh,0) rotate(var(--rot)) scale(1);opacity:0}}
+#mbh-pop{position:fixed;left:50%;top:34%;transform:translate(-50%,-50%);z-index:99999;
+ pointer-events:none;text-align:center;animation:mbh-pop 2.1s cubic-bezier(.2,1.3,.4,1) both}
+#mbh-pop .n{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:clamp(54px,17vw,92px);
+ line-height:.9;color:#FFD166;text-shadow:0 0 34px rgba(255,193,71,.75),0 4px 14px rgba(60,32,0,.5);display:block}
+#mbh-pop .l{font-family:'Outfit',system-ui,sans-serif;font-weight:600;font-size:19px;color:#fff;
+ text-shadow:0 2px 12px rgba(27,23,48,.85);margin-top:4px;display:block}
+#mbh-pop .s{font-family:'DM Mono',ui-monospace,monospace;font-size:11.5px;letter-spacing:.16em;
+ text-transform:uppercase;color:rgba(255,255,255,.8);text-shadow:0 2px 10px rgba(27,23,48,.85);margin-top:6px;display:block}
+@keyframes mbh-pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}
+ 14%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}24%{transform:translate(-50%,-50%) scale(1)}
+ 74%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-58%) scale(.96)}}
+@media (prefers-reduced-motion:reduce){#mbh-stars b{animation-duration:.9s}}`;
+  document.head.appendChild(s);
+}
+
+function celebrate(kind, opts){
+  const a = STAR[kind];
+  if(!a) return;
+  const [pts,label,note] = a;
+  _css();
+
+  const old = document.getElementById("mbh-pop"); if(old) old.remove();
+  const p = document.createElement("div"); p.id = "mbh-pop";
+  p.innerHTML = `<span class="n">+${pts}</span><span class="l">${label}</span>` +
+                (note ? `<span class="s">${note}</span>` : "");
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(), 2200);
+
+  const wrap = document.createElement("div"); wrap.id = "mbh-stars";
+  const n = Math.min(64, 16 + pts * 1.6);
+  const gl = ["\u2605","\u2605","\u2605","\u2726","\u2b50"];
+  let h = "";
+  for(let i=0;i<n;i++){
+    h += `<b style="left:${Math.random()*100}%;font-size:${13+Math.random()*26}px;
+      --dur:${1.5+Math.random()*1.6}s;--delay:${Math.random()*0.7}s;
+      --dx:${(Math.random()*2-1)*22}vw;--rot:${(Math.random()*2-1)*720}deg;
+      opacity:${0.65+Math.random()*0.35}">${gl[i%gl.length]}</b>`;
+  }
+  wrap.innerHTML = h;
+  document.body.appendChild(wrap);
+  setTimeout(()=>wrap.remove(), 4200);
+
+  _sound(pts);
+
+  const who = (opts && opts.who) || localStorage.getItem("mbh_me");
+  if(who) import("./stars.js").then(m => m.score && m.score(who, kind, pts)).catch(()=>{});
+}
+console.info("celebration inline, build", BUILD);
+
+/* ============================================================
+   Settings — same block as the other pages
+   ============================================================ */
+const FIREBASE = {
+  apiKey: "AIzaSyB1NnJlvpL_dv7aPrAeFGtl5MM1oSa1YPk",
+  authDomain: "mybaliholiday-5170c.firebaseapp.com",
+  projectId: "mybaliholiday-5170c",
+  storageBucket: "mybaliholiday-5170c.firebasestorage.app",
+  messagingSenderId: "29285891302",
+  appId: "1:29285891302:web:9497074c278aed8c0ccf27"
+};
+
+const TRAVELLERS = [
+  { name:"Mark",   colour:"#0BA5C7", from:"AKL" },
+  { name:"Claire", colour:"#FF9F1C", from:"SYD" },
+  { name:"Clare",  colour:"#16A97C", from:"AKL" },
+  { name:"Kylie",  colour:"#9B5DE5", from:"ADL" },
+  { name:"Alice",  colour:"#FF4D8D", from:"SYD" }
+];
+
+const TRIP_DAYS = 14;
+const DEFAULT_START = "2026-08-08";
+const DEFAULT_RATES = { nzd: 9700, aud: 10600 };
+const ACCENTS = ["#0BA5C7","#16A97C","#9B5DE5","#FF9F1C","#FF4D8D"];
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const traveller = n => TRAVELLERS.find(t=>t.name===n) || { name:n||"Someone", colour:"#4A4266" };
+const withTimeout = (p, ms=8000) => Promise.race([
+  p, new Promise((_,rej)=>setTimeout(()=>rej(new Error("Took too long to reach the server")), ms))
+]);
+
+let store, stays = [], tripStart = DEFAULT_START, editing = null, picked = [];
+let me = localStorage.getItem("mbh_me") || null;
+if(me && !TRAVELLERS.some(t => t.name === me)){ me = null; localStorage.removeItem("mbh_me"); }
+
+const d0 = s => s ? new Date(s+"T00:00:00") : null;
+const nights = (a,b) => (a && b) ? Math.round((d0(b) - d0(a)) / 86400000) : 0;
+const addDays = (s,n) => { const d = d0(s); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); };
+const fmt = s => s ? d0(s).toLocaleDateString("en-NZ",{ weekday:"short", day:"numeric", month:"short" }) : "—";
+const mapUrl = a => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(a + ", Bali");
+
+/* money */
+let pinnedRates = null, liveRates = null;
+let rates = { ...DEFAULT_RATES };
+const rp   = n => "Rp " + Number(n).toLocaleString("en-NZ",{ maximumFractionDigits:0 });
+const nice = v => v >= 100 ? Math.round(v) : Math.round(v*10)/10;
+const conv = n => `NZ$${nice(Number(n)/rates.nzd)} · A$${nice(Number(n)/rates.aud)}`;
+
+function refreshRates(){
+  if(pinnedRates?.nzd && pinnedRates?.aud) rates = { nzd:+pinnedRates.nzd, aud:+pinnedRates.aud };
+  else if(liveRates) rates = { ...liveRates };
+  else rates = { ...DEFAULT_RATES };
+}
+async function fetchRates(){
+  const CACHE = "mbh_rates_v1";
+  try{
+    const c = JSON.parse(localStorage.getItem(CACHE) || "null");
+    if(c && Date.now() - c.when < 12*3600*1000){ liveRates = c; return; }
+  }catch(e){ /* no cache */ }
+  try{
+    const res = await withTimeout(fetch("https://open.er-api.com/v6/latest/IDR"), 6000);
+    const j = await res.json();
+    if(j?.rates?.NZD && j?.rates?.AUD){
+      liveRates = { nzd:1/j.rates.NZD, aud:1/j.rates.AUD, when:Date.now() };
+      localStorage.setItem(CACHE, JSON.stringify(liveRates));
+    }
+  }catch(e){ /* offline */ }
+}
+
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("on");
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove("on"), 2600);
+}
+function banner(msg){ const b = $("banner"); b.textContent = msg; b.classList.remove("hide"); }
+
+/* ============================================================
+   Storage
+   ============================================================ */
+async function makeStore(){
+  if(!FIREBASE.projectId) return localStore();
+  try{
+    const [{ initializeApp }, fs, fa] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")
+    ]);
+    const app = initializeApp(FIREBASE);
+    try{ await withTimeout(fa.signInAnonymously(fa.getAuth(app)), 8000); }catch(e){ /* open rules */ }
+    const db = fs.initializeFirestore(app, {
+      localCache: fs.persistentLocalCache({ tabManager: fs.persistentMultipleTabManager() })
+    });
+    const col = fs.collection(db, "stays");
+    const setDoc = fs.doc(db, "settings", "trip");
+    return {
+      kind:"cloud",
+      subscribe(onList, onSettings){
+        fs.onSnapshot(col,
+          snap => onList(snap.docs.map(d=>({ id:d.id, ...d.data() }))),
+          err  => banner("Can't reach the list right now — " + (err.code || err.message))
+        );
+        fs.onSnapshot(setDoc, d => { if(d.exists()) onSettings(d.data()); });
+      },
+      add:    v => withTimeout(fs.addDoc(col, { ...v, createdAt: Date.now() })),
+      update: (id,v) => withTimeout(fs.updateDoc(fs.doc(db,"stays",id), v)),
+      remove: id => withTimeout(fs.deleteDoc(fs.doc(db,"stays",id)))
+    };
+  }catch(e){
+    banner("Couldn't reach the shared list, so this is saving on your device only.");
+    return localStore();
+  }
+}
+
+function localStore(){
+  const KEY = "mbh_stays_v1";
+  const read = () => JSON.parse(localStorage.getItem(KEY) || "[]");
+  const write = v => localStorage.setItem(KEY, JSON.stringify(v));
+  let cb = ()=>{}, cs = ()=>{};
+  const push = () => {
+    cb(read());
+    try{
+      const p = JSON.parse(localStorage.getItem("mbh_planner_v1") || "null");
+      cs(p?.settings || {});
+    }catch(e){ cs({}); }
+  };
+  return {
+    kind:"local",
+    subscribe(onList, onSettings){ cb = onList; cs = onSettings; push(); },
+    add(v){ const d = read(); d.push({ ...v, id:"s"+Date.now()+Math.random().toString(36).slice(2,6), createdAt:Date.now() }); write(d); push(); },
+    update(id,v){ const d = read(); const i = d.find(x=>x.id===id); if(i) Object.assign(i,v); write(d); push(); },
+    remove(id){ write(read().filter(x=>x.id!==id)); push(); }
+  };
+}
+
+/* ============================================================
+   Render
+   ============================================================ */
+const sorted = () => stays.slice().sort((a,b)=>(a.checkIn||"").localeCompare(b.checkIn||""));
+
+function stayHtml(s, i){
+  const c = ACCENTS[i % ACCENTS.length];
+  const n = nights(s.checkIn, s.checkOut);
+  const who = (s.who || []).map(w=>{
+    const t = traveller(w);
+    return `<span class="bed"><i style="background:${t.colour}"></i>${esc(t.name)}</span>`;
+  }).join("");
+
+  const rows = [];
+  if(s.address) rows.push(`<div class="r">
+    <span class="k">Where</span>
+    <span class="v">${esc(s.address)}</span>
+    <a class="mini" href="${mapUrl(s.address)}" target="_blank" rel="noopener">Map</a>
+  </div>`);
+  if(s.wifiName || s.wifiPass) rows.push(`<div class="r">
+    <span class="k">Wifi</span>
+    <span class="v mono">${esc(s.wifiName)}${s.wifiPass ? " · " + esc(s.wifiPass) : ""}</span>
+    ${s.wifiPass ? `<button class="mini" data-copy="${esc(s.wifiPass)}">Copy</button>` : ""}
+  </div>`);
+  if(s.host || s.phone) rows.push(`<div class="r">
+    <span class="k">Host</span>
+    <span class="v">${esc(s.host)}${s.phone ? ` <span class="mono">${esc(s.phone)}</span>` : ""}</span>
+    ${s.phone ? `<a class="mini" href="tel:${esc(String(s.phone).replace(/[^0-9+]/g,""))}">Call</a>` : ""}
+  </div>`);
+  if(who) rows.push(`<div class="r"><span class="k">Beds</span><span class="v"><span class="beds">${who}</span></span></div>`);
+  if(s.cost) rows.push(`<div class="r">
+    <span class="k">Cost</span>
+    <span class="v"><span class="money">
+      <span class="rp">${rp(s.cost)}</span><span class="conv">${conv(s.cost)}</span>
+      ${n ? `<span class="conv">· ${rp(Math.round(s.cost/n))}/night</span>` : ""}
+    </span></span>
+  </div>`);
+  if(s.ref || s.link) rows.push(`<div class="r">
+    <span class="k">Booking</span>
+    <span class="v mono">${esc(s.ref || "—")}</span>
+    ${s.link ? `<a class="mini" href="${esc(s.link)}" target="_blank" rel="noopener">Open</a>` : ""}
+  </div>`);
+  if(s.notes) rows.push(`<div class="r"><span class="k">Notes</span><span class="v">${esc(s.notes)}</span></div>`);
+
+  const pics = String(s.photo || "").split(",").map(x=>x.trim()).filter(Boolean);
+  return `<article class="stay${pics.length ? " hasshot" : ""}">
+    ${pics.length ? `<img class="shot" src="${esc(pics[0])}" alt="${esc(s.name || "the place")}"
+        loading="lazy" data-pic="${esc(s.id)}|0" onerror="this.remove()">` : ""}
+    <div class="head${s.photo ? " hasshot" : ""}" style="--c:${c}">
+      <span class="no">${String(i+1).padStart(2,"0")}</span>
+      <span class="nm">${esc(s.name || "Somewhere")}${s.area ? `<span class="area">${esc(s.area)}</span>` : ""}</span>
+      <span class="nights">${n ? n + (n===1 ? " night" : " nights") : ""}</span>
+    </div>
+    <div class="dates">
+      <div class="col">
+        <div class="lbl">Check in</div>
+        <div class="val">${fmt(s.checkIn)}</div>
+        <div class="tm">${esc(s.inTime || "")}</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="col" style="text-align:right">
+        <div class="lbl">Check out</div>
+        <div class="val">${fmt(s.checkOut)}</div>
+        <div class="tm">${esc(s.outTime || "")}</div>
+      </div>
+    </div>
+    ${pics.length > 1 ? `<div class="strip">${pics.map((src,k)=>
+        `<img src="${esc(src)}" alt="" loading="lazy" data-pic="${esc(s.id)}|${k}" onerror="this.remove()">`
+      ).join("")}</div>` : ""}
+    ${rows.length ? `<div class="rows">${rows.join("")}</div>` : ""}
+    <div class="editrow"><button data-edit="${s.id}">Edit</button></div>
+  </article>`;
+}
+
+function coverage(list){
+  const bits = [];
+  const tripEnd = addDays(tripStart, TRIP_DAYS - 1);
+
+  if(!list.length) return bits;
+
+  // before the first stay
+  const first = list[0];
+  if(first.checkIn && first.checkIn > tripStart){
+    const g = nights(tripStart, first.checkIn);
+    bits.push({ at:0, warn:true, text:`${g} night${g===1?"":"s"} at the start with nowhere booked — you land ${fmt(tripStart)}.` });
+  }
+
+  // between stays
+  for(let i=0;i<list.length-1;i++){
+    const a = list[i], b = list[i+1];
+    if(!a.checkOut || !b.checkIn) continue;
+    if(b.checkIn > a.checkOut){
+      const g = nights(a.checkOut, b.checkIn);
+      bits.push({ at:i+1, warn:true, text:`${g} night${g===1?"":"s"} unaccounted for between these two.` });
+    } else if(b.checkIn < a.checkOut){
+      bits.push({ at:i+1, warn:true, text:`These overlap — you're paying for two beds on the same night.` });
+    } else {
+      bits.push({ at:i+1, warn:false, text:`straight across, same day` });
+    }
+  }
+
+  // after the last stay
+  const last = list[list.length-1];
+  if(last.checkOut && last.checkOut < tripEnd){
+    const g = nights(last.checkOut, tripEnd);
+    bits.push({ at:list.length, warn:true, text:`${g} night${g===1?"":"s"} at the end with nowhere booked — you fly out ${fmt(tripEnd)}.` });
+  }
+
+  return bits;
+}
+
+function render(){
+  const t = traveller(me);
+  $("meName").textContent = me || "…";
+  $("meDot").style.background = t.colour;
+
+  const list = sorted();
+  const total = list.reduce((s,x)=>s + (Number(x.cost)||0), 0);
+  const booked = list.reduce((s,x)=>s + nights(x.checkIn, x.checkOut), 0);
+  $("sum").textContent = list.length
+    ? `${list.length} place${list.length===1?"":"s"} · ${booked} of ${TRIP_DAYS-1} nights${total ? " · " + rp(total) : ""}`
+    : "Nothing booked in here yet";
+
+  if(!list.length){
+    $("body").innerHTML = `<div class="empty">No places yet.<br>Add the first one and everyone gets the address, the wifi and the check-in time.</div>`;
+    return;
+  }
+
+  const gaps = coverage(list);
+  let html = "";
+  list.forEach((s,i)=>{
+    gaps.filter(g=>g.at===i).forEach(g=>{
+      html += `<div class="link ${g.warn?"warn":"ok"}">${g.warn?"⚠ ":"↳ "}${esc(g.text)}</div>`;
+    });
+    html += stayHtml(s, i);
+  });
+  gaps.filter(g=>g.at===list.length).forEach(g=>{
+    html += `<div class="link ${g.warn?"warn":"ok"}">${g.warn?"⚠ ":"↳ "}${esc(g.text)}</div>`;
+  });
+
+  $("body").innerHTML = html;
+}
+
+/* ============================================================
+   Sheets
+   ============================================================ */
+function openSheet(html){ $("sheet").innerHTML = html; $("scrim").classList.add("on"); }
+function closeSheet(){ $("scrim").classList.remove("on"); editing = null; }
+
+function pickName(force){
+  openSheet(`<h3>Who's this?</h3>
+    <p class="sub">so we know who added what</p>
+    <div class="namegrid">
+      ${TRAVELLERS.map(t=>`<button data-me="${t.name}"><i style="background:${t.colour}"></i>${t.name}</button>`).join("")}
+    </div>
+    ${force ? "" : `<div class="sheetfoot"><button class="btn ghost" data-close>Cancel</button></div>`}`);
+}
+
+function staySheet(existing){
+  const s = existing || {};
+  editing = existing ? existing.id : null;
+  picked = existing ? [...(existing.who || [])] : TRAVELLERS.map(t=>t.name);
+
+  openSheet(`
+    <h3>${existing ? "Edit place" : "Add a place"}</h3>
+    <p class="sub">everything the others will need at 11pm</p>
+
+    <label for="sName">Name of the place</label>
+    <input id="sName" value="${esc(s.name)}" placeholder="Mú Bungalows" autocomplete="off">
+
+    <label for="sArea">Area</label>
+    <input id="sArea" value="${esc(s.area)}" placeholder="Uluwatu" autocomplete="off">
+
+    <div class="row2">
+      <div><label for="sIn">Check in</label><input type="date" id="sIn" value="${esc(s.checkIn)}"></div>
+      <div><label for="sInT">at</label><input type="time" id="sInT" value="${esc(s.inTime)}"></div>
+    </div>
+    <div class="row2">
+      <div><label for="sOut">Check out</label><input type="date" id="sOut" value="${esc(s.checkOut)}"></div>
+      <div><label for="sOutT">at</label><input type="time" id="sOutT" value="${esc(s.outTime)}"></div>
+    </div>
+
+    <label for="sAddr">Address</label>
+    <input id="sAddr" value="${esc(s.address)}" placeholder="Jl. Pantai Bingin, Pecatu" autocomplete="off">
+
+    <label for="sPhoto">Photo</label>
+    <input id="sPhoto" value="${esc(s.photo)}" placeholder="villa-1.jpg, villa-2.jpg, villa-3.jpg" autocomplete="off">
+    <p class="tip">One or more, separated by commas. The first becomes the banner, the rest a strip below.</p>
+
+    <div class="row2">
+      <div><label for="sWifi">Wifi name</label><input id="sWifi" value="${esc(s.wifiName)}" autocomplete="off"></div>
+      <div><label for="sPass">Wifi password</label><input id="sPass" value="${esc(s.wifiPass)}" autocomplete="off"></div>
+    </div>
+
+    <div class="row2">
+      <div><label for="sHost">Host</label><input id="sHost" value="${esc(s.host)}" autocomplete="off"></div>
+      <div><label for="sPhone">Phone</label><input id="sPhone" value="${esc(s.phone)}" placeholder="+62 ..." autocomplete="off"></div>
+    </div>
+
+    <label>Who's sleeping here</label>
+    <div class="picks" id="sWho">
+      ${TRAVELLERS.map(t=>`<button type="button" data-pick="${t.name}" aria-pressed="${picked.includes(t.name)}">
+        <i style="background:${t.colour}"></i>${t.name}</button>`).join("")}
+    </div>
+
+    <label for="sCost">Total cost · rupiah</label>
+    <input type="number" id="sCost" value="${esc(s.cost)}" placeholder="4500000" min="0" inputmode="numeric">
+    <div class="hint" id="costHint"></div>
+
+    <div class="row2">
+      <div><label for="sRef">Booking ref</label><input id="sRef" value="${esc(s.ref)}" autocomplete="off"></div>
+      <div><label for="sLink">Booking link</label><input id="sLink" value="${esc(s.link)}" placeholder="https://" autocomplete="off"></div>
+    </div>
+
+    <label for="sNotes">Notes</label>
+    <textarea id="sNotes" placeholder="Steep steps down to the beach, no aircon in room 2">${esc(s.notes)}</textarea>
+
+    <div class="sheetfoot">
+      ${existing ? `<button class="btn danger" data-remove="${existing.id}">Remove</button>`
+                 : `<button class="btn ghost" data-close>Cancel</button>`}
+      <button class="btn" data-save>Save</button>
+    </div>`);
+
+  const ci = $("sCost");
+  const draw = () => {
+    const n = nights($("sIn").value, $("sOut").value);
+    $("costHint").textContent = ci.value > 0
+      ? `${rp(ci.value)} ≈ ${conv(ci.value)}${n ? `  ·  ${rp(Math.round(ci.value/n))}/night` : ""}`
+      : "";
+  };
+  ci.addEventListener("input", draw);
+  $("sIn").addEventListener("change", draw);
+  $("sOut").addEventListener("change", draw);
+  draw();
+  setTimeout(()=>$("sName").focus(), 60);
+}
+
+/* ============================================================
+   Events
+   ============================================================ */
+let vlbPics = [], vlbAt = 0;
+function vlbShow(i){
+  if(!vlbPics.length) return;
+  vlbAt = (i + vlbPics.length) % vlbPics.length;
+  $("vlbImg").src = vlbPics[vlbAt];
+  $("vlbC").textContent = `${vlbAt+1} / ${vlbPics.length}`;
+  $("vlb").classList.add("on");
+}
+function vlbHide(){ $("vlb").classList.remove("on"); }
+
+document.addEventListener("click", async e => {
+  const hit = s => e.target.closest(s);
+
+  const pic = hit("[data-pic]");
+  if(pic){
+    const [id, k] = pic.dataset.pic.split("|");
+    const st = stays.find(x=>x.id===id);
+    vlbPics = String(st?.photo || "").split(",").map(x=>x.trim()).filter(Boolean);
+    vlbShow(+k);
+    return;
+  }
+  if(e.target.id === "vlbN"){ vlbShow(vlbAt + 1); return; }
+  if(e.target.id === "vlbP"){ vlbShow(vlbAt - 1); return; }
+  if(e.target.id === "vlbX" || e.target.id === "vlb"){ vlbHide(); return; }
+
+  const mePick = hit("[data-me]");
+  if(mePick){ me = mePick.dataset.me; localStorage.setItem("mbh_me", me); closeSheet(); render(); return; }
+
+  const pick = hit("[data-pick]");
+  if(pick){
+    const n = pick.dataset.pick;
+    const on = pick.getAttribute("aria-pressed") === "true";
+    pick.setAttribute("aria-pressed", !on);
+    picked = on ? picked.filter(x=>x!==n) : [...picked, n];
+    return;
+  }
+
+  const cp = hit("[data-copy]");
+  if(cp){
+    try{ await navigator.clipboard.writeText(cp.dataset.copy); toast("Wifi password copied"); }
+    catch(err){ toast("Couldn't copy — long-press to select it"); }
+    return;
+  }
+
+  const ed = hit("[data-edit]");
+  if(ed){ const s = stays.find(x=>x.id===ed.dataset.edit); if(s) staySheet(s); return; }
+
+  const rm = hit("[data-remove]");
+  if(rm){
+    try{ await store.remove(rm.dataset.remove); closeSheet(); toast("Removed"); }
+    catch(err){ toast(err.message); }
+    return;
+  }
+
+  if(hit("[data-save]")){
+    const name = $("sName").value.trim();
+    if(!name){ toast("Give it a name first"); $("sName").focus(); return; }
+    const v = {
+      name,
+      area:     $("sArea").value.trim(),
+      checkIn:  $("sIn").value,
+      inTime:   $("sInT").value,
+      checkOut: $("sOut").value,
+      outTime:  $("sOutT").value,
+      address:  $("sAddr").value.trim(),
+      photo:    $("sPhoto").value.trim(),
+      wifiName: $("sWifi").value.trim(),
+      wifiPass: $("sPass").value.trim(),
+      host:     $("sHost").value.trim(),
+      phone:    $("sPhone").value.trim(),
+      who:      picked,
+      cost:     $("sCost").value ? Number($("sCost").value) : "",
+      ref:      $("sRef").value.trim().toUpperCase(),
+      link:     $("sLink").value.trim(),
+      notes:    $("sNotes").value.trim(),
+      addedBy:  me
+    };
+    if(v.checkIn && v.checkOut && v.checkOut < v.checkIn){ toast("Check out is before check in"); return; }
+    try{
+      if(editing) await store.update(editing, v);
+      else { celebrate("stay"); await store.add(v); }
+      closeSheet(); toast("Saved");
+    }catch(err){ toast(err.message); }
+    return;
+  }
+
+  const soon = hit("[data-soon]");
+  if(soon){ toast(soon.dataset.soon + " isn't built yet — next on the list"); return; }
+
+  if(hit("[data-close]") || e.target.id === "scrim"){ closeSheet(); return; }
+  if(e.target.id === "btnSwitch"){ pickName(false); return; }
+  if(e.target.id === "btnAdd"){ if(!me) return pickName(true); staySheet(null); return; }
+});
+
+document.addEventListener("keydown", e => {
+  if($("vlb").classList.contains("on")){
+    if(e.key === "Escape") vlbHide();
+    if(e.key === "ArrowRight") vlbShow(vlbAt + 1);
+    if(e.key === "ArrowLeft")  vlbShow(vlbAt - 1);
+    return;
+  }
+  if(e.key === "Escape") closeSheet();
+});
+
+/* ============================================================
+   Go
+   ============================================================ */
+(async function start(){
+  store = await makeStore();
+  if(store.kind === "local" && !FIREBASE.projectId) banner("Test mode — saving on this device only.");
+  refreshRates();
+  fetchRates().then(()=>{ refreshRates(); render(); });
+  store.subscribe(
+    list => { stays = list; render(); },
+    s => {
+      if(s.start) tripStart = s.start;
+      pinnedRates = (s.rateNzd && s.rateAud) ? { nzd:s.rateNzd, aud:s.rateAud } : null;
+      refreshRates(); render();
+    }
+  );
+  render();
+  if(!me) pickName(true);
+})();
+
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  addEventListener("load", ()=> navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}
+</script>
+</body>
+</html>

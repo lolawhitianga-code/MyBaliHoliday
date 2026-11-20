@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B1730">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bali">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>Before you fly · My Bali Holiday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1730; --ink-soft:#4A4266;
+  --sand:#FFF3E2; --sand-deep:#F6E3C8; --line:#E4CDA9;
+  --frangipani:#FF4D8D; --lagoon:#0BA5C7; --marigold:#FF9F1C; --pandan:#16A97C; --dusk:#9B5DE5;
+  --shadow:0 2px 0 rgba(27,23,48,.10), 0 10px 26px -14px rgba(27,23,48,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--sand);color:var(--ink);
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom));
+}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+.top{
+  position:relative;overflow:hidden;text-align:center;color:#fff;
+  padding:calc(26px + env(safe-area-inset-top)) 20px 30px;
+  background:
+    radial-gradient(120px 120px at 80% 92%, rgba(255,209,102,.95), rgba(255,159,28,0) 70%),
+    linear-gradient(178deg,#1B1730 0%,#4B2A63 42%,#C43F76 72%,#FF7A45 100%);
+}
+.top::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:10px;
+  background:linear-gradient(90deg,var(--frangipani),var(--marigold),var(--pandan),var(--lagoon),var(--dusk));
+}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.75;margin:0 0 6px}
+.wordmark{
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(30px,8.5vw,44px);
+  line-height:.95;margin:0;font-variation-settings:'SOFT' 40,'WONK' 1;
+}
+.yours{
+  margin:15px auto 0;display:inline-block;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  border-radius:999px;padding:7px 16px;font-size:14.5px;backdrop-filter:blur(4px);
+}
+.yours b{font-family:'DM Mono',monospace;font-weight:500}
+
+.mebar{
+  display:flex;align-items:center;gap:8px;justify-content:center;
+  padding:10px 16px;background:var(--sand-deep);border-bottom:1px solid var(--line);font-size:14px;
+}
+.medot{width:12px;height:12px;border-radius:50%;flex:none}
+.linkish{background:none;border:0;padding:0;text-decoration:underline;text-underline-offset:3px;font-size:14px}
+
+main{max-width:780px;margin:0 auto;padding:16px 14px 40px}
+h2.sec{
+  font-family:'DM Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-soft);margin:28px 0 4px 2px;
+}
+h2.sec:first-child{margin-top:0}
+.blurb{font-size:13px;color:var(--ink-soft);margin:0 0 12px 2px;line-height:1.45}
+
+/* where everyone's at */
+.board{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:6px}
+.board .p{
+  flex:1;min-width:78px;background:#fff;border:1px solid var(--line);border-radius:13px;
+  padding:11px 8px;text-align:center;box-shadow:var(--shadow);
+}
+.board .p i{width:11px;height:11px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:-1px}
+.board .p .nm{font-weight:600;font-size:14px}
+.board .p .sc{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-soft);margin-top:5px}
+.board .p.allin{border-color:var(--pandan);box-shadow:0 0 0 1px var(--pandan), var(--shadow)}
+.board .p.allin .sc{color:var(--pandan);font-weight:500}
+
+/* a step */
+.step{
+  background:#fff;border:1px solid var(--line);border-left:5px solid var(--c);
+  border-radius:15px;margin-bottom:11px;box-shadow:var(--shadow);overflow:hidden;
+}
+.step .hd{display:flex;align-items:baseline;gap:10px;padding:13px 15px 0}
+.step .no{
+  font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-soft);flex:none;
+}
+.step .ttl{font-family:'Fraunces',serif;font-weight:700;font-size:18.5px;line-height:1.15;flex:1}
+.step .cost{
+  font-family:'DM Mono',monospace;font-size:11px;background:var(--ink);color:var(--sand);
+  border-radius:999px;padding:3px 9px;flex:none;
+}
+.step .cost.free{background:var(--pandan)}
+.step .body{padding:9px 15px 0;font-size:14.5px;line-height:1.5}
+.step .body p{margin:0 0 9px}
+.step .body strong{font-weight:600}
+.step .conv{font-family:'DM Mono',monospace;font-size:11.5px;color:var(--ink-soft);display:block;margin-top:-4px;margin-bottom:9px}
+.step .go{
+  display:block;text-align:center;background:var(--sand);border:1px solid var(--line);
+  border-radius:10px;padding:10px;margin:0 0 12px;
+  font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.08em;
+}
+.step .go:hover{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+.warn{
+  background:#FFF0C2;border:1px solid #E8C766;border-radius:10px;
+  padding:9px 11px;font-size:13px;line-height:1.45;margin:0 0 12px;color:#6B4E0E;
+}
+
+.ticks{
+  display:flex;gap:7px;flex-wrap:wrap;padding:11px 15px;
+  border-top:1px solid var(--line);background:var(--sand);
+}
+.ticks .lbl{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);width:100%;margin-bottom:1px;
+}
+.ticks button{
+  display:flex;align-items:center;gap:6px;border:2px solid var(--line);background:#fff;
+  border-radius:999px;padding:6px 13px 6px 9px;font-size:14px;font-weight:500;
+}
+.ticks button i{width:13px;height:13px;border-radius:50%;display:block;flex:none}
+.ticks button[aria-pressed="true"]{background:var(--pandan);border-color:var(--pandan);color:#fff}
+.ticks button[aria-pressed="true"] i{background:#fff !important}
+.ticks button.me{box-shadow:0 0 0 3px rgba(11,165,199,.25)}
+
+/* esim */
+.check{
+  background:var(--ink);color:var(--sand);border-radius:15px;padding:15px;
+  box-shadow:var(--shadow);margin-bottom:13px;
+}
+.check b{font-family:'Fraunces',serif;font-size:17.5px;display:block;margin-bottom:8px;color:#FFD166}
+.check p{margin:0 0 9px;font-size:14.5px;line-height:1.5}
+.check p:last-child{margin-bottom:0}
+.check code{
+  font-family:'DM Mono',monospace;background:rgba(255,255,255,.14);
+  border-radius:6px;padding:2px 7px;font-size:15px;
+}
+.check .sm{font-size:13px;opacity:.75}
+
+.sim{
+  background:#fff;border:1px solid var(--line);border-radius:15px;
+  padding:14px 15px;margin-bottom:10px;box-shadow:var(--shadow);
+}
+.sim .r1{display:flex;align-items:baseline;gap:9px;margin-bottom:5px}
+.sim .nm{font-family:'Fraunces',serif;font-weight:700;font-size:18px}
+.sim .tag{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--c);color:#fff;border-radius:999px;padding:3px 9px;margin-left:auto;flex:none;
+}
+.sim p{margin:0 0 10px;font-size:14.5px;line-height:1.5}
+.sim .go{
+  display:inline-block;border:1px solid var(--ink);background:var(--ink);color:var(--sand);
+  border-radius:10px;padding:8px 16px;font-size:13.5px;font-weight:500;
+}
+.sim .go:hover{opacity:.85}
+
+.opts{display:flex;gap:10px;align-items:center;margin-top:22px}
+.opts button{
+  border:1px solid var(--ink);background:var(--ink);color:var(--sand);
+  border-radius:12px;padding:11px 18px;font-size:14px;font-weight:500;
+}
+.stamp{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;
+  color:var(--ink-soft);opacity:.7;
+}
+.diag{
+  margin-top:14px;background:#1B1730;color:#8FE3C4;border-radius:12px;
+  padding:10px 13px;font-family:'DM Mono',monospace;font-size:11px;
+}
+.diag summary{cursor:pointer;color:#FFD166;letter-spacing:.14em;text-transform:uppercase;font-size:10px}
+.diag pre{margin:9px 0 0;white-space:pre-wrap;word-break:break-word;line-height:1.6;font-size:11px}
+.smallprint{
+  font-size:12px;color:var(--ink-soft);line-height:1.55;margin-top:24px;
+  border-top:1px solid var(--line);padding-top:13px;
+}
+
+.buildstamp{
+  text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;
+  color:var(--ink-soft);opacity:.45;margin:26px 0 0;
+}
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:rgba(255,243,226,.94);border-top:1px solid var(--line);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav a{
+  flex:1;text-align:center;padding:8px 2px 9px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.nav b{display:block;font-size:18px;font-weight:400;line-height:1.3;margin-bottom:2px}
+.nav [aria-current="page"]{color:var(--ink);font-weight:500}
+
+.scrim{
+  position:fixed;inset:0;background:rgba(27,23,48,.55);z-index:70;
+  display:flex;align-items:flex-end;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .18s ease;
+}
+.scrim.on{opacity:1;pointer-events:auto}
+.sheet{
+  background:var(--sand);width:100%;max-width:520px;max-height:92vh;overflow-y:auto;
+  border-radius:20px 20px 0 0;padding:20px 18px calc(28px + env(safe-area-inset-bottom));
+  transform:translateY(14px);transition:transform .2s ease;
+}
+.scrim.on .sheet{transform:none}
+.sheet h3{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:0 0 3px}
+.sheet .sub{font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin:0 0 14px}
+.namegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:9px;margin-top:6px}
+.namegrid button{
+  padding:13px 8px;border-radius:12px;border:2px solid var(--line);background:#fff;
+  font-weight:600;font-size:15px;display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.namegrid button i{width:18px;height:18px;border-radius:50%;display:block}
+.sheetfoot{display:flex;gap:9px;margin-top:20px;padding-bottom:4px}
+.sheetfoot .btn{flex:1;border:1px solid var(--ink);background:var(--ink);color:var(--sand);border-radius:10px;padding:11px;font-weight:500}
+.sheetfoot .btn.ghost{background:transparent;color:var(--ink)}
+
+.banner{margin:12px 14px 0;padding:10px 13px;border-radius:11px;font-size:13px;background:#FFF0C2;border:1px solid #E8C766}
+.toast{
+  position:fixed;left:50%;bottom:84px;transform:translate(-50%,12px);
+  background:var(--ink);color:var(--sand);padding:11px 18px;border-radius:999px;
+  font-size:14px;z-index:95;opacity:0;pointer-events:none;transition:all .2s ease;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.hide{display:none !important}
+:focus-visible{outline:3px solid var(--lagoon);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <p class="eyebrow">visas, forms and phones</p>
+  <h1 class="wordmark">Before you fly</h1>
+  <div class="yours" id="yours">—</div>
+</header>
+
+<div class="mebar">
+  <span class="medot" id="meDot"></span>
+  <span>You're <b id="meName">…</b></span>
+  <button class="linkish" id="btnSwitch">switch</button>
+</div>
+
+<div id="banner" class="banner hide"></div>
+
+<main>
+  <h2 class="sec">Where everyone's at</h2>
+  <div class="board" id="board"></div>
+
+  <h2 class="sec">Getting into Indonesia</h2>
+  <p class="blurb">Neither a New Zealand nor an Australian passport gets you in without a visa. Sort these before you fly and immigration takes minutes — leave them and you're in the slow queue.</p>
+  <div id="steps"></div>
+
+  <h2 class="sec">Getting a phone working</h2>
+  <p class="blurb">Use an eSIM, not a local SIM card. Indonesia makes foreign phones register their IMEI before a physical SIM will work, which can take days and sometimes just fails. Travel eSIMs skip that entirely.</p>
+
+  <div class="check">
+    <b>Will your phone take one?</b>
+    <p>Dial <code>*#06#</code> on the keypad. If an <strong>EID</strong> number appears under the IMEI, you're fine. No EID means no eSIM.</p>
+    <p class="sm">Rough rule: iPhone XS or XR (2018) and newer, Samsung Galaxy S20 and newer, Google Pixel 3 and newer. The phone also has to be carrier-unlocked — worth ringing your provider if you're not sure.</p>
+  </div>
+
+  <div id="sims"></div>
+
+  <div class="opts">
+    <button id="btnTest">Test the stars</button>
+    <span class="stamp" id="stamp">—</span>
+  </div>
+
+  <details class="diag">
+    <summary>Diagnostics</summary>
+    <pre id="dbg">waiting…</pre>
+  </details>
+
+  <p class="smallprint">
+    Costs and rules here were checked in July 2026 and do change — have a look at the official pages before you pay for anything.
+    Only ever use the links above: there are convincing copies of all three government sites that charge for forms that are free or cheaper.
+  </p>
+  <p class="buildstamp">build v75</p>
+</main>
+
+<nav class="nav">
+  <a href="home.html"><b>🏝</b>Home</a>
+  <a href="planner.html"><b>🗓</b>Plan</a>
+  <a href="flights.html"><b>✈️</b>Fly</a>
+  <a href="stays.html"><b>🛏</b>Stay</a>
+  <a href="money.html"><b>💸</b>Money</a>
+  <a href="photos.html"><b>📸</b>Photos</a>
+</nav>
+
+<div class="scrim" id="scrim"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+/* ============================================================
+   Celebration — deliberately inline. Nothing has to download
+   first, so it cannot fail because a file was missed or cached.
+   The leaderboard write is the only part that's fetched, and
+   that one is allowed to be late.
+   ============================================================ */
+const BUILD = "v75";
+const STAR = {
+  alldone:[50,"That's the lot","nothing left on your list"],
+  visa:   [25,"Admin done","one less thing"],
+  flight: [15,"Flight added","we know when you land"],
+  stay:   [15,"Beds sorted","nice one"],
+  shoplog:[15,"Shop logged","and squared up"],
+  planner:[10,"On the plan","the trip takes shape"],
+  idea:   [10,"Good idea","let's see what they think"],
+  expense:[10,"Expense in","nobody's out of pocket"],
+  photo:  [10,"Photo up","on the wall"],
+  packing:[5,"You're bringing it","so nobody else does"],
+  packed: [5,"In the bag",""],
+  shopping:[5,"On the list",""],
+  vote:   [5,"Voted",""],
+  trolley:[3,"In the trolley",""]
+};
+
+let _ac = null;
+function _actx(){
+  if(localStorage.getItem("mbh_muted") === "1") return null;
+  try{
+    if(!_ac) _ac = new (window.AudioContext || window.webkitAudioContext)();
+    if(_ac.state === "suspended") _ac.resume();
+    return _ac;
+  }catch(e){ return null; }
+}
+addEventListener("pointerdown", function u(){
+  const c = _actx();
+  if(c && c.state === "running") removeEventListener("pointerdown", u, true);
+}, true);
+
+function _note(c,f,at,dur,vol,type){
+  const o=c.createOscillator(), g=c.createGain();
+  o.type=type||"triangle"; o.frequency.setValueAtTime(f,at);
+  g.gain.setValueAtTime(0.0001,at);
+  g.gain.exponentialRampToValueAtTime(vol,at+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001,at+dur);
+  o.connect(g); g.connect(c.destination);
+  o.start(at); o.stop(at+dur+0.05);
+}
+function _sound(pts){
+  const c=_actx(); if(!c) return;
+  const t=c.currentTime+0.02, big=pts>=15;
+  const ns = big ? [523.25,659.25,783.99,1046.5,1318.51] : [523.25,659.25,783.99,1046.5];
+  ns.forEach((f,i)=>{ _note(c,f,t+i*0.075,0.42,0.16,"triangle"); _note(c,f*2,t+i*0.075,0.2,0.05,"sine"); });
+  const tail=t+ns.length*0.075;
+  for(let i=0;i<(big?7:4);i++) _note(c,1600+Math.random()*1600,tail+i*0.045,0.16,0.035,"sine");
+  if(big) _note(c,130.81,t,0.9,0.1,"sine");
+}
+
+function _css(){
+  if(document.getElementById("mbh-star-css")) return;
+  const s=document.createElement("style"); s.id="mbh-star-css";
+  s.textContent=`#mbh-stars{position:fixed;inset:0;z-index:99998;pointer-events:none;overflow:hidden}
+#mbh-stars b{position:absolute;top:-8vh;display:block;line-height:1;color:#FFD166;
+ text-shadow:0 0 14px rgba(255,193,71,.9),0 2px 5px rgba(120,70,0,.45);will-change:transform,opacity;
+ animation:mbh-fall var(--dur) cubic-bezier(.35,.1,.6,1) var(--delay) both}
+@keyframes mbh-fall{0%{transform:translate3d(0,0,0) rotate(0) scale(.7);opacity:0}
+ 10%{opacity:1;transform:translate3d(0,10vh,0) rotate(60deg) scale(1)}
+ 100%{transform:translate3d(var(--dx),112vh,0) rotate(var(--rot)) scale(1);opacity:0}}
+#mbh-pop{position:fixed;left:50%;top:34%;transform:translate(-50%,-50%);z-index:99999;
+ pointer-events:none;text-align:center;animation:mbh-pop 2.1s cubic-bezier(.2,1.3,.4,1) both}
+#mbh-pop .n{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:clamp(54px,17vw,92px);
+ line-height:.9;color:#FFD166;text-shadow:0 0 34px rgba(255,193,71,.75),0 4px 14px rgba(60,32,0,.5);display:block}
+#mbh-pop .l{font-family:'Outfit',system-ui,sans-serif;font-weight:600;font-size:19px;color:#fff;
+ text-shadow:0 2px 12px rgba(27,23,48,.85);margin-top:4px;display:block}
+#mbh-pop .s{font-family:'DM Mono',ui-monospace,monospace;font-size:11.5px;letter-spacing:.16em;
+ text-transform:uppercase;color:rgba(255,255,255,.8);text-shadow:0 2px 10px rgba(27,23,48,.85);margin-top:6px;display:block}
+@keyframes mbh-pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}
+ 14%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}24%{transform:translate(-50%,-50%) scale(1)}
+ 74%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-58%) scale(.96)}}
+@media (prefers-reduced-motion:reduce){#mbh-stars b{animation-duration:.9s}}`;
+  document.head.appendChild(s);
+}
+
+function celebrate(kind, opts){
+  const a = STAR[kind];
+  if(window.__dbg) __dbg("celebrate('" + kind + "') known=" + !!a);
+  if(!a) return;
+  const [pts,label,note] = a;
+  _css();
+
+  const old = document.getElementById("mbh-pop"); if(old) old.remove();
+  const p = document.createElement("div"); p.id = "mbh-pop";
+  p.innerHTML = `<span class="n">+${pts}</span><span class="l">${label}</span>` +
+                (note ? `<span class="s">${note}</span>` : "");
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(), 2200);
+
+  const wrap = document.createElement("div"); wrap.id = "mbh-stars";
+  const n = Math.min(64, 16 + pts * 1.6);
+  const gl = ["\u2605","\u2605","\u2605","\u2726","\u2b50"];
+  let h = "";
+  for(let i=0;i<n;i++){
+    h += `<b style="left:${Math.random()*100}%;font-size:${13+Math.random()*26}px;
+      --dur:${1.5+Math.random()*1.6}s;--delay:${Math.random()*0.7}s;
+      --dx:${(Math.random()*2-1)*22}vw;--rot:${(Math.random()*2-1)*720}deg;
+      opacity:${0.65+Math.random()*0.35}">${gl[i%gl.length]}</b>`;
+  }
+  wrap.innerHTML = h;
+  document.body.appendChild(wrap);
+  setTimeout(()=>wrap.remove(), 4200);
+
+  if(window.__dbg) __dbg("  drew " + n + " stars, popup in DOM=" +
+    !!document.getElementById("mbh-pop"));
+
+  _sound(pts);
+
+  const who = (opts && opts.who) || localStorage.getItem("mbh_me");
+  if(who) import("./stars.js").then(m => m.score && m.score(who, kind, pts)).catch(()=>{});
+}
+console.info("celebration inline, build", BUILD);
+
+/* ---- on-screen diagnostics: no console needed ---- */
+const _log = [];
+window.__dbg = function(m){
+  const ts = new Date().toTimeString().slice(3,8);
+  _log.unshift(ts + "  " + m);
+  if(_log.length > 10) _log.length = 10;
+  const el = document.getElementById("dbg");
+  if(el) el.textContent = _log.join("\n");
+};
+addEventListener("error", ev =>
+  __dbg("THREW: " + ev.message + " @" + (ev.filename||"").split("/").pop() + ":" + ev.lineno));
+addEventListener("unhandledrejection", ev =>
+  __dbg("REJECTED: " + ((ev.reason && ev.reason.message) || ev.reason)));
+
+/* ============================================================
+   Settings — same block as the other pages
+   ============================================================ */
+const FIREBASE = {
+  apiKey: "AIzaSyB1NnJlvpL_dv7aPrAeFGtl5MM1oSa1YPk",
+  authDomain: "mybaliholiday-5170c.firebaseapp.com",
+  projectId: "mybaliholiday-5170c",
+  storageBucket: "mybaliholiday-5170c.firebasestorage.app",
+  messagingSenderId: "29285891302",
+  appId: "1:29285891302:web:9497074c278aed8c0ccf27"
+};
+
+const TRAVELLERS = [
+  { name:"Mark",   colour:"#0BA5C7" },
+  { name:"Claire", colour:"#FF9F1C" },
+  { name:"Clare",  colour:"#16A97C" },
+  { name:"Kylie",  colour:"#9B5DE5" },
+  { name:"Alice",  colour:"#FF4D8D" }
+];
+
+const DEFAULT_RATES = { nzd: 9700, aud: 10600 };
+
+/* ---------- what everyone has to do ---------- */
+const STEPS = [
+  {
+    key:"passport", title:"Check your passport", cost:0, c:"var(--lagoon)",
+    body:`<p>It needs <strong>at least six months left</strong> counting from the day you land in Bali — not from the day you leave home. Anything less and you can be turned away at check-in.</p>
+          <p>You'll also be asked to show a <strong>return or onward ticket</strong>, so have that booking on your phone.</p>`
+  },
+  {
+    key:"evoa", title:"Apply for the e-VOA", cost:500000, c:"var(--frangipani)",
+    body:`<p>The B1 visitor visa. Thirty days, single entry, extendable once. Apply online <strong>at least 48 hours before you fly</strong>.</p>
+          <p>Doing it online rather than at the airport matters: with an e-VOA you can use the biometric autogates. Buy it on arrival instead and you queue at a counter, then queue again at immigration.</p>`,
+    link:"https://evisa.imigrasi.go.id/", linkLabel:"evisa.imigrasi.go.id",
+    warn:"Only use the official site above. There are dozens of copies charging two or three times the real price."
+  },
+  {
+    key:"arrival", title:"All Indonesia arrival card", cost:0, c:"var(--pandan)",
+    body:`<p>Free, and compulsory for everyone — adults, children, infants. One form now covers immigration, customs and health, replacing the old SATUSEHAT pass and the paper customs declaration.</p>
+          <p>Fill it in <strong>within 72 hours of landing</strong> and you'll get a QR code by email. Screenshot it — you'll want it without needing signal.</p>`,
+    link:"https://allindonesia.imigrasi.go.id/", linkLabel:"allindonesia.imigrasi.go.id",
+    warn:"This form is free. Any site asking you to pay for it is a scam."
+  },
+  {
+    key:"levy", title:"Pay the Bali tourist levy", cost:150000, c:"var(--marigold)",
+    body:`<p>A separate Balinese charge on top of the visa, per person, one payment for the whole trip. Pay online and you get a QR code — screenshot that one too.</p>
+          <p>If the site plays up, <strong>turn your VPN off</strong> first; the government servers block a lot of them. Failing that, there are BRI Bank counters in the arrivals hall taking cash or card for the same amount.</p>
+          <p>Tourism police do spot-check it at Uluwatu and Tanah Lot, so keep the QR handy.</p>`,
+    link:"https://lovebali.baliprov.go.id/", linkLabel:"lovebali.baliprov.go.id"
+  },
+  {
+    key:"esim", title:"Sort your eSIM", cost:0, c:"var(--dusk)",
+    body:`<p>Buy and install it before you leave home, then switch it on when you land. Options are further down this page.</p>
+          <p>Don't forget to turn <strong>data roaming on for the eSIM line</strong> — that catches people out, and the line looks dead without it.</p>`
+  }
+];
+
+/* ---------- three worth looking at ---------- */
+const SIMS = [
+  {
+    name:"Airalo", tag:"best known", c:"var(--lagoon)",
+    body:"The biggest range of plans and the easiest to get your head around if it's your first eSIM. Runs on Indosat and Hutchison, which is fine everywhere on the main island. Small plans are pricier than the competition.",
+    url:"https://www.airalo.com/"
+  },
+  {
+    name:"Saily", tag:"best all-round", c:"var(--pandan)",
+    body:"Made by the NordVPN people. Consistently good speeds, clean app, and it blocks dodgy sites and ads which quietly saves you data. Sensible pricing and a decent refund policy if something goes wrong.",
+    url:"https://saily.com/"
+  },
+  {
+    name:"Holafly", tag:"unlimited data", c:"var(--dusk)",
+    body:"Worth it only if someone's working, uploading video daily, or using their phone as a laptop's connection. Priced by the day rather than by the gigabyte. Overkill for maps and WhatsApp.",
+    url:"https://esim.holafly.com/"
+  }
+];
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const traveller = n => TRAVELLERS.find(t=>t.name===n) || { name:n||"", colour:"#4A4266" };
+const withTimeout = (p, ms=8000) => Promise.race([
+  p, new Promise((_,rej)=>setTimeout(()=>rej(new Error("Took too long to reach the server")), ms))
+]);
+
+let store, done = {};
+let me = localStorage.getItem("mbh_me") || null;
+if(me && !TRAVELLERS.some(t => t.name === me)){ me = null; localStorage.removeItem("mbh_me"); }
+
+/* money */
+let pinnedRates = null, liveRates = null;
+let rates = { ...DEFAULT_RATES };
+const rp   = n => "Rp " + Math.round(Number(n)).toLocaleString("en-NZ");
+const nice = v => v >= 100 ? Math.round(v) : Math.round(v*10)/10;
+const conv = n => `about NZ$${nice(Number(n)/rates.nzd)} · A$${nice(Number(n)/rates.aud)}`;
+
+function refreshRates(){
+  if(pinnedRates?.nzd && pinnedRates?.aud) rates = { nzd:+pinnedRates.nzd, aud:+pinnedRates.aud };
+  else if(liveRates) rates = { ...liveRates };
+  else rates = { ...DEFAULT_RATES };
+}
+async function fetchRates(){
+  const CACHE = "mbh_rates_v1";
+  try{
+    const c = JSON.parse(localStorage.getItem(CACHE) || "null");
+    if(c && Date.now() - c.when < 12*3600*1000){ liveRates = c; return; }
+  }catch(e){ /* no cache */ }
+  try{
+    const res = await withTimeout(fetch("https://open.er-api.com/v6/latest/IDR"), 6000);
+    const j = await res.json();
+    if(j?.rates?.NZD && j?.rates?.AUD){
+      liveRates = { nzd:1/j.rates.NZD, aud:1/j.rates.AUD, when:Date.now() };
+      localStorage.setItem(CACHE, JSON.stringify(liveRates));
+    }
+  }catch(e){ /* offline */ }
+}
+
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("on");
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove("on"), 2600);
+}
+function banner(msg){ const b = $("banner"); b.textContent = msg; b.classList.remove("hide"); }
+
+/* ============================================================
+   Storage — one doc per step, holding who's ticked it
+   ============================================================ */
+async function makeStore(){
+  if(!FIREBASE.projectId) return localStore();
+  try{
+    const [{ initializeApp }, fs, fa] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")
+    ]);
+    const app = initializeApp(FIREBASE);
+    try{ await withTimeout(fa.signInAnonymously(fa.getAuth(app)), 8000); }catch(e){ /* open rules */ }
+    const db = fs.initializeFirestore(app, {
+      localCache: fs.persistentLocalCache({ tabManager: fs.persistentMultipleTabManager() })
+    });
+    const col = fs.collection(db, "checklist");
+    const setDoc = fs.doc(db, "settings", "trip");
+    return {
+      kind:"cloud",
+      subscribe(onList, onSettings){
+        fs.onSnapshot(col,
+          snap => {
+            const d = {};
+            snap.docs.forEach(x => d[x.id] = x.data().done || []);
+            onList(d);
+          },
+          err => banner("Can't reach the checklist right now — " + (err.code || err.message))
+        );
+        fs.onSnapshot(setDoc, d => { if(d.exists()) onSettings(d.data()); });
+      },
+      set: (step, list) => withTimeout(
+        fs.setDoc(fs.doc(db, "checklist", step), { done:list }, { merge:true }))
+    };
+  }catch(e){
+    banner("Couldn't reach the shared checklist, so this is saving on your device only.");
+    return localStore();
+  }
+}
+
+function localStore(){
+  const KEY = "mbh_checklist_v1";
+  const read = () => JSON.parse(localStorage.getItem(KEY) || "{}");
+  let cb = ()=>{}, cs = ()=>{};
+  const push = () => {
+    cb(read());
+    try{
+      const p = JSON.parse(localStorage.getItem("mbh_planner_v1") || "null");
+      cs(p?.settings || {});
+    }catch(e){ cs({}); }
+  };
+  return {
+    kind:"local",
+    subscribe(onList, onSettings){ cb = onList; cs = onSettings; push(); },
+    set(step, list){ const d = read(); d[step] = list; localStorage.setItem(KEY, JSON.stringify(d)); push(); }
+  };
+}
+
+/* ============================================================
+   Render
+   ============================================================ */
+function renderBoard(){
+  $("board").innerHTML = TRAVELLERS.map(t=>{
+    const n = STEPS.filter(s => (done[s.key] || []).includes(t.name)).length;
+    return `<div class="p ${n === STEPS.length ? "allin" : ""}">
+      <div class="nm"><i style="background:${t.colour}"></i>${esc(t.name)}</div>
+      <div class="sc">${n === STEPS.length ? "all done ✓" : n + " of " + STEPS.length}</div>
+    </div>`;
+  }).join("");
+
+  const mine = me ? STEPS.filter(s => (done[s.key] || []).includes(me)).length : 0;
+  $("yours").innerHTML = !me
+    ? "Tap your name to start"
+    : mine === STEPS.length
+      ? "You're all sorted ✦"
+      : `You've <b>${mine}</b> of <b>${STEPS.length}</b> done`;
+}
+
+function renderSteps(){
+  $("steps").innerHTML = STEPS.map((s,i)=>{
+    const list = done[s.key] || [];
+    return `<article class="step" style="--c:${s.c}">
+      <div class="hd">
+        <span class="no">Step ${i+1}</span>
+        <span class="ttl">${esc(s.title)}</span>
+        <span class="cost ${s.cost ? "" : "free"}">${s.cost ? rp(s.cost) : "free"}</span>
+      </div>
+      <div class="body">
+        ${s.cost ? `<span class="conv">${conv(s.cost)}</span>` : ""}
+        ${s.body}
+        ${s.warn ? `<div class="warn">⚠ ${esc(s.warn)}</div>` : ""}
+        ${s.link ? `<a class="go" href="${s.link}" target="_blank" rel="noopener">${esc(s.linkLabel)} →</a>` : ""}
+      </div>
+      <div class="ticks">
+        <span class="lbl">Done by</span>
+        ${TRAVELLERS.map(t=>`
+          <button data-tick="${s.key}|${t.name}" aria-pressed="${list.includes(t.name)}"
+                  class="${t.name === me ? "me" : ""}">
+            <i style="background:${t.colour}"></i>${esc(t.name)}
+          </button>`).join("")}
+      </div>
+    </article>`;
+  }).join("");
+}
+
+function renderSims(){
+  $("sims").innerHTML = SIMS.map(s=>`
+    <div class="sim" style="--c:${s.c}">
+      <div class="r1"><span class="nm">${esc(s.name)}</span><span class="tag">${esc(s.tag)}</span></div>
+      <p>${esc(s.body)}</p>
+      <a class="go" href="${s.url}" target="_blank" rel="noopener">Have a look →</a>
+    </div>`).join("") +
+    `<p class="blurb" style="margin-top:11px">Three to ten gigs covers a fortnight of maps, WhatsApp and the odd scroll.
+     Unlimited is only worth it if someone's working. One thing worth knowing: if you're day-tripping to Nusa Penida,
+     Telkomsel is the network that actually holds up out there — worth checking which one a plan runs on.</p>`;
+}
+
+function render(){
+  const t = traveller(me);
+  $("meName").textContent = me || "…";
+  $("meDot").style.background = t.colour;
+  renderBoard();
+  renderSteps();
+}
+
+/* ============================================================
+   Sheets
+   ============================================================ */
+function openSheet(html){ $("sheet").innerHTML = html; $("scrim").classList.add("on"); }
+function closeSheet(){ $("scrim").classList.remove("on"); }
+
+function pickName(force){
+  openSheet(`<h3>Who's this?</h3>
+    <p class="sub">so we know whose visa is whose</p>
+    <div class="namegrid">
+      ${TRAVELLERS.map(t=>`<button data-me="${t.name}"><i style="background:${t.colour}"></i>${t.name}</button>`).join("")}
+    </div>
+    ${force ? "" : `<div class="sheetfoot"><button class="btn ghost" data-close>Cancel</button></div>`}`);
+}
+
+/* ============================================================
+   Events
+   ============================================================ */
+document.addEventListener("click", async e => {
+  const hit = s => e.target.closest(s);
+
+  const mePick = hit("[data-me]");
+  if(mePick){ me = mePick.dataset.me; localStorage.setItem("mbh_me", me); closeSheet(); render(); return; }
+
+  const tick = hit("[data-tick]");
+  if(tick){
+    const [step, who] = tick.dataset.tick.split("|");
+
+    // What's on screen is the truth — don't depend on our copy of the data
+    // being up to date, and celebrate before anything that could throw.
+    const wasOn = tick.getAttribute("aria-pressed") === "true";
+    __dbg("tap " + step + "/" + who + " wasOn=" + wasOn + " store=" + (store ? "yes" : "NO"));
+    if(!wasOn){
+      const rest = STEPS.filter(s => s.key !== step);
+      const all = rest.every(s => (done[s.key] || []).includes(who));
+      celebrate(all ? "alldone" : "visa", { who });
+    }
+    tick.setAttribute("aria-pressed", String(!wasOn));   // instant feedback
+
+    const list = done[step] || [];
+    const next = wasOn ? list.filter(n => n !== who)
+                       : (list.includes(who) ? list : [...list, who]);
+    try{ await store.set(step, next); __dbg("  saved ok"); }
+    catch(err){ __dbg("  SAVE FAILED: " + err.message); toast(err.message); }
+    return;
+  }
+
+  if(hit("[data-close]") || e.target.id === "scrim"){ closeSheet(); return; }
+  if(e.target.id === "btnSwitch"){ pickName(false); return; }
+});
+
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeSheet(); });
+
+/* so you can see which build is actually being served, without a console */
+$("stamp").textContent = `build ${BUILD}`;
+__dbg("page ready · build " + BUILD + " · ticks on page: " +
+  document.querySelectorAll("[data-tick]").length);
+$("btnTest").addEventListener("click", () => celebrate("visa", { who:null }));
+
+/* ============================================================
+   Go
+   ============================================================ */
+renderSims();
+
+(async function start(){
+  store = await makeStore();
+  if(store.kind === "local" && !FIREBASE.projectId) banner("Test mode — saving on this device only.");
+  refreshRates();
+  fetchRates().then(()=>{ refreshRates(); render(); });
+  store.subscribe(
+    d => { done = d; render(); },
+    s => {
+      pinnedRates = (s.rateNzd && s.rateAud) ? { nzd:s.rateNzd, aud:s.rateAud } : null;
+      refreshRates(); render();
+    }
+  );
+  render();
+  if(!me) pickName(true);
+})();
+
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  addEventListener("load", ()=> navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}
+</script>
+</body>
+</html>

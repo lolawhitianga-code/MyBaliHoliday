@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B1730">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bali">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>My Bali Holiday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1730; --sand:#FFF3E2;
+  --frangipani:#FF4D8D; --lagoon:#0BA5C7; --marigold:#FF9F1C; --pandan:#16A97C; --dusk:#9B5DE5;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
+body{
+  margin:0;color:#fff;position:relative;
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased;text-align:center;
+  background:
+    linear-gradient(178deg, rgba(27,23,48,.80) 0%, rgba(75,42,99,.62) 38%, rgba(196,63,118,.52) 70%, rgba(255,122,69,.46) 100%),
+    var(--hero, linear-gradient(178deg,#1B1730,#4B2A63 42%,#C43F76 72%,#FF7A45)) center 40% / cover no-repeat;
+  background-attachment:fixed;
+}
+/* centred when it fits, scrollable when it doesn't */
+.wrap{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:calc(26px + env(safe-area-inset-top)) 20px calc(26px + env(safe-area-inset-bottom));
+}
+body::after{
+  content:'';position:fixed;left:0;right:0;bottom:0;height:10px;z-index:5;
+  background:linear-gradient(90deg,var(--frangipani),var(--marigold),var(--pandan),var(--lagoon),var(--dusk));
+}
+.eyebrow{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.24em;
+  text-transform:uppercase;opacity:.75;margin:0 0 10px;text-shadow:0 1px 8px rgba(27,23,48,.6);
+}
+h1{
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(30px,9.5vw,58px);
+  line-height:.92;margin:0 0 6px;font-variation-settings:'SOFT' 40,'WONK' 1;
+  text-shadow:0 2px 22px rgba(27,23,48,.6), 0 1px 3px rgba(27,23,48,.45);
+}
+.ask{
+  font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.14em;
+  text-transform:uppercase;opacity:.85;margin:16px 0 12px;
+  text-shadow:0 1px 8px rgba(27,23,48,.6);
+}
+.who{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;
+  width:100%;max-width:420px;
+}
+.who button{
+  font:inherit;color:#fff;cursor:pointer;font-size:17px;
+  background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.3);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-radius:16px;padding:14px 10px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  font-weight:600;font-size:19px;letter-spacing:.01em;
+  transition:transform .14s ease, background .14s ease;
+}
+.who button:hover,.who button:focus-visible{
+  transform:translateY(-3px);background:rgba(255,255,255,.22);outline:none;
+}
+.who button:active{transform:translateY(-1px)}
+.who button:last-child:nth-child(odd){grid-column:1 / -1}
+.who button i{
+  width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  font-family:'Fraunces',serif;font-style:normal;font-weight:900;font-size:18px;
+  color:#fff;line-height:1;text-shadow:0 1px 4px rgba(0,0,0,.28);
+  box-shadow:0 0 0 3px rgba(255,255,255,.25), inset 0 -3px 10px rgba(0,0,0,.16);
+}
+.again{
+  margin-top:22px;background:none;border:0;color:#fff;font:inherit;font-size:13.5px;
+  opacity:.7;text-decoration:underline;text-underline-offset:4px;cursor:pointer;
+  text-shadow:0 1px 8px rgba(27,23,48,.6);
+}
+.again:hover{opacity:1}
+.buildstamp{
+  text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;
+  color:rgba(255,255,255,.55);margin:20px 0 0;text-shadow:0 1px 6px rgba(27,23,48,.6);
+}
+.hide{display:none !important}
+@media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<p class="eyebrow">mybaliholiday.kiwi</p>
+<h1>Two weeks<br>in Bali</h1>
+
+<p class="ask">First things first — who's this?</p>
+
+<div class="who" id="who"></div>
+
+<button class="again hide" id="again"></button>
+
+  <p class="buildstamp">build v75</p>
+
+</div>
+
+<script type="module">
+const TRAVELLERS = [
+  { name:"Mark",   colour:"#0BA5C7", mark:"M"  },
+  { name:"Claire", colour:"#FF9F1C", mark:"Ci" },   // the two Cs get two letters
+  { name:"Clare",  colour:"#16A97C", mark:"Ca" },
+  { name:"Kylie",  colour:"#9B5DE5", mark:"K"  },
+  { name:"Alice",  colour:"#FF4D8D", mark:"A"  }
+];
+
+/* a different photo behind the gate each time */
+const SHOTS = ["photo-1.jpg","photo-2.jpg","photo-3.jpg","photo-4.jpg","photo-5.jpg",
+               "photo-6.jpg","photo-7.jpg","photo-8.jpg","photo-9.jpg","photo-10.jpg"];
+const last = sessionStorage.getItem("mbh_gate_shot");
+const pool = SHOTS.filter(s => s !== last);
+const pick = pool[Math.floor(Math.random() * pool.length)];
+try{ sessionStorage.setItem("mbh_gate_shot", pick); }catch(e){ /* never mind */ }
+document.body.style.setProperty("--hero", `url("${pick}")`);
+
+const $ = id => document.getElementById(id);
+const where = n => n === "Kylie" ? "kylie.html" : "home.html";
+
+$("who").innerHTML = TRAVELLERS.map(t =>
+  `<button data-me="${t.name}"><i style="background:${t.colour}">${t.mark}</i>${t.name}</button>`).join("");
+
+/* if you've been here before, one tap straight through */
+const saved = localStorage.getItem("mbh_me");
+if(saved && TRAVELLERS.some(t => t.name === saved)){
+  const b = $("again");
+  b.textContent = `Carry on as ${saved} →`;
+  b.classList.remove("hide");
+  b.addEventListener("click", () => { location.href = where(saved); });
+}
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-me]");
+  if(!b) return;
+  const name = b.dataset.me;
+  localStorage.setItem("mbh_me", name);
+  location.href = where(name);
+});
+</script>
+</body>
+</html>

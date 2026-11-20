@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F1020">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>Admin · My Bali Holiday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1730; --ink-soft:#4A4266;
+  --sand:#FFF3E2; --sand-deep:#F6E3C8; --line:#E4CDA9;
+  --slate:#0F1020; --slate-2:#1C1E3A;
+  --red:#D62839; --amber:#E8A33D;
+  --lagoon:#0BA5C7; --pandan:#16A97C; --frangipani:#FF4D8D; --marigold:#FF9F1C; --dusk:#9B5DE5;
+  --shadow:0 2px 0 rgba(27,23,48,.10), 0 10px 26px -14px rgba(27,23,48,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--sand);color:var(--ink);
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom));
+}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+.top{
+  position:relative;overflow:hidden;text-align:center;color:#fff;
+  padding:calc(24px + env(safe-area-inset-top)) 20px 26px;
+  background:linear-gradient(168deg,var(--slate) 0%,var(--slate-2) 100%);
+}
+.top::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:5px;
+  background:repeating-linear-gradient(135deg,var(--amber) 0 12px,var(--slate) 12px 24px);
+}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.6;margin:0 0 7px}
+.wordmark{
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(28px,8vw,42px);
+  line-height:.98;margin:0;font-variation-settings:'SOFT' 40,'WONK' 1;
+}
+.whoami{
+  margin:14px auto 0;display:inline-block;font-family:'DM Mono',monospace;font-size:12px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  border-radius:999px;padding:6px 14px;
+}
+
+main{max-width:820px;margin:0 auto;padding:16px 14px 40px}
+h2.sec{
+  font-family:'DM Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-soft);margin:26px 0 11px 2px;
+}
+h2.sec:first-child{margin-top:0}
+
+.gate{
+  background:#fff;border:1px solid var(--line);border-left:5px solid var(--amber);
+  border-radius:15px;padding:18px;box-shadow:var(--shadow);
+}
+.gate b{font-family:'Fraunces',serif;font-size:19px;display:block;margin-bottom:7px}
+.gate p{margin:0 0 12px;font-size:14.5px;line-height:1.5}
+.gate .btn{
+  border:1px solid var(--ink);background:var(--ink);color:var(--sand);
+  border-radius:11px;padding:11px 18px;font-weight:500;font-size:14px;
+}
+
+/* counts */
+.counts{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:9px}
+.cnt{
+  background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px 9px;
+  text-align:center;box-shadow:var(--shadow);
+}
+.cnt b{font-family:'Fraunces',serif;font-weight:900;font-size:24px;line-height:1;display:block}
+.cnt span{
+  font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-soft);display:block;margin-top:5px;
+}
+.cnt.warn{border-color:var(--red);box-shadow:0 0 0 1px var(--red), var(--shadow)}
+.cnt.warn b{color:var(--red)}
+
+/* browser */
+.pick{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:11px}
+.pick button{
+  border:1px solid var(--line);background:#fff;border-radius:999px;
+  padding:6px 13px;font-family:'DM Mono',monospace;font-size:12px;
+}
+.pick button[aria-pressed="true"]{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+
+.docs{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.doc{display:flex;align-items:flex-start;gap:10px;padding:11px 13px}
+.doc + .doc{border-top:1px solid rgba(228,205,169,.6)}
+.doc .body{flex:1;min-width:0}
+.doc .ttl{font-weight:600;font-size:15px;line-height:1.25;word-break:break-word}
+.doc .meta{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--ink-soft);margin-top:3px;word-break:break-all}
+.doc .meta.bad{color:var(--red);font-weight:500}
+.doc pre{
+  margin:8px 0 0;background:var(--slate);color:#9FE8C8;border-radius:9px;padding:9px 11px;
+  font-family:'DM Mono',monospace;font-size:10.5px;line-height:1.6;
+  white-space:pre-wrap;word-break:break-word;max-height:230px;overflow:auto;
+}
+.doc .acts{display:flex;flex-direction:column;gap:5px;flex:none}
+.doc .acts button{
+  border:1px solid var(--line);background:var(--sand);border-radius:8px;
+  padding:4px 10px;font-family:'DM Mono',monospace;font-size:10.5px;
+}
+.doc .acts .del{border-color:var(--red);color:var(--red)}
+.doc .acts .del:hover{background:var(--red);color:#fff}
+
+.empty{border:1.5px dashed var(--line);border-radius:14px;padding:22px;text-align:center;color:var(--ink-soft);font-size:14px}
+
+/* forms */
+.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px;box-shadow:var(--shadow);margin-bottom:11px}
+.card b.h{font-family:'Fraunces',serif;font-size:17px;display:block;margin-bottom:4px}
+.card p{margin:0 0 11px;font-size:14px;line-height:1.5;color:var(--ink-soft)}
+label{display:block;font-size:12px;font-weight:500;letter-spacing:.04em;margin:11px 0 5px}
+input,select{
+  width:100%;font:inherit;font-size:16px;padding:10px 12px;
+  border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);
+}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.act{
+  margin-top:13px;border:1px solid var(--ink);background:var(--ink);color:var(--sand);
+  border-radius:11px;padding:11px 18px;font-weight:500;font-size:14px;
+}
+.act.ghost{background:transparent;color:var(--ink)}
+.act.danger{background:var(--red);border-color:var(--red);color:#fff}
+.act:disabled{opacity:.45}
+
+.danger-zone{border-left:5px solid var(--red)}
+.danger-zone b.h{color:var(--red)}
+
+.log{
+  background:var(--slate);color:#9FE8C8;border-radius:12px;padding:12px 14px;
+  font-family:'DM Mono',monospace;font-size:11px;line-height:1.7;
+  white-space:pre-wrap;word-break:break-word;max-height:200px;overflow:auto;margin-top:11px;
+}
+
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:rgba(255,243,226,.94);border-top:1px solid var(--line);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav a{
+  flex:1;text-align:center;padding:8px 2px 9px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.nav b{display:block;font-size:18px;font-weight:400;line-height:1.3;margin-bottom:2px}
+.nav [aria-current="page"]{color:var(--ink);font-weight:500}
+
+.buildstamp{
+  text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;
+  color:var(--ink-soft);opacity:.45;margin:26px 0 0;
+}
+.toast{
+  position:fixed;left:50%;bottom:84px;transform:translate(-50%,12px);
+  background:var(--ink);color:var(--sand);padding:11px 18px;border-radius:999px;
+  font-size:14px;z-index:95;opacity:0;pointer-events:none;transition:all .2s ease;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.hide{display:none !important}
+:focus-visible{outline:3px solid var(--lagoon);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <p class="eyebrow">back of house</p>
+  <h1 class="wordmark">Admin</h1>
+  <div class="whoami" id="whoami">—</div>
+</header>
+
+<main>
+  <div id="gate" class="hide">
+    <div class="gate">
+      <b>This one's Mark's</b>
+      <p>It can delete everyone's data, so it's kept out of the way. If you're Mark, carry on — otherwise there's nothing useful in here.</p>
+      <button class="btn" id="btnUnlock">I'm Mark, let me in</button>
+    </div>
+  </div>
+
+  <div id="panel" class="hide">
+    <h2 class="sec">What's in the database</h2>
+    <div class="counts" id="counts"></div>
+
+    <h2 class="sec">Browse and clean up</h2>
+    <div class="pick" id="pick"></div>
+    <div id="docs"></div>
+
+    <h2 class="sec">Trip settings</h2>
+    <div class="card">
+      <b class="h">Dates and rates</b>
+      <p>These drive the whole site — the countdown, every day header, and every conversion.</p>
+      <label for="sStart">First day in Bali</label>
+      <input type="date" id="sStart">
+      <div class="row2">
+        <div><label for="sNzd">Rupiah per NZ$1</label><input type="number" id="sNzd" placeholder="blank = live rate"></div>
+        <div><label for="sAud">Rupiah per A$1</label><input type="number" id="sAud" placeholder="blank = live rate"></div>
+      </div>
+      <button class="act" id="btnSaveSettings">Save settings</button>
+    </div>
+
+    <h2 class="sec">The bookies</h2>
+    <div class="card">
+      <b class="h">Door code</b>
+      <p>Four digits, needed to get into the betting page. Anyone who's already through stays in until they close the tab.</p>
+      <label for="sPin">Code</label>
+      <input type="text" id="sPin" maxlength="4" inputmode="numeric" placeholder="2709" autocomplete="off">
+      <button class="act" id="btnSavePin">Change the code</button>
+    </div>
+
+    <h2 class="sec">Housekeeping</h2>
+    <div class="card">
+      <b class="h">Records belonging to nobody</b>
+      <p>Anything filed under a name that's no longer on the trip — Lola's old entries, or typos. These show up in a neutral grey on the site and throw the expense totals out.</p>
+      <button class="act ghost" id="btnFindOrphans">Find them</button>
+      <div class="log hide" id="orphanLog"></div>
+      <button class="act danger hide" id="btnFixOrphans">Delete them all</button>
+    </div>
+
+    <div class="card">
+      <b class="h">Take a backup</b>
+      <p>Downloads everything as a JSON file. Photo data is left out or the file would be enormous.</p>
+      <button class="act ghost" id="btnExport">Download backup</button>
+    </div>
+
+    <h2 class="sec">Danger zone</h2>
+    <div class="card danger-zone">
+      <b class="h">Empty a collection</b>
+      <p>Wipes every record in it. Useful for clearing out test entries before the others start using the site. There is no undo — take a backup first.</p>
+      <label for="wipeWhich">Which one</label>
+      <select id="wipeWhich"></select>
+      <label for="wipeConfirm">Type its name to confirm</label>
+      <input type="text" id="wipeConfirm" placeholder="planner" autocomplete="off">
+      <button class="act danger" id="btnWipe">Empty it</button>
+    </div>
+
+    <h2 class="sec">Firebase itself</h2>
+    <div class="card">
+      <b class="h">The console</b>
+      <p>For anything this page can't do — security rules, authentication, billing, usage.</p>
+      <button class="act ghost" id="btnConsole">Open Firebase console</button>
+      <div class="log" id="projLog"></div>
+    </div>
+  </div>
+
+  <p class="buildstamp">build v75</p>
+</main>
+
+<nav class="nav">
+  <a href="home.html"><b>🏝</b>Home</a>
+  <a href="planner.html"><b>🗓</b>Plan</a>
+  <a href="money.html"><b>💸</b>Money</a>
+  <a href="stars.html"><b>⭐</b>Stars</a>
+  <a href="admin.html" aria-current="page"><b>🔧</b>Admin</a>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+const BUILD = "v75";
+
+const FIREBASE = {
+  apiKey: "AIzaSyB1NnJlvpL_dv7aPrAeFGtl5MM1oSa1YPk",
+  authDomain: "mybaliholiday-5170c.firebaseapp.com",
+  projectId: "mybaliholiday-5170c",
+  storageBucket: "mybaliholiday-5170c.firebasestorage.app",
+  messagingSenderId: "29285891302",
+  appId: "1:29285891302:web:9497074c278aed8c0ccf27"
+};
+
+const ADMIN = "Mark";
+
+/* everyone currently on the trip — used to spot orphaned records */
+const PEOPLE = ["Mark","Claire","Clare","Kylie","Alice"];
+
+/* every collection the site writes to, and how to describe a row */
+const COLS = [
+  { key:"planner",   label:"planner",   title:d => d.title,
+    sub:d => `day ${d.day} · ${d.slot} · ${d.who || "?"}` },
+  { key:"ideas",     label:"ideas",     title:d => d.title,
+    sub:d => `${d.who || "?"} · ${(d.votes||[]).length} votes${d.planned ? " · planned" : ""}` },
+  { key:"expenses",  label:"expenses",  title:d => d.what,
+    sub:d => `Rp ${Number(d.amount||0).toLocaleString("en-NZ")} · ${d.who || "?"} · ${d.date || ""}` },
+  { key:"flights",   label:"flights",   title:d => `${d.fromCode || "?"} → ${d.toCode || "?"}`,
+    sub:d => `${d.who || "?"} · ${d.airline || ""} ${d.number || ""} · ${d.date || ""}` },
+  { key:"stays",     label:"stays",     title:d => d.name,
+    sub:d => `${d.checkIn || "?"} → ${d.checkOut || "?"}` },
+  { key:"shopping",  label:"shopping",  title:d => d.what,
+    sub:d => `${d.who || "?"}${d.got ? " · in the trolley" : ""}` },
+  { key:"packing",   label:"packing",   title:d => d.what,
+    sub:d => `${d.scope === "group" ? "shared" : d.scope} · ${d.owner || "unclaimed"}` },
+  { key:"checklist", label:"checklist", title:d => "(step)",
+    sub:d => `done by: ${(d.done||[]).join(", ") || "nobody"}` },
+  { key:"wall",      label:"photos",    title:() => "photo",
+    sub:d => `${d.who || "?"} · ${d.w}×${d.h}` },
+  { key:"trips",     label:"albums",    title:d => `${d.place || "?"} ${d.year || ""}`,
+    sub:d => (d.who||[]).join(", ") },
+  { key:"scores",    label:"scores",    title:d => d.name || d.id,
+    sub:d => `${d.points || 0} stars` },
+  { key:"markets",   label:"markets",   title:d => d.q,
+    sub:d => `${(d.outcomes||[]).length} runners${d.settled ? " · settled" : " · open"}` },
+  { key:"bets",      label:"bets",      title:d => `${d.who || "?"} — ${d.stake} @ ${d.odds}`,
+    sub:d => `${d.marketId} · ${d.outcome}` }
+];
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const me = localStorage.getItem("mbh_me");
+
+let fs, db, data = {}, showing = "planner", orphans = [];
+
+function toast(msg){
+  const t = $("toast"); t.textContent = msg; t.classList.add("on");
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove("on"), 2800);
+}
+
+/* who's asking */
+$("whoami").textContent = me ? `signed in as ${me}` : "no name picked";
+if(me === ADMIN || sessionStorage.getItem("mbh_admin") === "1"){
+  start();
+}else{
+  $("gate").classList.remove("hide");
+  $("btnUnlock").addEventListener("click", () => {
+    sessionStorage.setItem("mbh_admin", "1");
+    $("gate").classList.add("hide");
+    start();
+  });
+}
+
+async function start(){
+  $("panel").classList.remove("hide");
+  $("projLog").textContent =
+    `project   ${FIREBASE.projectId}\n` +
+    `build     ${BUILD}\n` +
+    `signed in ${me || "—"}`;
+
+  try{
+    const [appMod, fsMod, faMod] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")
+    ]);
+    fs = fsMod;
+    const app = appMod.getApps().length ? appMod.getApp() : appMod.initializeApp(FIREBASE);
+    try{ await faMod.signInAnonymously(faMod.getAuth(app)); }catch(e){ /* open rules */ }
+    db = fs.getFirestore(app);
+  }catch(e){
+    toast("Couldn't reach Firebase — " + e.message);
+    return;
+  }
+
+  // live counts for everything
+  COLS.forEach(c => {
+    fs.onSnapshot(fs.collection(db, c.key),
+      snap => {
+        data[c.key] = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+        paintCounts(); if(showing === c.key) paintDocs();
+      },
+      err => toast(`${c.key}: ${err.code || err.message}`));
+  });
+
+  fs.onSnapshot(fs.doc(db, "settings", "bookies"), d => {
+    if(d.exists() && d.data().pin) $("sPin").value = d.data().pin;
+  });
+
+  // current settings
+  fs.onSnapshot(fs.doc(db, "settings", "trip"), d => {
+    const s = d.exists() ? d.data() : {};
+    if(s.start) $("sStart").value = s.start;
+    if(s.rateNzd) $("sNzd").value = s.rateNzd;
+    if(s.rateAud) $("sAud").value = s.rateAud;
+  });
+
+  paintPick();
+  $("wipeWhich").innerHTML = COLS.map(c =>
+    `<option value="${c.key}">${c.key} — ${c.label}</option>`).join("");
+}
+
+function paintCounts(){
+  $("counts").innerHTML = COLS.map(c => {
+    const n = (data[c.key] || []).length;
+    const bad = (data[c.key] || []).some(d => d.who && !PEOPLE.includes(d.who));
+    return `<div class="cnt ${bad ? "warn" : ""}"><b>${n}</b><span>${c.label}</span></div>`;
+  }).join("");
+}
+
+function paintPick(){
+  $("pick").innerHTML = COLS.map(c =>
+    `<button data-col="${c.key}" aria-pressed="${c.key === showing}">${c.key}</button>`).join("");
+}
+
+function clean(d){
+  const o = { ...d };
+  if(typeof o.data === "string" && o.data.length > 80) o.data = `[image, ${Math.round(o.data.length/1024)}KB]`;
+  return o;
+}
+
+function paintDocs(){
+  const c = COLS.find(x => x.key === showing);
+  const rows = data[showing] || [];
+  $("docs").innerHTML = rows.length
+    ? `<div class="docs">${rows.map(d => {
+        const orphan = d.who && !PEOPLE.includes(d.who);
+        return `<div class="doc">
+          <div class="body">
+            <div class="ttl">${esc(c.title(d) || "(untitled)")}</div>
+            <div class="meta ${orphan ? "bad" : ""}">${esc(c.sub(d) || "")}${orphan ? "  ← nobody by that name" : ""}</div>
+            <div class="meta">${esc(d.id)}</div>
+            <pre class="hide" data-json="${esc(d.id)}">${esc(JSON.stringify(clean(d), null, 1))}</pre>
+          </div>
+          <div class="acts">
+            <button data-peek="${esc(d.id)}">json</button>
+            <button class="del" data-del="${esc(showing)}|${esc(d.id)}">delete</button>
+          </div>
+        </div>`;
+      }).join("")}</div>`
+    : `<div class="empty">Nothing in <b>${esc(showing)}</b>.</div>`;
+}
+
+/* ---------- actions ---------- */
+document.addEventListener("click", async e => {
+  const hit = s => e.target.closest(s);
+
+  const col = hit("[data-col]");
+  if(col){ showing = col.dataset.col; paintPick(); paintDocs(); return; }
+
+  const peek = hit("[data-peek]");
+  if(peek){
+    const pre = document.querySelector(`[data-json="${peek.dataset.peek}"]`);
+    if(pre) pre.classList.toggle("hide");
+    return;
+  }
+
+  const del = hit("[data-del]");
+  if(del){
+    const [c, id] = del.dataset.del.split("|");
+    if(!confirm(`Delete this record from ${c}? It can't be undone.`)) return;
+    try{ await fs.deleteDoc(fs.doc(db, c, id)); toast("Deleted"); }
+    catch(err){ toast(err.message); }
+    return;
+  }
+
+  if(e.target.id === "btnSaveSettings"){
+    const v = { start: $("sStart").value || null };
+    v.rateNzd = $("sNzd").value ? Number($("sNzd").value) : null;
+    v.rateAud = $("sAud").value ? Number($("sAud").value) : null;
+    try{ await fs.setDoc(fs.doc(db,"settings","trip"), v, { merge:true }); toast("Settings saved"); }
+    catch(err){ toast(err.message); }
+    return;
+  }
+
+  if(e.target.id === "btnSavePin"){
+    const v = $("sPin").value.trim();
+    if(!/^\d{4}$/.test(v)){ toast("Four digits, nothing else"); return; }
+    try{ await fs.setDoc(fs.doc(db,"settings","bookies"), { pin:v }, { merge:true }); toast("Code changed"); }
+    catch(err){ toast(err.message); }
+    return;
+  }
+
+  if(e.target.id === "btnFindOrphans"){
+    orphans = [];
+    COLS.forEach(c => (data[c.key]||[]).forEach(d => {
+      if(d.who && !PEOPLE.includes(d.who)) orphans.push({ col:c.key, id:d.id, who:d.who, what:c.title(d) });
+    }));
+    const log = $("orphanLog");
+    log.classList.remove("hide");
+    log.textContent = orphans.length
+      ? orphans.map(o => `${o.col.padEnd(10)} ${String(o.who).padEnd(8)} ${o.what || ""}`).join("\n")
+      : "Nothing orphaned — every record belongs to someone on the trip.";
+    $("btnFixOrphans").classList.toggle("hide", orphans.length === 0);
+    return;
+  }
+
+  if(e.target.id === "btnFixOrphans"){
+    if(!confirm(`Delete ${orphans.length} orphaned record(s)? No undo.`)) return;
+    let n = 0;
+    for(const o of orphans){
+      try{ await fs.deleteDoc(fs.doc(db, o.col, o.id)); n++; }catch(e){ /* keep going */ }
+    }
+    toast(`Deleted ${n}`);
+    $("btnFixOrphans").classList.add("hide");
+    $("orphanLog").textContent = "Done.";
+    return;
+  }
+
+  if(e.target.id === "btnExport"){
+    const out = {};
+    COLS.forEach(c => out[c.key] = (data[c.key]||[]).map(clean));
+    const blob = new Blob([JSON.stringify(out, null, 2)], { type:"application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `bali-backup-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+    toast("Backup downloaded");
+    return;
+  }
+
+  if(e.target.id === "btnWipe"){
+    const which = $("wipeWhich").value;
+    if($("wipeConfirm").value.trim() !== which){
+      toast(`Type "${which}" to confirm`); return;
+    }
+    const rows = data[which] || [];
+    if(!confirm(`Delete all ${rows.length} records in ${which}? No undo.`)) return;
+    let n = 0;
+    for(const d of rows){
+      try{ await fs.deleteDoc(fs.doc(db, which, d.id)); n++; }catch(e){ /* keep going */ }
+    }
+    $("wipeConfirm").value = "";
+    toast(`Emptied ${which} — ${n} gone`);
+    return;
+  }
+
+  if(e.target.id === "btnConsole"){
+    window.open(`https://console.firebase.google.com/project/${FIREBASE.projectId}/overview`, "_blank", "noopener");
+    return;
+  }
+});
+
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  addEventListener("load", ()=> navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}
+</script>
+</body>
+</html>

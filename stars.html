@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B1730">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Bali">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>Gold stars · My Bali Holiday</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1730; --ink-soft:#4A4266;
+  --sand:#FFF3E2; --sand-deep:#F6E3C8; --line:#E4CDA9;
+  --gold:#FFD166; --gold-deep:#D9A21B;
+  --frangipani:#FF4D8D; --lagoon:#0BA5C7; --marigold:#FF9F1C; --pandan:#16A97C; --dusk:#9B5DE5;
+  --shadow:0 2px 0 rgba(27,23,48,.10), 0 10px 26px -14px rgba(27,23,48,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--sand);color:var(--ink);
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom));
+}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+.top{
+  position:relative;overflow:hidden;text-align:center;color:#fff;
+  padding:calc(26px + env(safe-area-inset-top)) 20px 30px;
+  background:
+    radial-gradient(200px 150px at 50% 8%, rgba(255,209,102,.55), rgba(255,159,28,0) 72%),
+    linear-gradient(175deg,#1B1730 0%,#3B2A5A 45%,#8A5A1E 100%);
+}
+.top::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:10px;
+  background:linear-gradient(90deg,var(--frangipani),var(--marigold),var(--gold),var(--lagoon),var(--dusk));
+}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.75;margin:0 0 6px}
+.wordmark{
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(30px,8.5vw,44px);
+  line-height:.95;margin:0;font-variation-settings:'SOFT' 40,'WONK' 1;color:var(--gold);
+  text-shadow:0 0 30px rgba(255,193,71,.4);
+}
+.yours{
+  margin:15px auto 0;display:inline-block;
+  background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:7px 16px;font-size:14.5px;backdrop-filter:blur(4px);
+}
+.yours b{font-family:'DM Mono',monospace;font-weight:500;color:var(--gold)}
+
+main{max-width:780px;margin:0 auto;padding:16px 14px 40px}
+h2.sec{
+  font-family:'DM Mono',monospace;font-weight:500;font-size:11.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-soft);margin:28px 0 11px 2px;
+}
+h2.sec:first-child{margin-top:0}
+
+/* the table */
+.row{
+  display:flex;align-items:center;gap:12px;
+  background:#fff;border:1px solid var(--line);border-left:5px solid var(--c);
+  border-radius:15px;padding:13px 15px;margin-bottom:9px;box-shadow:var(--shadow);
+}
+.row.first{
+  border-color:var(--gold-deep);border-left-color:var(--c);
+  background:linear-gradient(100deg,#FFF9E8,#fff 55%);
+  box-shadow:0 0 0 1px rgba(217,162,27,.35), var(--shadow);
+}
+.rank{
+  font-family:'Fraunces',serif;font-weight:900;font-size:22px;line-height:1;
+  width:34px;flex:none;text-align:center;color:var(--ink-soft);opacity:.55;
+}
+.row.first .rank{opacity:1;color:var(--gold-deep);font-size:26px}
+.who{flex:1;min-width:0}
+.who .nm{display:flex;align-items:center;gap:8px;font-weight:600;font-size:17px}
+.who .nm i{width:12px;height:12px;border-radius:50%;flex:none}
+.who .title{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;
+  color:var(--ink-soft);margin-top:3px;
+}
+.bar{height:6px;background:var(--sand-deep);border-radius:99px;margin-top:7px;overflow:hidden}
+.bar span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--gold-deep))}
+.pts{text-align:right;flex:none}
+.pts .n{font-family:'Fraunces',serif;font-weight:900;font-size:26px;line-height:1;color:var(--gold-deep)}
+.pts .s{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);display:block;margin-top:3px}
+
+.did{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.did span{
+  font-family:'DM Mono',monospace;font-size:10.5px;
+  background:var(--sand);border:1px solid var(--line);border-radius:6px;padding:2px 7px;
+}
+
+/* how to earn */
+.earn{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow);padding:4px 15px}
+.earn .e{display:flex;align-items:center;gap:11px;padding:9px 0;font-size:14.5px}
+.earn .e + .e{border-top:1px solid rgba(228,205,169,.6)}
+.earn .e b{
+  font-family:'DM Mono',monospace;font-size:13px;color:var(--gold-deep);
+  width:38px;flex:none;text-align:right;
+}
+.earn .e span{flex:1}
+
+.opts{display:flex;gap:9px;margin-top:14px}
+.opts button{
+  flex:1;border:1px solid var(--line);background:#fff;border-radius:12px;
+  padding:12px;font-size:14px;font-weight:500;
+}
+.opts button.on{background:var(--ink);color:var(--sand);border-color:var(--ink)}
+
+.empty{border:1.5px dashed var(--line);border-radius:14px;padding:24px 16px;text-align:center;color:var(--ink-soft);font-size:14.5px}
+.smallprint{font-size:12px;color:var(--ink-soft);line-height:1.55;margin-top:22px;border-top:1px solid var(--line);padding-top:13px}
+
+.buildstamp{
+  text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;
+  color:var(--ink-soft);opacity:.45;margin:26px 0 0;
+}
+.nav{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:rgba(255,243,226,.94);border-top:1px solid var(--line);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.nav a{
+  flex:1;text-align:center;padding:8px 2px 9px;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+.nav b{display:block;font-size:18px;font-weight:400;line-height:1.3;margin-bottom:2px}
+.nav [aria-current="page"]{color:var(--ink);font-weight:500}
+:focus-visible{outline:3px solid var(--lagoon);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <p class="eyebrow">for doing your bit</p>
+  <h1 class="wordmark">Gold stars</h1>
+  <div class="yours" id="yours">—</div>
+</header>
+
+<main>
+  <h2 class="sec">The table</h2>
+  <div id="board"><div class="empty">Nobody's earned anything yet. Go and do something.</div></div>
+
+  <h2 class="sec">How to earn them</h2>
+  <div class="earn" id="earn"></div>
+
+  <div class="opts">
+    <button id="btnSound">🔊 Sound on</button>
+    <button id="btnTest">Try it</button>
+  </div>
+
+  <p class="smallprint">
+    Stars are awarded for adding things, not for being right about them.
+    The sound is generated by the app rather than played from a file, so it works with no signal — and the setting sticks per device.
+  </p>
+  <p class="buildstamp">build v75</p>
+</main>
+
+<nav class="nav">
+  <a href="home.html"><b>🏝</b>Home</a>
+  <a href="planner.html"><b>🗓</b>Plan</a>
+  <a href="flights.html"><b>✈️</b>Fly</a>
+  <a href="stays.html"><b>🛏</b>Stay</a>
+  <a href="money.html"><b>💸</b>Money</a>
+  <a href="stars.html" aria-current="page"><b>⭐</b>Stars</a>
+</nav>
+
+<script type="module">
+import { AWARDS, celebrate, watchScores, isMuted, setMuted } from "./stars.js";
+
+const TRAVELLERS = [
+  { name:"Mark",   colour:"#0BA5C7" },
+  { name:"Claire", colour:"#FF9F1C" },
+  { name:"Clare",  colour:"#16A97C" },
+  { name:"Kylie",  colour:"#9B5DE5" },
+  { name:"Alice",  colour:"#FF4D8D" }
+];
+
+const TITLES = [
+  [400, "Trip legend"],
+  [250, "Doing the heavy lifting"],
+  [140, "Pulling their weight"],
+  [60,  "Chipping in"],
+  [1,   "Made a start"],
+  [0,   "Yet to trouble the scorer"]
+];
+const titleFor = n => (TITLES.find(([min]) => n >= min) || TITLES[TITLES.length-1])[1];
+
+const WHAT = {
+  visa:"visa steps", flight:"flights", stay:"places", shoplog:"shops logged",
+  planner:"plans", idea:"ideas", expense:"expenses", photo:"photos",
+  packing:"packing", shopping:"list adds", vote:"votes", trolley:"ticked off"
+};
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const me = localStorage.getItem("mbh_me");
+
+let scores = {};
+
+function render(){
+  const rows = TRAVELLERS.map(t => {
+    const s = scores[t.name] || {};
+    return { ...t, points: s.points || 0, counts: s.counts || {} };
+  }).sort((a,b) => b.points - a.points);
+
+  const top = Math.max(1, rows[0].points);
+  const anyone = rows.some(r => r.points > 0);
+
+  const mine = rows.find(r => r.name === me);
+  $("yours").innerHTML = !me
+    ? "Tap your name on any page to start scoring"
+    : mine.points === 0
+      ? "You've <b>0</b> so far — easily fixed"
+      : `You've <b>${mine.points}</b> ★ · ${esc(titleFor(mine.points))}`;
+
+  $("board").innerHTML = !anyone
+    ? `<div class="empty">Nobody's earned anything yet. Go and do something.</div>`
+    : rows.map((r,i)=>{
+        const did = Object.entries(r.counts)
+          .filter(([,n]) => n > 0)
+          .sort((a,b) => b[1] - a[1])
+          .map(([k,n]) => `<span>${n} ${esc(WHAT[k] || k)}</span>`).join("");
+        return `<div class="row ${i===0 && r.points>0 ? "first" : ""}" style="--c:${r.colour}">
+          <span class="rank">${i===0 && r.points>0 ? "🥇" : i+1}</span>
+          <span class="who">
+            <span class="nm"><i style="background:${r.colour}"></i>${esc(r.name)}${r.name===me ? " (you)" : ""}</span>
+            <span class="title">${esc(titleFor(r.points))}</span>
+            <span class="bar"><span style="width:${Math.round(r.points/top*100)}%"></span></span>
+            ${did ? `<span class="did">${did}</span>` : ""}
+          </span>
+          <span class="pts"><span class="n">${r.points}</span><span class="s">stars</span></span>
+        </div>`;
+      }).join("");
+}
+
+$("earn").innerHTML = Object.entries(AWARDS)
+  .sort((a,b) => b[1].points - a[1].points)
+  .map(([,a]) => `<div class="e"><b>+${a.points}</b><span>${esc(a.label)}</span></div>`).join("");
+
+function paintSound(){
+  const off = isMuted();
+  $("btnSound").textContent = off ? "🔇 Sound off" : "🔊 Sound on";
+  $("btnSound").classList.toggle("on", !off);
+}
+paintSound();
+
+$("btnSound").addEventListener("click", () => { setMuted(!isMuted()); paintSound(); });
+$("btnTest").addEventListener("click", () => {
+  celebrate("visa", { label:"Just checking", note:"no stars for this one", who:null });
+});
+
+render();
+watchScores(list => {
+  scores = {};
+  list.forEach(s => scores[s.id] = s);
+  render();
+});
+
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  addEventListener("load", ()=> navigator.serviceWorker.register("sw.js").catch(()=>{}));
+}
+</script>
+</body>
+</html>
