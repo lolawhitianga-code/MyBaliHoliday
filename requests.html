@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B1730">
+<meta name="robots" content="noindex">
+<link rel="icon" href="icon-192.png">
+<title>Trip requests</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1730; --ink-soft:#4A4266; --sand:#FFF3E2; --line:#E4CDA9;
+  --frangipani:#FF4D8D; --lagoon:#0BA5C7; --marigold:#FF9F1C; --pandan:#16A97C; --dusk:#9B5DE5;
+  --shadow:0 2px 0 rgba(27,23,48,.10), 0 10px 26px -14px rgba(27,23,48,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--sand);color:var(--ink);font-family:'Outfit',system-ui,sans-serif;font-size:15.5px;line-height:1.45;
+  padding-bottom:40px}
+button,a{font:inherit;color:inherit}
+button{cursor:pointer}
+.top{background:linear-gradient(178deg,#1B1730,#4B2A63 60%,#C43F76);color:#fff;padding:calc(22px + env(safe-area-inset-top)) 18px 22px;text-align:center}
+.top h1{font-family:'Fraunces',serif;font-weight:900;margin:0;font-size:32px}
+.top p{margin:6px 0 0;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+main{max-width:860px;margin:0 auto;padding:16px 14px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.tabs button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 14px}
+.tabs button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:14px 16px;margin:0 0 12px}
+.head{display:flex;justify-content:space-between;gap:10px;align-items:baseline;cursor:pointer}
+.head b{font-family:'Fraunces',serif;font-size:20px}
+.meta{color:var(--ink-soft);font-size:14px}
+.pill{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:3px 10px;color:#fff;white-space:nowrap}
+.s-new{background:var(--frangipani)} .s-building{background:var(--marigold)} .s-sent{background:var(--pandan)} .s-archived{background:var(--ink-soft)}
+.body{margin-top:12px;border-top:1.5px dashed var(--line);padding-top:12px}
+dl{display:grid;grid-template-columns:130px 1fr;gap:4px 12px;margin:0}
+dt{color:var(--ink-soft);font-size:14px}
+dd{margin:0}
+h3{font-family:'Fraunces',serif;font-size:17px;margin:16px 0 6px}
+.near{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.near a{text-decoration:none;border:1.5px solid var(--line);border-radius:999px;padding:5px 11px;font-size:14px;background:var(--sand)}
+.near a:hover{border-color:var(--lagoon)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btns button{border:1.5px solid var(--ink);background:#fff;border-radius:999px;padding:7px 14px;font-size:14px}
+.btns button.main{background:var(--ink);color:#fff}
+.gate{text-align:center}
+.gate button{background:var(--ink);color:#fff;border:0;border-radius:999px;padding:10px 22px;margin-top:10px}
+.empty{text-align:center;color:var(--ink-soft);padding:30px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(80px);visibility:hidden;background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;transition:transform .2s}
+.toast.on{transform:translateX(-50%) translateY(0);visibility:visible}
+.hide{display:none !important}
+</style>
+</head>
+<body>
+<header class="top"><h1>Trip requests</h1><p>from the “get your own holiday app” form</p></header>
+<main>
+  <div class="card gate hide" id="gate">
+    <p>This page shows people's contact details. Only open it if you're building the apps.</p>
+    <button id="unlock">Show requests</button>
+  </div>
+  <div id="panel" class="hide">
+    <div class="tabs" id="tabs"></div>
+    <div id="list"></div>
+  </div>
+</main>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+const FIREBASE = {
+  apiKey: "AIzaSyB1NnJlvpL_dv7aPrAeFGtl5MM1oSa1YPk",
+  authDomain: "mybaliholiday-5170c.firebaseapp.com",
+  projectId: "mybaliholiday-5170c",
+  storageBucket: "mybaliholiday-5170c.firebasestorage.app",
+  messagingSenderId: "29285891302",
+  appId: "1:29285891302:web:9497074c278aed8c0ccf27"
+};
+const COLLECTION = "tripRequests";
+const STATUSES = ["new","building","sent","archived"];
+
+/* searches to run near each stay - opens Google Maps */
+const NEARBY = [
+  ["🛒","supermarket"],["☕","cafe"],["🍽","restaurant"],["🍻","bar"],["💊","pharmacy"],
+  ["🏧","ATM"],["🧺","market"],["🛍","shopping centre"],["🏥","hospital"],["🧒","things to do with kids"],
+  ["🏖","beach"],["⛽","petrol station"]
+];
+
+const PAGE_NAMES = { planner:"Day planner", flights:"Flights", stays:"Where we stay", nearby:"Shops & food near us",
+  money:"Shared money", shopping:"Grocery list", packing:"Packing list", ideas:"Ideas & voting", photos:"Photo wall",
+  before:"Before you fly", emergency:"If it goes wrong", stars:"Gold stars game" };
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const nzDate = d => d ? new Date(d+"T00:00:00").toLocaleDateString("en-NZ",{ day:"numeric", month:"short", year:"numeric" }) : "?";
+const nights = r => (r.start && r.end) ? Math.round((new Date(r.end) - new Date(r.start)) / 864e5) : "?";
+const maps = q => "https://www.google.com/maps/search/" + encodeURIComponent(q);
+
+let fs, db, all = [], showing = "new", open = null;
+
+function toast(m){ const t = $("toast"); t.textContent = m; t.classList.add("on"); clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("on"), 2400); }
+
+if(sessionStorage.getItem("trip_requests_ok") === "1") start();
+else{
+  $("gate").classList.remove("hide");
+  $("unlock").addEventListener("click", () => { sessionStorage.setItem("trip_requests_ok","1"); $("gate").classList.add("hide"); start(); });
+}
+
+async function start(){
+  $("panel").classList.remove("hide");
+  try{
+    const [appMod, fsMod, fa] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")
+    ]);
+    fs = fsMod;
+    const app = appMod.getApps().length ? appMod.getApp() : appMod.initializeApp(FIREBASE);
+    try{ await fa.signInAnonymously(fa.getAuth(app)); }catch(e){ /* open rules */ }
+    db = fs.getFirestore(app);
+  }catch(e){ $("list").innerHTML = `<p class="empty">Couldn't reach Firebase — ${esc(e.message)}</p>`; return; }
+
+  fs.onSnapshot(fs.collection(db, COLLECTION), snap => {
+    all = snap.docs.map(d => ({ id:d.id, ...d.data() })).sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+    paint();
+  }, err => { $("list").innerHTML = `<p class="empty">Can't read requests — ${esc(err.message)}</p>`; });
+}
+
+function paint(){
+  $("tabs").innerHTML = STATUSES.map(s => {
+    const n = all.filter(r => (r.status||"new") === s).length;
+    return `<button data-tab="${s}" class="${s===showing?"on":""}">${s} (${n})</button>`;
+  }).join("");
+  const rows = all.filter(r => (r.status||"new") === showing);
+  $("list").innerHTML = rows.length ? rows.map(card).join("") : `<p class="empty">Nothing here.</p>`;
+}
+
+function nearbyLinks(place){
+  return `<div class="near">${NEARBY.map(([g,w]) => `<a href="${maps(w + " near " + place)}" target="_blank" rel="noopener">${g} ${esc(w)}</a>`).join("")}</div>`;
+}
+
+function card(r){
+  const st = r.status || "new";
+  const who = (r.travellers||[]).map(t => esc(t.name || "?") + (t.age ? ` (${esc(t.age)})` : "") + (t.from ? ` — from ${esc(t.from)}` : "")).join("<br>");
+  const stays = (r.stays||[]);
+  const places = stays.length ? stays : [{ name:"", address:r.destination }];
+  const body = open === r.id ? `
+    <div class="body">
+      <dl>
+        <dt>Contact</dt><dd>${esc(r.name)}<br><a href="mailto:${esc(r.email)}">${esc(r.email)}</a>${r.phone ? `<br>${esc(r.phone)}` : ""}</dd>
+        <dt>Trip name</dt><dd>${esc(r.tripName) || "—"}</dd>
+        <dt>Dates</dt><dd>${nzDate(r.start)} → ${nzDate(r.end)} (${nights(r)} nights)</dd>
+        <dt>Other stops</dt><dd>${esc(r.stops) || "—"}</dd>
+        <dt>Flying from</dt><dd>${esc(r.flyFrom) || "—"}</dd>
+        <dt>Travellers</dt><dd>${who || "—"}</dd>
+        <dt>Into</dt><dd>${(r.interests||[]).map(esc).join(", ") || "—"}</dd>
+        <dt>Spending</dt><dd>${esc(r.budget) || "—"}</dd>
+        <dt>Getting around</dt><dd>${esc(r.transport) || "—"}</dd>
+        <dt>Food needs</dt><dd>${esc(r.food) || "—"}</dd>
+        <dt>Pages</dt><dd>${(r.pages||[]).map(p => esc(PAGE_NAMES[p] || p)).join(", ") || "—"}</dd>
+        <dt>Home money</dt><dd>${esc(r.homeCurrency)}</dd>
+        <dt>Colour</dt><dd>${esc(r.colour)}</dd>
+        <dt>Notes</dt><dd>${esc(r.notes).replace(/\n/g,"<br>") || "—"}</dd>
+      </dl>
+      <h3>Near where they're staying</h3>
+      ${places.map(s => {
+        const where = s.address || s.name || r.destination;
+        return `<p class="meta" style="margin:8px 0 0"><b>${esc(s.name || where)}</b>${s.address && s.name ? ` — ${esc(s.address)}` : ""}
+          ${s.checkIn ? ` · ${nzDate(s.checkIn)} → ${nzDate(s.checkOut)}` : ""}
+          · <a href="${maps(where)}" target="_blank" rel="noopener">map</a></p>${nearbyLinks(where)}`;
+      }).join("")}
+      <div class="btns">
+        <button class="main" data-brief="${r.id}">Copy build brief</button>
+        ${STATUSES.filter(s => s !== st).map(s => `<button data-status="${s}" data-id="${r.id}">Move to ${s}</button>`).join("")}
+      </div>
+    </div>` : "";
+  return `<div class="card">
+    <div class="head" data-open="${r.id}">
+      <div><b>${esc(r.tripName || r.destination)}</b><br>
+        <span class="meta">${esc(r.name)} · ${(r.travellers||[]).length} going · ${nzDate(r.start)} · ${esc(r.ref || r.id)}</span></div>
+      <span class="pill s-${st}">${st}</span>
+    </div>${body}</div>`;
+}
+
+/* text to paste into a Claude session to build the app */
+function brief(r){
+  const L = [];
+  L.push(`Build a holiday app for this group, in the same style and with the same pages as the My Bali Holiday site (mybaliholiday.kiwi).`);
+  L.push(`Find real shops, supermarkets, cafés, restaurants, chemists, ATMs and things to do close to each place they're staying, and put them in the app.`);
+  L.push("");
+  L.push(`Request: ${r.ref || r.id}`);
+  L.push(`Trip name: ${r.tripName || "(make one up from the destination)"}`);
+  L.push(`Destination: ${r.destination}`);
+  if(r.stops) L.push(`Other stops: ${r.stops}`);
+  L.push(`Dates: ${r.start} to ${r.end} (${nights(r)} nights)`);
+  if(r.flyFrom) L.push(`Flying from: ${r.flyFrom}`);
+  L.push(`Travellers:`);
+  (r.travellers||[]).forEach(t => L.push(`  - ${t.name || "?"}${t.age ? `, age ${t.age}` : ""}${t.from ? `, flying from ${t.from}` : ""}`));
+  L.push(`Staying at:`);
+  (r.stays||[]).length ? r.stays.forEach(s => L.push(`  - ${s.name || "?"}${s.address ? `, ${s.address}` : ""}${s.checkIn ? `, ${s.checkIn} to ${s.checkOut}` : ""}`))
+                       : L.push(`  - not booked yet - use the town centre`);
+  L.push(`Into: ${(r.interests||[]).join(", ") || "-"}`);
+  L.push(`Spending: ${r.budget || "-"}`);
+  L.push(`Getting around: ${r.transport || "-"}`);
+  L.push(`Food needs: ${r.food || "-"}`);
+  L.push(`Pages: ${(r.pages||[]).map(p => PAGE_NAMES[p] || p).join(", ")}`);
+  L.push(`Home money: ${r.homeCurrency}`);
+  L.push(`Colour: ${r.colour}`);
+  if(r.notes) L.push(`Notes: ${r.notes}`);
+  return L.join("\n");
+}
+
+document.addEventListener("click", async e => {
+  const t = e.target.closest("[data-tab]");
+  if(t){ showing = t.dataset.tab; open = null; paint(); return; }
+  const o = e.target.closest("[data-open]");
+  if(o){ open = open === o.dataset.open ? null : o.dataset.open; paint(); return; }
+  const b = e.target.closest("[data-brief]");
+  if(b){
+    const r = all.find(x => x.id === b.dataset.brief);
+    try{ await navigator.clipboard.writeText(brief(r)); toast("Brief copied"); }
+    catch(err){ prompt("Copy this:", brief(r)); }
+    return;
+  }
+  const s = e.target.closest("[data-status]");
+  if(s){
+    try{ await fs.updateDoc(fs.doc(db, COLLECTION, s.dataset.id), { status: s.dataset.status }); toast("Moved to " + s.dataset.status); }
+    catch(err){ toast("Couldn't save — " + err.message); }
+  }
+});
+</script>
+</body>
+</html>

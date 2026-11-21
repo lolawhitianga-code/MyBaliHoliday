@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1B1730">
+<link rel="icon" href="icon-192.png">
+<title>Get your own holiday app</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B1730; --ink-soft:#4A4266; --sand:#FFF3E2; --sand-deep:#F6E3C8; --line:#E4CDA9;
+  --frangipani:#FF4D8D; --lagoon:#0BA5C7; --marigold:#FF9F1C; --pandan:#16A97C; --dusk:#9B5DE5;
+  --shadow:0 2px 0 rgba(27,23,48,.10), 0 10px 26px -14px rgba(27,23,48,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--sand);color:var(--ink);
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;padding-bottom:calc(40px + env(safe-area-inset-bottom));
+}
+button{font:inherit;color:inherit;cursor:pointer}
+
+/* ---------- header ---------- */
+.top{
+  position:relative;overflow:hidden;text-align:center;color:#fff;
+  padding:calc(40px + env(safe-area-inset-top)) 20px 56px;
+  background:
+    radial-gradient(160px 160px at 80% 92%, rgba(255,209,102,.6), rgba(255,159,28,0) 70%),
+    linear-gradient(178deg,#1B1730 0%,#4B2A63 40%,#C43F76 72%,#FF7A45 100%);
+}
+.top::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:10px;
+  background:linear-gradient(90deg,var(--frangipani),var(--marigold),var(--pandan),var(--lagoon),var(--dusk));
+}
+.eyebrow{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.24em;
+  text-transform:uppercase;opacity:.75;margin:0 0 10px;
+}
+h1{
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(34px,10vw,60px);
+  line-height:.95;margin:0;font-variation-settings:'SOFT' 40,'WONK' 1;
+}
+.lede{max-width:520px;margin:16px auto 0;font-size:16.5px;opacity:.92}
+
+/* ---------- form cards ---------- */
+main{max-width:720px;margin:0 auto;padding:0 14px}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
+  padding:20px 18px 22px;margin:0 0 18px;
+}
+.card:first-of-type{margin-top:-28px;position:relative}
+.card h2{
+  font-family:'Fraunces',serif;font-weight:700;font-size:23px;margin:0 0 4px;
+  display:flex;align-items:center;gap:10px;
+}
+.card h2 .num{
+  width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none;
+  font-family:'DM Mono',monospace;font-size:13px;color:#fff;background:var(--c,var(--lagoon));
+}
+.card .hint{color:var(--ink-soft);margin:0 0 14px;font-size:14.5px}
+
+label{display:block;font-weight:500;font-size:14.5px;margin:14px 0 5px}
+label .opt{font-weight:300;color:var(--ink-soft)}
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select,textarea{
+  width:100%;font:inherit;color:var(--ink);background:var(--sand);
+  border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;
+}
+textarea{min-height:84px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--lagoon);background:#fff}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row > div > label{margin-top:14px}
+@media (max-width:480px){ .row{grid-template-columns:1fr} }
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{
+  margin:0;font-weight:400;font-size:14.5px;cursor:pointer;user-select:none;
+  border:1.5px solid var(--line);border-radius:999px;padding:7px 13px;background:var(--sand);
+}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips label:has(input:checked){background:var(--ink);border-color:var(--ink);color:#fff}
+.chips label:has(input:focus-visible){outline:2px solid var(--lagoon);outline-offset:2px}
+
+/* repeating rows (travellers, stays) */
+.list{display:flex;flex-direction:column;gap:10px}
+.item{
+  border:1.5px dashed var(--line);border-radius:14px;padding:4px 12px 12px;position:relative;
+  background:#fffdf9;
+}
+.item .x{
+  position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;
+  border:1px solid var(--line);background:#fff;font-size:15px;line-height:1;
+}
+.add{
+  margin-top:10px;background:none;border:1.5px solid var(--ink);border-radius:999px;
+  padding:8px 16px;font-weight:500;font-size:14.5px;
+}
+.trav{display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:10px;padding-right:30px}
+@media (max-width:480px){ .trav{grid-template-columns:1fr 1fr} .trav > div:first-child{grid-column:1 / -1} }
+
+.colours{display:flex;gap:10px;flex-wrap:wrap}
+.colours label{margin:0;cursor:pointer}
+.colours input{position:absolute;opacity:0}
+.colours span{
+  display:block;width:46px;height:46px;border-radius:50%;border:3px solid #fff;
+  box-shadow:0 0 0 1.5px var(--line);
+}
+.colours input:checked + span{box-shadow:0 0 0 3px var(--ink)}
+.colours input:focus-visible + span{outline:2px solid var(--lagoon);outline-offset:3px}
+
+.consent{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14.5px}
+.consent input{margin-top:4px;width:18px;height:18px;flex:none}
+
+.send{
+  display:block;width:100%;margin:6px 0 0;border:0;border-radius:16px;padding:16px;
+  font-weight:600;font-size:18px;color:#fff;
+  background:linear-gradient(96deg,var(--frangipani),var(--marigold));box-shadow:var(--shadow);
+}
+.send:disabled{opacity:.6;cursor:wait}
+.err{color:#C4203F;font-size:14px;margin:8px 0 0;min-height:1em}
+.note{text-align:center;color:var(--ink-soft);font-size:13.5px;margin:12px 0 0}
+
+/* thank-you */
+.done{text-align:center;padding:30px 20px}
+.done .big{font-size:54px;margin:0}
+.done h2{justify-content:center;font-size:28px}
+.ref{
+  display:inline-block;font-family:'DM Mono',monospace;font-size:15px;letter-spacing:.12em;
+  background:var(--sand);border:1px solid var(--line);border-radius:999px;padding:6px 16px;margin:6px 0 12px;
+}
+.hide{display:none !important}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <p class="eyebrow">Your trip · your app</p>
+  <h1>Get your own<br>holiday app</h1>
+  <p class="lede">Tell us about your trip. We'll build an app just for your group — day planner, flights,
+    where you're staying, shared money, packing, and the shops, cafés and restaurants near your stay.</p>
+</header>
+
+<main>
+<form id="form" novalidate>
+
+  <!-- 1 -->
+  <section class="card" style="--c:var(--frangipani)">
+    <h2><span class="num">1</span>About you</h2>
+    <p class="hint">So we know who to send the app to.</p>
+    <label for="name">Your name</label>
+    <input type="text" id="name" name="name" autocomplete="name" required>
+    <div class="row">
+      <div><label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" required></div>
+      <div><label for="phone">Mobile <span class="opt">(optional)</span></label>
+        <input type="tel" id="phone" name="phone" autocomplete="tel"></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="card" style="--c:var(--lagoon)">
+    <h2><span class="num">2</span>The trip</h2>
+    <p class="hint">Where and when. Rough is fine if it's not booked yet.</p>
+    <label for="destination">Where are you going?</label>
+    <input type="text" id="destination" name="destination" placeholder="e.g. Seminyak, Bali  ·  Rarotonga  ·  Gold Coast" required>
+    <label for="stops">Any other stops? <span class="opt">(optional)</span></label>
+    <input type="text" id="stops" name="stops" placeholder="e.g. 3 nights Ubud, then Nusa Penida">
+    <div class="row">
+      <div><label for="start">First day</label><input type="date" id="start" name="start" required></div>
+      <div><label for="end">Last day</label><input type="date" id="end" name="end" required></div>
+    </div>
+    <div class="row">
+      <div><label for="flyFrom">Flying from</label>
+        <input type="text" id="flyFrom" name="flyFrom" placeholder="e.g. Auckland"></div>
+      <div><label for="tripName">Trip name <span class="opt">(optional)</span></label>
+        <input type="text" id="tripName" name="tripName" placeholder="e.g. Mum's 60th in Fiji"></div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="card" style="--c:var(--marigold)">
+    <h2><span class="num">3</span>Who's going</h2>
+    <p class="hint">Each person gets their own button in the app. Ages help us pick things to do.</p>
+    <div class="list" id="travellers"></div>
+    <button type="button" class="add" id="addTraveller">+ Add a traveller</button>
+  </section>
+
+  <!-- 4 -->
+  <section class="card" style="--c:var(--pandan)">
+    <h2><span class="num">4</span>Where you're staying</h2>
+    <p class="hint">The address is how we find the supermarkets, cafés, restaurants, chemists and ATMs near you.
+      Leave it blank if you haven't booked — we'll go off the town.</p>
+    <div class="list" id="stays"></div>
+    <button type="button" class="add" id="addStay">+ Add another place</button>
+  </section>
+
+  <!-- 5 -->
+  <section class="card" style="--c:var(--dusk)">
+    <h2><span class="num">5</span>What you're into</h2>
+    <p class="hint">Tick all that fit. We'll find places close by.</p>
+    <div class="chips" id="interests"></div>
+    <div class="row">
+      <div><label for="budget">Spending</label>
+        <select id="budget" name="budget">
+          <option value="">— pick one —</option>
+          <option>Keeping it cheap</option>
+          <option>Middle of the road</option>
+          <option>Treating ourselves</option>
+        </select></div>
+      <div><label for="transport">Getting around</label>
+        <select id="transport" name="transport">
+          <option value="">— pick one —</option>
+          <option>Hire car</option>
+          <option>Taxis / Grab / Uber</option>
+          <option>Scooters</option>
+          <option>Walking and buses</option>
+          <option>Driver for the trip</option>
+        </select></div>
+    </div>
+    <label for="food">Food needs <span class="opt">(allergies, vegetarian, halal, fussy kids…)</span></label>
+    <input type="text" id="food" name="food">
+  </section>
+
+  <!-- 6 -->
+  <section class="card" style="--c:var(--frangipani)">
+    <h2><span class="num">6</span>What's in your app</h2>
+    <p class="hint">These are all ticked to start. Untick anything you don't want.</p>
+    <div class="chips" id="pages"></div>
+    <label for="homeCurrency">Your home money</label>
+    <select id="homeCurrency" name="homeCurrency">
+      <option value="NZD">NZ dollars</option>
+      <option value="AUD">Australian dollars</option>
+      <option value="GBP">British pounds</option>
+      <option value="USD">US dollars</option>
+      <option value="other">Something else (say below)</option>
+    </select>
+    <label>Pick a colour</label>
+    <div class="colours" id="colours"></div>
+  </section>
+
+  <!-- 7 -->
+  <section class="card" style="--c:var(--lagoon)">
+    <h2><span class="num">7</span>Anything else?</h2>
+    <label for="notes">Birthdays, must-dos, things to avoid, how you found us… <span class="opt">(optional)</span></label>
+    <textarea id="notes" name="notes"></textarea>
+    <label class="consent" style="margin-top:16px">
+      <input type="checkbox" id="consent" required>
+      <span>I'm OK with you keeping these details to build our app, and contacting me about it.</span>
+    </label>
+    <p class="err" id="err" role="alert"></p>
+    <button type="submit" class="send" id="send">Send my trip</button>
+    <p class="note">Got photos for the app? Reply to our email once you hear from us.</p>
+  </section>
+
+</form>
+
+<section class="card done hide" id="done">
+  <p class="big">🌺</p>
+  <h2>Got it — thank you!</h2>
+  <p>Your trip number is</p>
+  <p class="ref" id="ref"></p>
+  <p class="hint" id="doneMsg">We'll be in touch at your email in the next few days with your app link.</p>
+</section>
+</main>
+
+<script type="module">
+/* Same Firebase project as the Bali site. Requests land in the "tripRequests" collection,
+   and show up on requests.html. */
+const FIREBASE = {
+  apiKey: "AIzaSyB1NnJlvpL_dv7aPrAeFGtl5MM1oSa1YPk",
+  authDomain: "mybaliholiday-5170c.firebaseapp.com",
+  projectId: "mybaliholiday-5170c",
+  storageBucket: "mybaliholiday-5170c.firebasestorage.app",
+  messagingSenderId: "29285891302",
+  appId: "1:29285891302:web:9497074c278aed8c0ccf27"
+};
+const COLLECTION = "tripRequests";
+const DRAFT = "trip_request_draft_v1";
+
+const INTERESTS = ["Beaches","Swimming & snorkelling","Food & cafés","Markets","Shopping","Nightlife & bars",
+  "Culture & temples","Museums","Walks & hikes","Surfing","Diving","Spa & massage","Golf","Wineries",
+  "Theme parks","Kids' activities","Sport","Day trips","Photography","Just relaxing"];
+
+const PAGES = [
+  ["planner","🗓 Day-by-day planner"], ["flights","✈️ Flights"], ["stays","🛏 Where we stay"],
+  ["nearby","📍 Shops & food near us"], ["money","💸 Shared money"], ["shopping","🛒 Grocery list"],
+  ["packing","🎒 Packing list"], ["ideas","💡 Ideas & voting"], ["photos","📸 Photo wall"],
+  ["before","🛂 Before you fly"], ["emergency","🩹 If it goes wrong"], ["stars","⭐ Gold stars game"]
+];
+
+const COLOURS = [["sunset","#FF4D8D"],["lagoon","#0BA5C7"],["marigold","#FF9F1C"],
+                 ["pandan","#16A97C"],["dusk","#9B5DE5"],["navy","#1B1730"]];
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s??"").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+
+/* ---------- build the form ---------- */
+$("interests").innerHTML = INTERESTS.map(i =>
+  `<label><input type="checkbox" name="interests" value="${esc(i)}">${esc(i)}</label>`).join("");
+$("pages").innerHTML = PAGES.map(([k,t]) =>
+  `<label><input type="checkbox" name="pages" value="${k}" checked>${t}</label>`).join("");
+$("colours").innerHTML = COLOURS.map(([k,c],i) =>
+  `<label title="${k}"><input type="radio" name="colour" value="${k}"${i===0?" checked":""}><span style="background:${c}"></span></label>`).join("");
+
+function travellerRow(t = {}){
+  const d = document.createElement("div");
+  d.className = "item";
+  d.innerHTML = `
+    <button type="button" class="x" aria-label="Remove">✕</button>
+    <div class="trav">
+      <div><label>Name</label><input type="text" data-k="name" value="${esc(t.name)}"></div>
+      <div><label>Age</label><input type="number" min="0" max="110" data-k="age" value="${esc(t.age)}"></div>
+      <div><label>Flying from <span class="opt">(if different)</span></label><input type="text" data-k="from" value="${esc(t.from)}"></div>
+    </div>`;
+  return d;
+}
+function stayRow(s = {}){
+  const d = document.createElement("div");
+  d.className = "item";
+  d.innerHTML = `
+    <button type="button" class="x" aria-label="Remove">✕</button>
+    <label>Name of the place <span class="opt">(hotel, villa, Airbnb)</span></label>
+    <input type="text" data-k="name" value="${esc(s.name)}" style="width:calc(100% - 30px)">
+    <label>Address or map link</label>
+    <input type="text" data-k="address" value="${esc(s.address)}">
+    <div class="row">
+      <div><label>Check in</label><input type="date" data-k="checkIn" value="${esc(s.checkIn)}"></div>
+      <div><label>Check out</label><input type="date" data-k="checkOut" value="${esc(s.checkOut)}"></div>
+    </div>`;
+  return d;
+}
+const addTo = (list, el) => { $(list).appendChild(el); return el; };
+$("addTraveller").addEventListener("click", () => addTo("travellers", travellerRow()).querySelector("input").focus());
+$("addStay").addEventListener("click", () => addTo("stays", stayRow()).querySelector("input").focus());
+document.addEventListener("click", e => {
+  const x = e.target.closest(".x");
+  if(!x) return;
+  const list = x.closest(".list");
+  if(list.children.length > 1) x.closest(".item").remove();
+  else x.closest(".item").querySelectorAll("input").forEach(i => i.value = "");
+  saveDraft();
+});
+
+/* ---------- read / save ---------- */
+const rows = list => [...$(list).children].map(el =>
+  Object.fromEntries([...el.querySelectorAll("[data-k]")].map(i => [i.dataset.k, i.value.trim()])));
+const ticked = name => [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(i => i.value);
+const val = id => $(id).value.trim();
+
+function read(){
+  return {
+    name: val("name"), email: val("email"), phone: val("phone"),
+    destination: val("destination"), stops: val("stops"),
+    start: val("start"), end: val("end"), flyFrom: val("flyFrom"), tripName: val("tripName"),
+    travellers: rows("travellers").filter(t => t.name || t.age),
+    stays: rows("stays").filter(s => s.name || s.address),
+    interests: ticked("interests"), budget: val("budget"), transport: val("transport"), food: val("food"),
+    pages: ticked("pages"), homeCurrency: val("homeCurrency"),
+    colour: (document.querySelector('input[name="colour"]:checked')||{}).value || "",
+    notes: val("notes")
+  };
+}
+
+function saveDraft(){ try{ localStorage.setItem(DRAFT, JSON.stringify(read())); }catch(e){ /* full or private */ } }
+
+function loadDraft(){
+  let d = null;
+  try{ d = JSON.parse(localStorage.getItem(DRAFT) || "null"); }catch(e){ /* bad draft */ }
+  (d?.travellers?.length ? d.travellers : [{},{}]).forEach(t => addTo("travellers", travellerRow(t)));
+  (d?.stays?.length ? d.stays : [{}]).forEach(s => addTo("stays", stayRow(s)));
+  if(!d) return;
+  ["name","email","phone","destination","stops","start","end","flyFrom","tripName",
+   "budget","transport","food","homeCurrency","notes"].forEach(k => { if(d[k] != null) $(k).value = d[k]; });
+  document.querySelectorAll('input[name="interests"]').forEach(i => i.checked = (d.interests||[]).includes(i.value));
+  if(Array.isArray(d.pages)) document.querySelectorAll('input[name="pages"]').forEach(i => i.checked = d.pages.includes(i.value));
+  const c = document.querySelector(`input[name="colour"][value="${d.colour}"]`); if(c) c.checked = true;
+}
+loadDraft();
+$("form").addEventListener("input", saveDraft);
+$("form").addEventListener("change", saveDraft);
+
+/* ---------- check ---------- */
+function problem(v){
+  if(!v.name) return ["name","Please put your name in."];
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) return ["email","That email doesn't look right."];
+  if(!v.destination) return ["destination","Where are you going?"];
+  if(!v.start || !v.end) return ["start","Please put in your first and last day (a guess is fine)."];
+  if(v.end < v.start) return ["end","The last day is before the first day."];
+  if(!v.travellers.length) return [null,"Add at least one traveller."];
+  if(!$("consent").checked) return ["consent","Please tick the box so we can keep your details."];
+  return null;
+}
+
+/* ---------- send ---------- */
+const withTimeout = (p, ms = 12000) =>
+  Promise.race([p, new Promise((_, no) => setTimeout(() => no(new Error("timed out")), ms))]);
+
+function makeRef(){
+  const a = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  return "TRIP-" + Array.from(crypto.getRandomValues(new Uint8Array(5)), b => a[b % a.length]).join("");
+}
+
+$("form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const v = read();
+  const p = problem(v);
+  $("err").textContent = p ? p[1] : "";
+  if(p){ if(p[0]) $(p[0]).focus(); return; }
+
+  const ref = makeRef();
+  $("send").disabled = true; $("send").textContent = "Sending…";
+  try{
+    const [appMod, fs, fa] = await withTimeout(Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")
+    ]));
+    const app = appMod.getApps().length ? appMod.getApp() : appMod.initializeApp(FIREBASE);
+    try{ await withTimeout(fa.signInAnonymously(fa.getAuth(app)), 8000); }catch(e){ /* open rules */ }
+    const db = fs.getFirestore(app);
+    await withTimeout(fs.setDoc(fs.doc(db, COLLECTION, ref),
+      { ...v, ref, status:"new", createdAt: Date.now(), page: location.href }));
+  }catch(err){
+    $("send").disabled = false; $("send").textContent = "Send my trip";
+    $("err").textContent = "Sorry — it didn't send (" + err.message + "). Your answers are saved on this phone. Please try again in a minute.";
+    return;
+  }
+  try{ localStorage.removeItem(DRAFT); }catch(e){ /* never mind */ }
+  $("form").classList.add("hide");
+  $("ref").textContent = ref;
+  $("done").classList.remove("hide");
+  window.scrollTo({ top:0, behavior:"smooth" });
+});
+</script>
+</body>
+</html>
