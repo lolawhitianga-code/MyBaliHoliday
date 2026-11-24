@@ -1,7 +1,7 @@
 /* My Bali Holiday — offline shell.
    Bump CACHE when you change a page and want everyone to pick it up. */
 
-const CACHE = "mbh-v75";
+const CACHE = "mbh-v76";
 
 const SHELL = [
   "./",
@@ -68,6 +68,10 @@ self.addEventListener("fetch", e => {
 
   const url = new URL(req.url);
   if (LIVE.some(h => url.hostname.includes(h))) return;
+
+  // The casino (/Casino/) and the Xmas app (/xmas/) are separate sites that upload on their own.
+  // Leave their files alone: serving old saved copies of them froze the casino games on phones.
+  if (url.origin === location.origin && /^\/(casino|xmas)\//i.test(url.pathname)) return;
 
   const wantsPage = req.mode === "navigate" ||
                     (req.headers.get("accept") || "").includes("text/html");
